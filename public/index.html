@@ -284,6 +284,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <h2 id="sheetTitle">Voice and speed</h2>
       <div class="vrow"><label for="voice">Voice</label><select id="voice"></select></div>
       <div class="vrow"><label for="rate">Speed</label><input id="rate" type="range" min="0.5" max="1.1" step="0.05" value="0.75"><output id="ratev" for="rate"></output></div>
+      <div class="vrow"><label for="theme">Colours</label><select id="theme"><option value="auto">Match this device</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Spanish questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
@@ -485,12 +486,14 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var HOLD = { s: "sssssssss", n: "nnnnnnnnn", m: "mmmmmmmmm", f: "fffffffff", l: "lllllllll", r: "rrrrrrrrr", v: "vvvvvvvvv", z: "zzzzzzzzz", sh: "shhhhhhhhh", ff: "fffffffff", ll: "lllllllll", ss: "sssssssss" };
   var synth = window.speechSynthesis || null;
   var voices = [], seqToken = 0;
-  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix" };
+  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", theme: "auto" };
   function isReady(d) { return !!d.ready || prefs.preview; }
   try {
     var sp = JSON.parse(localStorage.getItem(PKEY) || "{}");
-    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; }
+    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.theme = sp.theme || "auto"; }
   } catch (e) {}
+  function applyTheme() { var r = document.documentElement; if (prefs.theme === "light" || prefs.theme === "dark") r.setAttribute("data-theme", prefs.theme); else r.removeAttribute("data-theme"); }
+  applyTheme();
   function savePrefs() { try { localStorage.setItem(PKEY, JSON.stringify(prefs)); } catch (e) {} }
 
   // Recorded clips (the parent's own voice) are filled in when the page is built. Keys: "s" for a sound, "w:s" for its word.
@@ -1128,6 +1131,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("auto").addEventListener("change", function () { prefs.auto = $("auto").checked; savePrefs(); });
   $("lq").addEventListener("change", function () { prefs.lq = $("lq").value; savePrefs(); });
   $("lq").value = prefs.lq;
+  $("theme").value = prefs.theme;
+  $("theme").addEventListener("change", function () { prefs.theme = $("theme").value; applyTheme(); savePrefs(); });
   $("prev").addEventListener("change", function () { prefs.preview = $("prev").checked; savePrefs(); renderCover(); renderHome(); });
   $("rate").value = prefs.rate; $("ratev").textContent = prefs.rate.toFixed(2) + "×"; $("auto").checked = prefs.auto; $("prev").checked = prefs.preview;
   if (synth) { loadVoices(); try { synth.onvoiceschanged = loadVoices; } catch (e) {} }
