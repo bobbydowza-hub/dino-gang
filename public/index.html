@@ -636,8 +636,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       add(c.audio[q.mid]);
       if (q.e) add("q-end-0" + q.e);
     } else {
-      if (q.mid === "es") add(c.audio.en);
-      add(c.audio.es);
+      add(q.mid === "es" ? c.audio.en : c.audio.es);
     }
     if (u.length) playSeq(u);
   }
@@ -832,7 +831,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var QOPEN = ["", "What does", "Listen.", "Do you know what", "Can you say", "How do you say", "What's the Spanish for", "Let's try saying"];
   var QEND = ["", "mean in English?", "What's that in English?", "means?", "in Spanish?"];
   function qText(c) {
-    var q = QPATS[curPat], w = c.mid_ || (q.mid === "es" ? c.es : c.en);
+    var q = QPATS[curPat], w = "\u201c" + (q.mid === "es" ? c.es : c.en) + "\u201d" + (q.o === 2 ? "." : "");
     if (q.mid === "en" && q.o === 7) return QOPEN[7] + " " + w + " in Spanish.";
     return QOPEN[q.o] + " " + w + (q.e ? " " + QEND[q.e] : "?");
   }
