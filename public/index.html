@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ff5c93">
+<title>Dino Gang</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+@font-face{font-family:'Fredoka';font-weight:400;font-display:swap;src:url('fonts/fredoka-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-weight:500;font-display:swap;src:url('fonts/fredoka-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-weight:600;font-display:swap;src:url('fonts/fredoka-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-weight:700;font-display:swap;src:url('fonts/fredoka-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Andika';font-weight:400;font-display:swap;src:url('fonts/andika-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Andika';font-weight:700;font-display:swap;src:url('fonts/andika-latin-700-normal.woff2') format('woff2')}
+</style>
+<style>
+/* Layout: one narrow column. Home = tiles for each set. Session = progress bar, one big card, sticky answer bar. Reward = pompoms. */
+:root {
+  --bg: #f4f5fb;
+  --surface: #ffffff;
+  --ink: #272650;
+  --ink-soft: #62648a;
+  --on-accent: #272650;
+  --focus: #0b6aa8;
+  --outline: #212121;
+  --tile-soft: #4b4d74;
+  --good-ink: #1a6b3d;
+  --line: #e0e2f0;
+  --sky: #2fa8f0; --sky-lip: #1b7fc2;
+  --good: #34b56b; --good-lip: #228a4f; --good-bg: #dff6e8;
+  --warn: #ffb21f; --warn-lip: #d68a00; --warn-ink: #3a2700; --warn-bg: #fff0d1;
+  --t1: #ffd0e1; --t1l: #eba3be;
+  --t2: #ffeaa0; --t2l: #e6c867;
+  --t3: #b4f1ec; --t3l: #7fd2cb;
+  --t4: #d8ccff; --t4l: #a998ee;
+  --t5: #ffd6b4; --t5l: #eba878;
+  --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-card: "Andika", "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15162e; --surface: #1f2142; --ink: #f0f0ff; --ink-soft: #aab0d6; --focus: #3cb6ff; --outline: #f5f5f5; --on-accent: #15162e; --tile-soft: #d3d6f0; --good-ink: #43c97b; --line: #343867;
+    --sky: #3cb6ff; --sky-lip: #1e82c9; --good: #43c97b; --good-lip: #26914f; --good-bg: #173a2a;
+    --warn: #ffbe3b; --warn-lip: #c98600; --warn-ink: #2d1f00; --warn-bg: #3d2f10;
+    --t1: #6e2f4c; --t1l: #4a1f33; --t2: #6d5a14; --t2l: #483b0a; --t3: #1b5753; --t3l: #103a37;
+    --t4: #4a3f8a; --t4l: #30285c; --t5: #70401c; --t5l: #4a2810; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15162e; --surface: #1f2142; --ink: #f0f0ff; --ink-soft: #aab0d6; --focus: #3cb6ff; --outline: #f5f5f5; --on-accent: #15162e; --tile-soft: #d3d6f0; --good-ink: #43c97b; --line: #343867;
+  --sky: #3cb6ff; --sky-lip: #1e82c9; --good: #43c97b; --good-lip: #26914f; --good-bg: #173a2a;
+  --warn: #ffbe3b; --warn-lip: #c98600; --warn-ink: #2d1f00; --warn-bg: #3d2f10;
+  --t1: #6e2f4c; --t1l: #4a1f33; --t2: #6d5a14; --t2l: #483b0a; --t3: #1b5753; --t3l: #103a37;
+  --t4: #4a3f8a; --t4l: #30285c; --t5: #70401c; --t5l: #4a2810; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 16px; line-height: 1.45; padding-inline: 16px; padding-block: 12px calc(12px + env(safe-area-inset-bottom, 0px)); touch-action: manipulation; }
+.app { max-width: 480px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; min-height: calc(100vh - 24px); min-height: calc(100dvh - 24px - env(safe-area-inset-bottom, 0px)); }
+[hidden] { display: none !important; }
+
+/* top bar */
+.top { display: flex; align-items: center; gap: 10px; }
+.grow { flex: 1; min-width: 0; }
+.pagetitle { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; text-wrap: balance; }
+.logo { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 0; font: 700 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; border-radius: 12px; min-height: 44px; }
+.logo svg { width: 36px; height: 36px; flex: none; }
+.logo:disabled { cursor: default; }
+.menu { position: absolute; top: 52px; right: 0; z-index: 25; min-width: 240px; display: flex; flex-direction: column; gap: 2px; padding: 8px; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; box-shadow: 0 6px 0 var(--line); }
+.menu button { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; padding: 8px 12px; border: 0; border-radius: 12px; background: none; text-align: left; font: 600 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; }
+.menu button:hover:not(:disabled) { background: var(--bg); }
+.menu button[aria-current="true"] { background: var(--bg); }
+.menu button:disabled { color: var(--ink-soft); cursor: default; }
+.menu small { font-weight: 400; font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
+.wizlist { display: flex; flex-direction: column; gap: 14px; }
+.wizlist .tile { min-height: 124px; }
+.tile .glyph { position: absolute; top: 12px; right: 16px; font-family: var(--font-card); font-weight: 700; font-size: 2.2rem; line-height: 1; opacity: 0.85; }
+@media (max-width: 359px) { .logo span { display: none; } }
+.icon { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 2px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink-soft); cursor: pointer; box-shadow: 0 3px 0 var(--line); }
+.icon:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--line); }
+.icon svg { width: 22px; height: 22px; }
+.pp { flex: none; display: flex; align-items: center; gap: 4px; padding: 2px 12px 2px 4px; border: 2px solid var(--line); border-radius: 999px; background: var(--surface); font-weight: 700; font-variant-numeric: tabular-nums; height: 44px; }
+.pp svg { width: 34px; height: 34px; }
+.pp.bump { animation: bump 0.35s; }
+@keyframes bump { 40% { transform: scale(1.18); } }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* home */
+.lead { margin: 0; color: var(--ink-soft); font-size: 1.05rem; text-wrap: balance; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.tile { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; text-align: left; border: 0; border-radius: 22px; padding: 16px 14px 14px; min-height: 148px; color: var(--ink); font-family: var(--font-ui); cursor: pointer; background: var(--c); box-shadow: 0 6px 0 var(--l); }
+.tile:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--l); }
+.tile:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 120px; }
+.tile .name { font-size: 1.3rem; font-weight: 700; line-height: 1.15; padding-right: 36px; }
+.tile .what { font-size: 0.85rem; color: var(--tile-soft); line-height: 1.3; padding-right: 20px; }
+.tile .fluff { position: absolute; top: 10px; right: 8px; width: 40px; height: 40px; }
+.meter { margin-top: auto; display: flex; align-items: flex-end; gap: 10px; }
+.jar { flex: none; width: 56px; height: 64px; color: var(--ink); }
+.meter span.n { color: var(--ink); font-size: 0.85rem; font-weight: 500; line-height: 1.25; font-variant-numeric: tabular-nums; padding-bottom: 4px; }
+.tile.soon { cursor: default; opacity: 0.72; }
+.tile.soon:active { transform: none; box-shadow: 0 6px 0 var(--l); }
+.tip { margin: 0; padding: 14px 16px; border-radius: 18px; background: var(--surface); border: 2px solid var(--line); font-size: 0.92rem; color: var(--ink-soft); }
+.tip b { color: var(--ink); font-weight: 600; }
+.link { background: none; border: 0; padding: 6px 0; font: inherit; font-size: 0.9rem; color: var(--ink-soft); text-decoration: underline; cursor: pointer; align-self: flex-start; }
+
+/* session */
+.sbar { display: flex; align-items: center; gap: 12px; }
+.sbar .icon { width: 44px; height: 44px; }
+.prog { flex: 1; height: 16px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.prog i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--good); transition: width 0.35s; position: relative; }
+.prog i::after { content: ""; position: absolute; left: 8px; right: 8px; top: 3px; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, 0.35); }
+.setname { margin: 0; text-align: center; color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+.stage { perspective: 1200px; display: flex; flex: 1 1 200px; min-height: 200px; max-height: 560px; }
+.card { position: relative; width: 100%; flex: 1; cursor: pointer; border-radius: 28px; }
+.inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(.3, .7, .3, 1); }
+.card.flipped .inner { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 20px; min-width: 0; text-align: center; background: var(--surface); border: 2px solid var(--line); border-radius: 28px; box-shadow: 0 7px 0 var(--line); backface-visibility: hidden; -webkit-backface-visibility: hidden; font-family: var(--font-card); }
+.face.back { transform: rotateY(180deg); }
+.big { font-size: clamp(6rem, 44vw, 14rem); line-height: 1; font-weight: 400; overflow-wrap: anywhere; }
+.big.word { font-size: clamp(3.6rem, 19vw, 6.4rem); }
+.big .mark { color: #ff5c4d; font-weight: 700; }
+.hint { font-family: var(--font-ui); font-size: 1rem; color: var(--ink-soft); }
+.tapnote { position: absolute; bottom: 16px; font-family: var(--font-ui); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); }
+.pic { font-size: clamp(3rem, 16vw, 4.6rem); line-height: 1; }
+.mn { font-weight: 600; font-size: 1.55rem; text-wrap: balance; }
+.mn.cp { font-size: 1.05rem; font-weight: 400; color: var(--ink-soft); }
+.tipline { font-family: var(--font-ui); font-size: 0.95rem; color: var(--ink-soft); max-width: 30ch; text-wrap: balance; }
+.small-g { font-size: clamp(2rem, 11vw, 3rem); line-height: 1; font-weight: 700; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.chip { font-size: 1.8rem; font-weight: 700; padding: 2px 14px; border-radius: 14px; background: var(--t2); color: var(--ink); box-shadow: 0 3px 0 var(--t2l); }
+
+.hear { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 0 22px 0 18px; min-height: 56px; font: 600 1.05rem var(--font-ui); color: var(--on-accent); background: var(--sky); box-shadow: 0 4px 0 var(--sky-lip); cursor: pointer; }
+.pill:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--sky-lip); }
+.pill svg { width: 22px; height: 22px; }
+
+.dock { position: static; margin-inline: -16px; padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); background: var(--bg); border-top: 2px solid var(--line); margin-top: auto; }
+.dock .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 480px; margin-inline: auto; }
+.btn { border: 0; border-radius: 18px; padding: 15px 14px; font: 700 1.15rem var(--font-ui); letter-spacing: 0.02em; text-transform: uppercase; color: var(--on-accent); background: var(--c); box-shadow: 0 5px 0 var(--l); cursor: pointer; }
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--l); }
+.btn.sky { --c: var(--sky); --l: var(--sky-lip); }
+.btn.good { --c: var(--good); --l: var(--good-lip); }
+.btn.warn { --c: var(--warn); --l: var(--warn-lip); color: var(--warn-ink); }
+.btn.wide { grid-column: 1 / -1; }
+.banner { max-width: 480px; margin-inline: auto; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; cursor: pointer; font-weight: 600; font-size: 1.1rem; }
+.banner.good { background: var(--good-bg); color: var(--good-ink); }
+.banner.warn { background: var(--warn-bg); color: var(--ink); }
+.banner svg { width: 44px; height: 44px; flex: none; }
+.banner small { display: block; font-weight: 400; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* summary */
+.sum { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding-top: 8px; }
+.sum h2 { margin: 0; font-size: 2rem; font-weight: 700; text-wrap: balance; }
+.sum p { margin: 0; color: var(--ink-soft); font-size: 1.1rem; }
+.heap { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 0; max-width: 340px; }
+.heap svg { width: 56px; height: 56px; margin-inline: -4px; }
+.sum .actions { display: grid; gap: 12px; width: 100%; margin-top: 8px; }
+
+.dock.wait .btn { opacity: 0.6; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.icon.holding { background: linear-gradient(var(--line), var(--line)) bottom/100% 0% no-repeat var(--surface); animation: holdfill 1s linear forwards; }
+@keyframes holdfill { to { background-size: 100% 100%; } }
+.tipnote { position: absolute; top: 56px; right: 0; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 4px 8px; border-radius: 8px; white-space: nowrap; z-index: 5; }
+.top { position: relative; }
+@media (orientation: landscape) and (max-height: 520px) {
+  .app { max-width: 880px; }
+  .big { font-size: clamp(4rem, 22vh, 8rem); }
+  #session { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); grid-template-rows: auto auto 1fr auto; gap: 8px 16px; align-items: stretch; }
+  .sbar { grid-column: 1 / -1; }
+  .setname { display: none; }
+  .stage { grid-column: 1; grid-row: 2 / span 3; max-height: none; min-height: 0; }
+  .hear { grid-column: 2; grid-row: 2; align-self: start; }
+  .dock { grid-column: 2; grid-row: 4; align-self: end; margin: 0; padding: 0; border: 0; background: none; }
+}
+
+/* effects */
+#fx { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; }
+.fly { position: fixed; left: 0; top: 0; width: 56px; height: 56px; will-change: transform; }
+.drop { position: fixed; top: -80px; width: 56px; height: 56px; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(115vh) rotate(300deg); } }
+
+/* voice sheet */
+.sheet { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; background: rgba(20, 20, 50, 0.5); }
+.sheet .panel { width: 100%; max-width: 480px; background: var(--surface); border-radius: 26px 26px 0 0; padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 14px; }
+.sheet h2 { margin: 0; font-size: 1.3rem; }
+.vrow { display: flex; align-items: center; gap: 10px; }
+.vrow label { min-width: 3.6rem; font-weight: 500; }
+.vrow select { flex: 1; min-width: 0; font: inherit; color: var(--ink); background: var(--bg); border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; }
+.vrow input[type="range"] { flex: 1; min-width: 0; }
+.vrow output { min-width: 3.2rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.chk { display: flex; gap: 10px; align-items: center; font-weight: 500; }
+.chk input { width: 22px; height: 22px; }
+.vnote { margin: 0; color: var(--ink-soft); font-size: 0.85rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .inner, .prog i { transition: none; }
+  .pp.bump { animation: none; }
+}
+.nb { display: block; max-width: 100%; height: auto; }
+.numchip { font-family: var(--font-card); font-weight: 700; font-size: clamp(3.4rem, 18vw, 5.2rem); line-height: 1; padding: 0.12em 0.42em; border: 4px solid; border-radius: 22px; background: var(--surface); color: var(--ink); }
+.numchip.sm { font-size: clamp(2.2rem, 11vw, 3rem); border-width: 3px; }
+.eq { font-family: var(--font-card); font-weight: 700; font-size: clamp(1.9rem, 9.5vw, 2.8rem); letter-spacing: 0.02em; white-space: nowrap; }
+.eq .q { color: var(--ink); background: var(--warn); border-radius: 10px; padding: 0 0.3em; }
+.qhint { font-family: var(--font-ui); font-size: 1rem; color: var(--ink-soft); }
+.irow { display: flex; justify-content: center; gap: 0.05em; }
+.it { display: inline-flex; flex-direction: column; align-items: center; font-size: clamp(2rem, 10.5vw, 3.1rem); line-height: 1.1; }
+.it .ix { font-family: var(--font-card); font-weight: 700; font-size: 0.34em; line-height: 1.2; color: var(--ink); margin-top: 0.15em; }
+.fing { width: min(100%, 300px); height: auto; }
+.pic.rows { white-space: pre-line; font-size: clamp(2.4rem, 13vw, 3.6rem); line-height: 1.15; }
+
+/* Language Wizards */
+.swatch { width: min(62%, 220px); aspect-ratio: 1; border-radius: 28px; border: 3px solid var(--outline); }
+.vwrap { width: min(86%, 300px); aspect-ratio: 1; border-radius: 22px; overflow: hidden; border: 3px solid var(--outline); background: #000; }
+.lvid, .lpic { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lpic { width: min(86%, 300px); height: auto; aspect-ratio: 1; border-radius: 22px; border: 3px solid var(--outline); }
+.big.lw { font-size: clamp(3rem, 15vw, 5rem); }
+.mn.cp b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <button class="logo" id="logo" type="button" aria-label="Dino Gang. Back to the wizards.">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="9,15 13,3 18,13" fill="#ffb21f"/><polygon points="16,12 21,1 26,11" fill="#ff8f4d"/><polygon points="23,11 28,3 31,14" fill="#ffb21f"/><path d="M5 25C5 15 13 11 22 11C31 11 36 17 36 25C36 33 30 37 22 37H12C8 37 5 31 5 25Z" fill="#34b56b" stroke="#228a4f" stroke-width="2"/><circle cx="27" cy="21" r="4" fill="#fff"/><circle cx="28" cy="21.5" r="2" fill="#272650"/><path d="M23 30Q28 33 33 29" fill="none" stroke="#272650" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="27" r="1.6" fill="#228a4f"/></svg>
+      <span>Dino Gang</span>
+    </button>
+    <span class="grow"></span>
+    <div class="pp" id="ppTotal" role="status" aria-label="Pompoms collected"><span id="ppIcon"></span><span id="ppNum">0</span></div>
+    <button class="icon" id="gear" type="button" aria-label="Voice and speed">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h0a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h0a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v0a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+    </button>
+    <button class="icon" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="menu" id="menu" aria-label="Wizards" hidden></nav>
+  </header>
+
+  <section id="cover" class="cover" style="display:flex;flex-direction:column;gap:18px">
+    <h1 class="pagetitle">Pick a wizard</h1>
+    <div class="wizlist" id="wizlist"></div>
+  </section>
+
+  <section id="home" class="home" style="display:flex;flex-direction:column;gap:18px" hidden>
+    <h1 class="pagetitle" id="title">Word Wizards</h1>
+    <p class="lead" id="lead">Pick a set, practise ten cards, and collect a pompom for every card you try.</p>
+    <div class="tiles" id="tiles"></div>
+    <p class="tip" id="tip"><b>Saying sounds:</b> keep them short and crisp, "sss" and "mmm", not "suh" or "muh". Tap a card to turn it over. Progress and pompoms are saved on this device.</p>
+  </section>
+
+  <section id="session" hidden style="display:flex;flex-direction:column;gap:16px;flex:1">
+    <div class="sbar">
+      <button class="icon" id="closeBtn" type="button" aria-label="Back to sets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="prog" id="prog" role="progressbar" aria-label="Session progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="progFill"></i></div>
+    </div>
+    <p class="setname" id="setname"></p>
+    <div class="stage">
+      <div class="card" id="card" role="button" tabindex="0" aria-label="Card. Tap to turn over.">
+        <div class="inner">
+          <div class="face front" id="front"></div>
+          <div class="face back" id="backface"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hear" id="hear">
+      <button class="pill" id="hearSound" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>Sound</button>
+      <button class="pill" id="hearWord" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>Word</button>
+    </div>
+    <div class="dock" id="dock"></div>
+  </section>
+
+  <section id="summary" hidden class="sum"></section>
+
+  <div class="sheet" id="sheet" hidden>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <h2 id="sheetTitle">Voice and speed</h2>
+      <div class="vrow"><label for="voice">Voice</label><select id="voice"></select></div>
+      <div class="vrow"><label for="rate">Speed</label><input id="rate" type="range" min="0.5" max="1.1" step="0.05" value="0.75"><output id="ratev" for="rate"></output></div>
+      <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
+      <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being checked (preview, includes Language Wizards)</span></label>
+      <div class="vrow"><label for="lq">Spanish questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
+      <p class="vnote" id="vnote"></p>
+      <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
+      <button class="btn sky" id="sheetDone" type="button">Done</button>
+    </div>
+  </div>
+  <div id="fx" aria-hidden="true"></div>
+  <div class="sr" id="sr" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+(function () {
+  // ---- Card data, from the Little Wandle Reception and Year 1 parent sheets ----
+  var DECKS = [
+    { id: "a1", name: "Autumn 1", type: "sound", tint: 1, ready: true,
+      what: "The first 20 sounds in Reception.",
+      info: "The first 20 sounds taught in Reception, Autumn 1.",
+      cards: [
+        { g: "s", w: "snake", p: "🐍", t: "Show your teeth and let the hiss out." },
+        { g: "a", w: "astronaut", p: "🧑‍🚀", t: "Mouth wide open, sound from the back." },
+        { g: "t", w: "tiger", p: "🐯", t: "Tongue tip behind the teeth, a quick tap." },
+        { g: "p", w: "penguin", p: "🐧", t: "Lips together, then pop them open." },
+        { g: "i", w: "iguana", p: "🦎", t: "Lips pulled back, short sound at the back." },
+        { g: "n", w: "net", p: "🥅", t: "Tongue behind the teeth, hum the sound." },
+        { g: "m", w: "mouse", p: "🐭", t: "Lips together, hum the sound." },
+        { g: "d", w: "duck", p: "🦆", t: "Tongue at the top front, a quick sound." },
+        { g: "g", w: "goat", p: "🐐", t: "Back of the tongue up, then push it down." },
+        { g: "o", w: "octopus", p: "🐙", t: "Make your mouth round." },
+        { g: "c", w: "cat", p: "🐱", t: "A little smile, tongue flat and up." },
+        { g: "k", w: "kite", p: "🪁", t: "Same sound as c." },
+        { g: "ck", w: "sock", p: "🧦", t: "Same sound as c and k. Two letters, one sound." },
+        { g: "e", w: "elephant", p: "🐘", t: "Open your mouth wide." },
+        { g: "u", w: "umbrella", p: "☂️", t: "Open your mouth wide, short sound." },
+        { g: "r", w: "rainbow", p: "🌈", t: "Show your teeth and growl a little." },
+        { g: "h", w: "helicopter", p: "🚁", t: "Breathe out sharply." },
+        { g: "b", w: "bear", p: "🐻", t: "Lips together, pop them open with the sound." },
+        { g: "f", w: "flamingo", p: "🦩", t: "Top teeth on bottom lip, push the air out." },
+        { g: "l", w: "lollipop", p: "🍭", t: "Tongue up behind the teeth and press." }
+      ] },
+    { id: "a2", name: "Autumn 2", type: "sound", tint: 2, ready: true,
+      what: "15 more sounds, with the two-letter ones.",
+      info: "The 15 sounds taught in Reception, Autumn 2, including the two-letter sounds.",
+      cards: [
+        { g: "ff", w: "puff", p: "💨", t: "Teeth on your bottom lip, push the air out. Two letters, one sound." },
+        { g: "ll", w: "bell", p: "🔔", t: "Tongue up behind your teeth and press. Two letters, one sound." },
+        { g: "ss", w: "dress", p: "👗", t: "Show your teeth and let the s hiss out. Two letters, one sound." },
+        { g: "j", w: "jellyfish", p: "🪼", t: "Pucker your lips and show your teeth." },
+        { g: "v", w: "volcano", p: "🌋", t: "Top teeth on bottom lip, make it buzz." },
+        { g: "w", w: "wave", p: "🌊", t: "Small, puckered lips." },
+        { g: "x", w: "box", p: "📦", t: "Says \"cs\", as at the end of box." },
+        { g: "y", w: "yoyo", p: "🪀", t: "Smile, tongue up, keep your mouth nearly closed." },
+        { g: "z", w: "zebra", p: "🦓", t: "Show your teeth and buzz." },
+        { g: "qu", w: "queen", p: "👑", t: "Pucker up, then open. Says \"kw\".", cp: "Quick, it's the queen!" },
+        { g: "th", w: "thumb", p: "👍", t: "Tongue on the teeth. Breathy, or buzzy as in this.", cp: "Thumbs up, we're having fun." },
+        { g: "sh", w: "shell", p: "🐚", t: "Push the air out, long and soft.", cp: "Share the shells." },
+        { g: "ch", w: "cherry", p: "🍒", t: "Pucker your lips, tongue does the work.", cp: "Chew the cherries, children." },
+        { g: "nk", w: "pink", p: "<span style='display:inline-block;width:.85em;height:.85em;border-radius:.18em;background:#ff8cbf;box-shadow:inset 0 -.08em 0 rgba(0,0,0,.18)'></span>", t: "Says \"ngk\", as at the end of pink.", cp: "I think I am pink." },
+        { g: "ng", w: "ring", p: "💍", t: "Back of the tongue, as at the end of ring.", cp: "Bling on a ring." }
+      ] },
+    { id: "s1", name: "Spring 1", type: "sound", tint: 3,
+      what: "Sounds made of two or three letters.",
+      info: "Phase 3 sounds, mostly made of two or three letters.",
+      cards: [
+        { g: "ai", w: "tail in the rain", p: "🌧️", t: "Open your mouth wide." },
+        { g: "ee", w: "sheep in a jeep", p: "🚙", t: "Smile with your lips apart." },
+        { g: "igh", w: "a light in the night", p: "💡", t: "Relaxed open mouth." },
+        { g: "oa", w: "soap that goat", p: "🐐", t: "Make an o shape with your mouth." },
+        { g: "oo", hint: "long sound", w: "zoom to the moon", p: "🚀", t: "Lips small, tummy pulled in." },
+        { g: "oo", hint: "short sound", w: "hook a book", p: "📖", t: "Lips small and short." },
+        { g: "ar", w: "march in the dark", p: "🔦", t: "Open wide, tongue down." },
+        { g: "or", w: "born with a horn", p: "🦄", t: "Round mouth, tongue down." },
+        { g: "ur", w: "curl the fur", p: "🐕", t: "Relaxed mouth, tongue down." },
+        { g: "ow", w: "wow owl", p: "🦉", t: "Open wide, then bring the lips together." },
+        { g: "oi", w: "boing boing", p: "🐰", t: "Round mouth, then lips move out." },
+        { g: "ear", w: "get near to hear", p: "👂", t: "Smile, tongue to the teeth." },
+        { g: "air", w: "chair in the air", p: "🎈", t: "Open wide, tongue down." },
+        { g: "er", w: "a bigger digger", p: "🚜", t: "Says the same sound as ur, at the end of words." }
+      ] },
+    { id: "p5", name: "Other spellings", type: "alt", tint: 4,
+      what: "Year 1. Other ways to write the same sound.",
+      info: "Year 1 and beyond. The same sound can be written in different ways.",
+      cards: [
+        { g: "s", alt: ["c", "se", "ce", "st", "sc"] },
+        { g: "n", alt: ["kn", "gn"] },
+        { g: "m", alt: ["mb"] },
+        { g: "c", alt: ["ch"] },
+        { g: "r", alt: ["wr"] },
+        { g: "f", alt: ["ph"] },
+        { g: "l", alt: ["le", "al"] },
+        { g: "j", alt: ["g", "dge", "ge"] },
+        { g: "v", alt: ["ve"] },
+        { g: "w", alt: ["wh"] },
+        { g: "z", alt: ["se", "ze"] },
+        { g: "ch", alt: ["tch", "ture"] },
+        { g: "sh", alt: ["ch", "ti", "ssi", "si", "ci"] },
+        { g: "e", alt: ["ea"] },
+        { g: "i", alt: ["y"] },
+        { g: "o", alt: ["a"] },
+        { g: "u", alt: ["o-e", "o", "ou"] },
+        { g: "ai", alt: ["ay", "a", "a-e", "eigh", "aigh", "ey", "ea"] },
+        { g: "ee", alt: ["ea", "e", "e-e", "ie", "y", "ey"] },
+        { g: "igh", alt: ["ie", "i", "i-e", "y"] },
+        { g: "oa", alt: ["o", "o-e", "ou", "oe", "ow"] },
+        { g: "oo", hint: "long sound", alt: ["ue", "u-e", "ew", "ou", "ui"] },
+        { g: "yoo", alt: ["ue", "u", "u-e", "ew"] },
+        { g: "oo", hint: "short sound", alt: ["u", "oul"] },
+        { g: "ar", alt: ["a", "al"] },
+        { g: "or", alt: ["aw", "au", "aur", "oor", "al", "a", "oar", "ore"] },
+        { g: "ur", alt: ["er", "ir", "or"] },
+        { g: "ow", alt: ["ou"] },
+        { g: "oi", alt: ["oy"] },
+        { g: "ear", alt: ["ere", "ear"] },
+        { g: "air", alt: ["are", "ere", "ear"] },
+        { g: "zh", alt: ["su", "si"] }
+      ] },
+    { id: "tw", name: "Tricky words", type: "tricky", tint: 5,
+      what: "Reception Autumn words. Red letters are the tricky part.",
+      info: "Reception Autumn tricky words. The red letters are the tricky part.",
+      cards: [
+        { g: "is", part: "s", t: "The s says z. Children first learn s as in sat." },
+        { g: "as", part: "s", t: "The s says z." },
+        { g: "has", part: "s", t: "The s says z." },
+        { g: "his", part: "s", t: "The s says z." },
+        { g: "I", part: "I", t: "The letter i says igh." },
+        { g: "the", part: "e", t: "Uses the th sound (not learned yet) and a short, lazy e." },
+        { g: "put", part: "u", t: "The u says oo, as in book. Some regions do not teach this one as tricky." },
+        { g: "pull", part: "u", t: "The u says oo, as in book." },
+        { g: "full", part: "u", t: "The u says oo, as in book." },
+        { g: "push", part: "u", t: "The u says oo, as in book." },
+        { g: "and", part: "nd", t: "Two consonants blend together. Blending is not taught yet." },
+        { g: "her", part: "er", t: "Uses the er sound, not learned yet." },
+        { g: "go", part: "o", t: "The o says oa." },
+        { g: "no", part: "o", t: "The o says oa." },
+        { g: "to", part: "o", t: "The o says oo, as in food." },
+        { g: "into", part: "o", t: "The last o says oo, as in food." },
+        { g: "she", part: "e", t: "The e says ee." },
+        { g: "he", part: "e", t: "The e says ee." },
+        { g: "we", part: "e", t: "The e says ee." },
+        { g: "me", part: "e", t: "The e says ee." },
+        { g: "be", part: "e", t: "The e says ee." },
+        { g: "of", part: "f", t: "The f says v. A rare spelling." }
+      ] }
+  ];
+
+  var SESSION_SIZE = 10, MASTER = 3;
+  var NUMDECKS = [{"id":"n1","name":"Counting to 5","type":"quantity","ready":true,"what":"Count objects one by one and say how many. See the block shape for each number to 5.","anchor":["EYFS Number ELG (numbers to 10; subitise to 5)","Development Matters Reception: count, cardinality (secondary source, not opened directly)"],"level":"to-5","ageBand":"4-5","cards":[{"kind":"see","n":1,"word":"one","p":"","blocks":[1],"col":"#E53935","t":"Point to each block. Say the number.","say":"One. One block.","id":"n1-01","key":"n1_01"},{"kind":"see","n":2,"word":"two","p":"","blocks":[2],"col":"#FB8C00","t":"Point to each block. Say the number.","say":"Two. Two blocks.","id":"n1-02","key":"n1_02"},{"kind":"see","n":3,"word":"three","p":"","blocks":[3],"col":"#FDD835","t":"Point to each block. Say the number.","say":"Three. Three blocks.","id":"n1-03","key":"n1_03"},{"kind":"count","n":1,"word":"one","p":"🦕","blocks":[1],"col":"#E53935","t":"Point to each one once. The last number says how many.","say":"One. One dinosaur.","id":"n1-04","key":"n1_04"},{"kind":"count","n":2,"word":"two","p":"🥚🥚","blocks":[2],"col":"#FB8C00","t":"Point to each one once. The last number says how many.","say":"One, two. Two eggs.","id":"n1-05","key":"n1_05"},{"kind":"count","n":3,"word":"three","p":"🍎🍎🍎","blocks":[3],"col":"#FDD835","t":"Point to each one once. The last number says how many.","say":"One, two, three. Three apples.","id":"n1-06","key":"n1_06"},{"kind":"see","n":4,"word":"four","p":"","blocks":[4],"col":"#43A047","t":"Point to each block. Say the number.","say":"Four. Four blocks.","id":"n1-07","key":"n1_07"},{"kind":"see","n":5,"word":"five","p":"","blocks":[5],"col":"#1E88E5","t":"Point to each block. Say the number.","say":"Five. Five blocks.","id":"n1-08","key":"n1_08"},{"kind":"count","n":4,"word":"four","p":"🐞🐞🐞🐞","blocks":[4],"col":"#43A047","t":"Point to each one once. The last number says how many.","say":"One, two, three, four. Four ladybirds.","id":"n1-09","key":"n1_09"},{"kind":"count","n":5,"word":"five","p":"⭐⭐⭐⭐⭐","blocks":[5],"col":"#1E88E5","t":"Point to each one once. The last number says how many.","say":"One, two, three, four, five. Five stars.","id":"n1-10","key":"n1_10"},{"kind":"howmany","n":4,"word":"four","p":"🍓🍓🍓🍓","blocks":[4],"col":"#43A047","t":"Ask 'How many?' Let them count, then answer.","say":"Four. There are four strawberries.","id":"n1-11","key":"n1_11"},{"kind":"howmany","n":2,"word":"two","p":"🧦🧦","blocks":[2],"col":"#FB8C00","t":"Ask 'How many?' Let them count, then answer.","say":"Two. There are two socks.","id":"n1-12","key":"n1_12"},{"kind":"howmany","n":5,"word":"five","p":"🥚🥚🥚🥚🥚","blocks":[5],"col":"#1E88E5","t":"Ask 'How many?' Let them count, then answer.","say":"Five. There are five eggs.","id":"n1-13","key":"n1_13"},{"kind":"howmany","n":1,"word":"one","p":"🍎","blocks":[1],"col":"#E53935","t":"Ask 'How many?' Let them count, then answer.","say":"One. There is one apple.","id":"n1-14","key":"n1_14"},{"kind":"howmany","n":3,"word":"three","p":"🐞🐞🐞","blocks":[3],"col":"#FDD835","t":"Ask 'How many?' Let them count, then answer.","say":"Three. There are three ladybirds.","id":"n1-15","key":"n1_15"}],"wiz":"number","tint":1},{"id":"n2","name":"Counting to 10","type":"quantity","ready":true,"what":"Count to 10, see each number's block shape, and match numerals to quantities.","anchor":["EYFS Number ELG: deep understanding of numbers to 10","Year 1 PoS: read and write numbers 1 to 20 in numerals (first steps)"],"level":"to-10","ageBand":"4.5-5.5","cards":[{"kind":"numeral","n":1,"word":"one","numeral":"1","p":"🥚","blocks":[1],"col":"#E53935","t":"Say the number. Hold up that many fingers.","say":"One. Show one finger.","id":"n2-01","key":"n2_01"},{"kind":"numeral","n":2,"word":"two","numeral":"2","p":"🍎🍎","blocks":[2],"col":"#FB8C00","t":"Say the number. Hold up that many fingers.","say":"Two. Show two fingers.","id":"n2-02","key":"n2_02"},{"kind":"numeral","n":3,"word":"three","numeral":"3","p":"🐞🐞🐞","blocks":[3],"col":"#FDD835","t":"Say the number. Hold up that many fingers.","say":"Three. Show three fingers.","id":"n2-03","key":"n2_03"},{"kind":"numeral","n":4,"word":"four","numeral":"4","p":"⭐⭐⭐⭐","blocks":[4],"col":"#43A047","t":"Say the number. Hold up that many fingers.","say":"Four. Show four fingers.","id":"n2-04","key":"n2_04"},{"kind":"numeral","n":5,"word":"five","numeral":"5","p":"🦕🦕🦕🦕🦕","blocks":[5],"col":"#1E88E5","t":"Say the number. Hold up that many fingers.","say":"Five. Show five fingers.","id":"n2-05","key":"n2_05"},{"kind":"see","n":6,"word":"six","numeral":"6","p":"","blocks":[5,1],"col":"#3949AB","t":"Look first. Then point to each block to check.","say":"Six. Five and one more.","id":"n2-06","key":"n2_06"},{"kind":"count","n":6,"word":"six","p":"🥚🥚🥚🥚🥚\n🥚","blocks":[5,1],"col":"#3949AB","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six. Six eggs.","id":"n2-07","key":"n2_07"},{"kind":"numeral","n":6,"word":"six","numeral":"6","p":"🍓🍓🍓🍓🍓\n🍓","blocks":[5,1],"col":"#3949AB","t":"Say the number. Hold up that many fingers.","say":"Six. Show six fingers.","id":"n2-08","key":"n2_08"},{"kind":"see","n":7,"word":"seven","numeral":"7","p":"","blocks":[5,2],"col":"rainbow","t":"Look first. Then point to each block to check.","say":"Seven. Five and two more.","id":"n2-09","key":"n2_09"},{"kind":"count","n":7,"word":"seven","p":"🍎🍎🍎🍎🍎\n🍎🍎","blocks":[5,2],"col":"rainbow","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven. Seven apples.","id":"n2-10","key":"n2_10"},{"kind":"numeral","n":7,"word":"seven","numeral":"7","p":"🧦🧦🧦🧦🧦\n🧦🧦","blocks":[5,2],"col":"rainbow","t":"Say the number. Hold up that many fingers.","say":"Seven. Show seven fingers.","id":"n2-11","key":"n2_11"},{"kind":"see","n":8,"word":"eight","numeral":"8","p":"","blocks":[5,3],"col":"#EC407A","t":"Look first. Then point to each block to check.","say":"Eight. Five and three more.","id":"n2-12","key":"n2_12"},{"kind":"count","n":8,"word":"eight","p":"🐞🐞🐞🐞🐞\n🐞🐞🐞","blocks":[5,3],"col":"#EC407A","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight. Eight ladybirds.","id":"n2-13","key":"n2_13"},{"kind":"numeral","n":8,"word":"eight","numeral":"8","p":"🐟🐟🐟🐟🐟\n🐟🐟🐟","blocks":[5,3],"col":"#EC407A","t":"Say the number. Hold up that many fingers.","say":"Eight. Show eight fingers.","id":"n2-14","key":"n2_14"},{"kind":"see","n":9,"word":"nine","numeral":"9","p":"","blocks":[3,3,3],"col":"greys","t":"Look first. Then point to each block to check.","say":"Nine. Three rows of three.","id":"n2-15","key":"n2_15"},{"kind":"count","n":9,"word":"nine","p":"⭐⭐⭐\n⭐⭐⭐\n⭐⭐⭐","blocks":[3,3,3],"col":"greys","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight, nine. Nine stars.","id":"n2-16","key":"n2_16"},{"kind":"numeral","n":9,"word":"nine","numeral":"9","p":"🌳🌳🌳\n🌳🌳🌳\n🌳🌳🌳","blocks":[3,3,3],"col":"greys","t":"Say the number. Hold up that many fingers.","say":"Nine. Show nine fingers.","id":"n2-17","key":"n2_17"},{"kind":"see","n":10,"word":"ten","numeral":"10","p":"","blocks":[5,5],"col":"white-red-edge","t":"Look first. Then point to each block to check.","say":"Ten. Two rows of five.","id":"n2-18","key":"n2_18"},{"kind":"count","n":10,"word":"ten","p":"🍓🍓🍓🍓🍓\n🍓🍓🍓🍓🍓","blocks":[5,5],"col":"white-red-edge","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight, nine, ten. Ten strawberries.","id":"n2-19","key":"n2_19"},{"kind":"numeral","n":10,"word":"ten","numeral":"10","p":"🍄🍄🍄🍄🍄\n🍄🍄🍄🍄🍄","blocks":[5,5],"col":"white-red-edge","t":"Say the number. Hold up that many fingers.","say":"Ten. Show ten fingers.","id":"n2-20","key":"n2_20"}],"wiz":"number","tint":2},{"id":"n3","name":"Number bonds to 5 and 10","type":"partwhole","ready":true,"what":"See that a number is made of two parts. Split numbers to 5, then make 10.","anchor":["EYFS Number ELG: composition of numbers to 10; bonds to 5; some bonds to 10","Year 1 PoS: represent and use number bonds within 20; read and interpret + and = statements; missing-number problems"],"level":"to-5 then to-10","ageBand":"5-6","cards":[{"kind":"split","whole":2,"parts":[1,1],"eq":"2 = 1 + 1","p":"🥚 🥚","wholeBlocks":[2],"wholeCol":"#FB8C00","partCols":[{"n":1,"col":"#E53935"},{"n":1,"col":"#E53935"}],"t":"Look at the two parts. Say them.","say":"Two is one and one.","id":"n3-01","key":"n3_01"},{"kind":"split","whole":3,"parts":[1,2],"eq":"3 = 1 + 2","p":"🥚 🥚🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":1,"col":"#E53935"},{"n":2,"col":"#FB8C00"}],"t":"Look at the two parts. Say them.","say":"Three is one and two.","id":"n3-02","key":"n3_02"},{"kind":"split","whole":4,"parts":[1,3],"eq":"4 = 1 + 3","p":"🥚 🥚🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":1,"col":"#E53935"},{"n":3,"col":"#FDD835"}],"t":"Look at the two parts. Say them.","say":"Four is one and three.","id":"n3-03","key":"n3_03"},{"kind":"split","whole":4,"parts":[2,2],"eq":"4 = 2 + 2","p":"🥚🥚 🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":2,"col":"#FB8C00"},{"n":2,"col":"#FB8C00"}],"t":"Look at the two parts. Say them.","say":"Four is two and two.","id":"n3-04","key":"n3_04"},{"kind":"split","whole":5,"parts":[1,4],"eq":"5 = 1 + 4","p":"🥚 🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":1,"col":"#E53935"},{"n":4,"col":"#43A047"}],"t":"Look at the two parts. Say them.","say":"Five is one and four.","id":"n3-05","key":"n3_05"},{"kind":"split","whole":5,"parts":[2,3],"eq":"5 = 2 + 3","p":"🥚🥚 🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":2,"col":"#FB8C00"},{"n":3,"col":"#FDD835"}],"t":"Look at the two parts. Say them.","say":"Five is two and three.","id":"n3-06","key":"n3_06"},{"kind":"zero","whole":3,"parts":[3,0],"eq":"3 = 3 + 0","p":"🥚🥚🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":3,"col":"#FDD835"},{"n":0,"col":"none"}],"t":"Zero means none. The number stays the same.","say":"Three and zero make three.","id":"n3-07","key":"n3_07"},{"kind":"zero","whole":5,"parts":[0,5],"eq":"0 + 5 = 5","p":"🥚🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":0,"col":"none"},{"n":5,"col":"#1E88E5"}],"t":"Zero means none. The number stays the same.","say":"Zero and five make five.","id":"n3-08","key":"n3_08"},{"kind":"missing","whole":3,"parts":[2,1],"eq":"3 = 2 + ?","hide":1,"p":"🥚🥚 🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":2,"col":"#FB8C00"},{"n":1,"col":"#E53935"}],"t":"What is hiding? Say the missing part.","say":"The missing part is one. Three is two and one.","id":"n3-09","key":"n3_09"},{"kind":"missing","whole":4,"parts":[3,1],"eq":"? + 1 = 4","hide":0,"p":"🥚🥚🥚 🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":3,"col":"#FDD835"},{"n":1,"col":"#E53935"}],"t":"What is hiding? Say the missing part.","say":"The missing part is three. Four is three and one.","id":"n3-10","key":"n3_10"},{"kind":"missing","whole":5,"parts":[1,4],"eq":"5 = ? + 4","hide":0,"p":"🥚 🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":1,"col":"#E53935"},{"n":4,"col":"#43A047"}],"t":"What is hiding? Say the missing part.","say":"The missing part is one. Five is one and four.","id":"n3-11","key":"n3_11"},{"kind":"missing","whole":4,"parts":[2,2],"eq":"2 + ? = 4","hide":1,"p":"🥚🥚 🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":2,"col":"#FB8C00"},{"n":2,"col":"#FB8C00"}],"t":"What is hiding? Say the missing part.","say":"The missing part is two. Four is two and two.","id":"n3-12","key":"n3_12"},{"kind":"tens","whole":10,"parts":[5,5],"eq":"10 = 5 + 5","p":"🥚🥚🥚🥚🥚 🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":5,"col":"#1E88E5"},{"n":5,"col":"#1E88E5"}],"t":"See the two parts that make ten. Say them.","say":"Ten is five and five.","id":"n3-13","key":"n3_13"},{"kind":"tens","whole":10,"parts":[6,4],"eq":"10 = 6 + 4","p":"🥚🥚🥚🥚🥚🥚 🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":6,"col":"#3949AB"},{"n":4,"col":"#43A047"}],"t":"See the two parts that make ten. Say them.","say":"Ten is six and four.","id":"n3-14","key":"n3_14"},{"kind":"tens","whole":10,"parts":[7,3],"eq":"10 = 7 + 3","p":"🥚🥚🥚🥚🥚🥚🥚 🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":7,"col":"rainbow"},{"n":3,"col":"#FDD835"}],"t":"See the two parts that make ten. Say them.","say":"Ten is seven and three.","id":"n3-15","key":"n3_15"},{"kind":"tens","whole":10,"parts":[8,2],"eq":"10 = 8 + 2","p":"🥚🥚🥚🥚🥚🥚🥚🥚 🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":8,"col":"#EC407A"},{"n":2,"col":"#FB8C00"}],"t":"See the two parts that make ten. Say them.","say":"Ten is eight and two.","id":"n3-16","key":"n3_16"},{"kind":"tens","whole":10,"parts":[9,1],"eq":"10 = 9 + 1","p":"🥚🥚🥚🥚🥚🥚🥚🥚🥚 🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":9,"col":"greys"},{"n":1,"col":"#E53935"}],"t":"See the two parts that make ten. Say them.","say":"Ten is nine and one.","id":"n3-17","key":"n3_17"},{"kind":"tensmissing","whole":10,"parts":[7,3],"eq":"10 = 7 + ?","hide":1,"p":"🥚🥚🥚🥚🥚🥚🥚 🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":7,"col":"rainbow"},{"n":3,"col":"#FDD835"}],"t":"What is hiding? Say the missing part.","say":"The missing part is three. Ten is seven and three.","id":"n3-18","key":"n3_18"},{"kind":"tensmissing","whole":10,"parts":[4,6],"eq":"? + 6 = 10","hide":0,"p":"🥚🥚🥚🥚 🥚🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":4,"col":"#43A047"},{"n":6,"col":"#3949AB"}],"t":"What is hiding? Say the missing part.","say":"The missing part is four. Ten is four and six.","id":"n3-19","key":"n3_19"},{"kind":"tensmissing","whole":10,"parts":[2,8],"eq":"2 + ? = 10","hide":1,"p":"🥚🥚 🥚🥚🥚🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":2,"col":"#FB8C00"},{"n":8,"col":"#EC407A"}],"t":"What is hiding? Say the missing part.","say":"The missing part is eight. Ten is two and eight.","id":"n3-20","key":"n3_20"}],"wiz":"number","tint":3}];
+  var LANGDECKS = [{"id":"l1","wiz":"language","name":"Hola y adiós","type":"vocab","tint":3,"ready":false,"what":"Greetings, yes, no, thank you","info":"Greetings, yes, no, thank you","cards":[{"es":"hola","en":"hello","art":"😀👋","p":"OH-lah","pron":"h is silent","t":"greeting","audio":{"en":"l1-hola-en","es":"l1-hola-es"},"video":"video/l1-hola-vid.mp4","poster":"video/posters/l1-hola-vid.jpg"},{"es":"adiós","en":"goodbye","art":"🚌👋","p":"ah-DYOHSS","pron":"stress the end","t":"greeting","audio":{"en":"l1-adios-en","es":"l1-adios-es"},"video":"video/l1-adios-vid.mp4","poster":"video/posters/l1-adios-vid.jpg"},{"es":"sí","en":"yes","art":"👍","p":"SEE","pron":"accent mark = just 'see'","t":"word","audio":{"en":"l1-si-en","es":"l1-si-es"},"video":"video/l1-si-vid.mp4","poster":"video/posters/l1-si-vid.jpg"},{"es":"no","en":"no","art":"🙅","p":"NOH","pron":"same as English, longer o","t":"word","audio":{"en":"l1-no-en","es":"l1-no-es"},"video":"video/l1-no-vid.mp4","poster":"video/posters/l1-no-vid.jpg"},{"es":"gracias","en":"thank you","art":"🎁","p":"GRAH-thyahss","pron":"th as in 'thin'","t":"phrase","audio":{"en":"l1-gracias-en","es":"l1-gracias-es"},"video":"video/l1-gracias-vid.mp4","poster":"video/posters/l1-gracias-vid.jpg"}]},{"id":"l3","wiz":"language","name":"Colores","type":"vocab","tint":3,"ready":false,"what":"Primary colours plus a few","info":"Primary colours plus a few","cards":[{"es":"rojo","en":"red","art":"🔴","p":"ROH-hoh","pron":"j = breathy h, like 'hot'","t":"adj","audio":{"en":"l3-rojo-en","es":"l3-rojo-es"}},{"es":"azul","en":"blue","art":"🔵","p":"ah-THOOL","pron":"th as in 'thin'","t":"adj","audio":{"en":"l3-azul-en","es":"l3-azul-es"}},{"es":"verde","en":"green","art":"🟢","p":"VEHR-deh","pron":"v sounds close to b","t":"adj","audio":{"en":"l3-verde-en","es":"l3-verde-es"}},{"es":"amarillo","en":"yellow","art":"🟡","p":"ah-mah-REE-yoh","pron":"ll sounds like y","t":"adj","audio":{"en":"l3-amarillo-en","es":"l3-amarillo-es"}},{"es":"rosa","en":"pink","art":"🩷","p":"ROH-sah","pron":"","t":"adj","audio":{"en":"l3-rosa-en","es":"l3-rosa-es"}},{"es":"naranja","en":"orange","art":"🟠","p":"nah-RAHN-hah","pron":"j = breathy h","t":"adj","audio":{"en":"l3-naranja-en","es":"l3-naranja-es"}}]},{"id":"l7","wiz":"language","name":"Números 1 a 10","type":"vocab","tint":3,"ready":false,"what":"Counting one to ten, linked to Number Wizards","info":"Counting one to ten, linked to Number Wizards","cards":[{"es":"uno","en":"one","art":"⭐","p":"OO-noh","pron":"","t":"number","audio":{"en":"l7-uno-en","es":"l7-uno-es"},"n":1},{"es":"dos","en":"two","art":"⭐⭐","p":"DOHSS","pron":"","t":"number","audio":{"en":"l7-dos-en","es":"l7-dos-es"},"n":2},{"es":"tres","en":"three","art":"⭐⭐⭐","p":"TRESS","pron":"","t":"number","audio":{"en":"l7-tres-en","es":"l7-tres-es"},"n":3},{"es":"cuatro","en":"four","art":"⭐⭐⭐⭐","p":"KWAH-troh","pron":"","t":"number","audio":{"en":"l7-cuatro-en","es":"l7-cuatro-es"},"n":4},{"es":"cinco","en":"five","art":"⭐⭐⭐⭐⭐","p":"THEEN-koh","pron":"th as in 'thin'","t":"number","audio":{"en":"l7-cinco-en","es":"l7-cinco-es"},"n":5},{"es":"seis","en":"six","art":"⭐⭐⭐⭐⭐⭐","p":"SAYSS","pron":"","t":"number","audio":{"en":"l7-seis-en","es":"l7-seis-es"},"n":6},{"es":"siete","en":"seven","art":"⭐⭐⭐⭐⭐⭐⭐","p":"SYEH-teh","pron":"","t":"number","audio":{"en":"l7-siete-en","es":"l7-siete-es"},"n":7},{"es":"ocho","en":"eight","art":"⭐⭐⭐⭐⭐⭐⭐⭐","p":"OH-choh","pron":"ch as in 'chip'","t":"number","audio":{"en":"l7-ocho-en","es":"l7-ocho-es"},"n":8},{"es":"nueve","en":"nine","art":"⭐⭐⭐⭐⭐⭐⭐⭐⭐","p":"NWEH-veh","pron":"","t":"number","audio":{"en":"l7-nueve-en","es":"l7-nueve-es"},"n":9},{"es":"diez","en":"ten","art":"⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐","p":"DYETH","pron":"th as in 'thin'","t":"number","audio":{"en":"l7-diez-en","es":"l7-diez-es"},"n":10}]},{"id":"l8","wiz":"language","name":"Frases cortas","type":"phrase","tint":3,"ready":false,"what":"Short everyday phrases","info":"Short everyday phrases","cards":[{"es":"buenos días","en":"good morning","art":"🌞","p":"BWEH-nohss DEE-ahss","pron":"","t":"phrase","audio":{"en":"l8-buenos-dias-en","es":"l8-buenos-dias-es"},"video":"video/l8-buenos-dias-vid.mp4","poster":"video/posters/l8-buenos-dias-vid.jpg"},{"es":"buenas noches","en":"good night","art":"🌙","p":"BWEH-nahss NOH-chehss","pron":"","t":"phrase","audio":{"en":"l8-buenas-noches-en","es":"l8-buenas-noches-es"},"video":"video/l8-buenas-noches-vid.mp4","poster":"video/posters/l8-buenas-noches-vid.jpg"},{"es":"por favor","en":"please","art":"🙏","p":"por fah-VOR","pron":"art needs testing","t":"phrase","audio":{"en":"l8-por-favor-en","es":"l8-por-favor-es"},"video":"video/l8-por-favor-vid.mp4","poster":"video/posters/l8-por-favor-vid.jpg"},{"es":"¿cómo estás?","en":"how are you?","art":"😊","p":"KOH-moh ehs-TAHSS","pron":"rising tone at the end","t":"phrase","audio":{"en":"l8-como-estas-en","es":"l8-como-estas-es"},"video":"video/l8-como-estas-vid.mp4","poster":"video/posters/l8-como-estas-vid.jpg"},{"es":"me llamo…","en":"my name is…","art":"🧒","p":"meh YAH-moh","pron":"ll sounds like y","t":"phrase","audio":{"en":"l8-me-llamo-en","es":"l8-me-llamo-es"},"video":"video/l8-me-llamo-vid.mp4","poster":"video/posters/l8-me-llamo-vid.jpg"}]}];
+  DECKS = DECKS.concat(NUMDECKS).concat(LANGDECKS);
+  var POM = ["#ff5c93", "#ffc83d", "#2fd0c4", "#8c6bff", "#ff8f4d", "#6bd44a"];
+  var KEY = "soundcards-progress-v1", PKEY = "soundcards-voice-v1";
+  var PPKEYS = { word: "soundcards-pompoms-v1", number: "dinogang-pompoms-number-v1", language: "dinogang-pompoms-language-v1" };
+  var progress = {}, ppStore = { word: 0, number: 0, language: 0 }, curWiz = "word", pompoms = 0;
+  try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
+  Object.keys(PPKEYS).forEach(function (w) { try { ppStore[w] = parseInt(localStorage.getItem(PPKEYS[w]) || "0", 10) || 0; } catch (e) {} });
+  pompoms = ppStore.word;
+  function save() { ppStore[curWiz] = pompoms; try { localStorage.setItem(KEY, JSON.stringify(progress)); Object.keys(PPKEYS).forEach(function (w) { localStorage.setItem(PPKEYS[w], String(ppStore[w])); }); } catch (e) {} }
+  function setWiz(w) { ppStore[curWiz] = pompoms; curWiz = w; pompoms = ppStore[w] || 0; }
+  function wizOf(d) { return d.wiz || "word"; }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  // ---- Pompom drawing ----
+  function pompomSVG(color, seed) {
+    var h = '<svg viewBox="0 0 100 100" aria-hidden="true">';
+    var dark = "color-mix(in srgb, " + color + " 80%, #3a0a2a)";
+    var light = "color-mix(in srgb, " + color + " 62%, #ffffff)";
+    var i, a, r, x, y, n = 22;
+    for (i = 0; i < n; i++) {
+      a = i / n * 6.2832 + (seed || 0) * 0.37; r = 34 + ((i * 7 + (seed || 0)) % 4);
+      x = 50 + Math.cos(a) * r; y = 50 + Math.sin(a) * r;
+      h += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="10.5" fill="' + color + '" style="fill:' + dark + '"/>';
+    }
+    n = 16;
+    for (i = 0; i < n; i++) {
+      a = i / n * 6.2832 + 0.2 + (seed || 0) * 0.21; r = 23 + ((i * 5 + (seed || 0)) % 3);
+      x = 50 + Math.cos(a) * r; y = 50 + Math.sin(a) * r;
+      h += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="12" fill="' + color + '"/>';
+    }
+    h += '<circle cx="50" cy="50" r="24" fill="' + color + '"/>';
+    h += '<circle cx="40" cy="38" r="9" fill="' + color + '" style="fill:' + light + '" opacity="0.8"/>';
+    h += '<circle cx="31" cy="50" r="5" fill="' + color + '" style="fill:' + light + '" opacity="0.55"/>';
+    return h + "</svg>";
+  }
+  function pomColor(i) { return POM[i % POM.length]; }
+
+  // ---- Audio: recordings first, then the device voice and generated long sounds ----
+  var SAY = {
+    s: "sss", a: "ah", t: "tuh", p: "puh", i: "ih", n: "nnn", m: "mmm", d: "duh", g: "guh", o: "aw",
+    c: "kuh", k: "kuh", ck: "kuh", e: "eh", u: "uh", r: "rrr", h: "huh", b: "buh", f: "fff", l: "lll",
+    j: "juh", v: "vvv", w: "wuh", x: "ks", y: "yuh", z: "zzz", qu: "kwuh", ch: "chuh", sh: "shhh", th: "thhh",
+    ng: "ing", nk: "ink", ff: "fff", ll: "lll", ss: "sss",
+    ai: "ay", ee: "ee", igh: "eye", oa: "oh", "oo:long sound": "oo", "oo:short sound": "uuh", yoo: "yoo",
+    ar: "ar", or: "or", ur: "er", ow: "ow", oi: "oy", ear: "eer", air: "air", er: "er", zh: "zhh"
+  };
+  var HOLD = { s: "sssssssss", n: "nnnnnnnnn", m: "mmmmmmmmm", f: "fffffffff", l: "lllllllll", r: "rrrrrrrrr", v: "vvvvvvvvv", z: "zzzzzzzzz", sh: "shhhhhhhhh", ff: "fffffffff", ll: "lllllllll", ss: "sssssssss" };
+  var synth = window.speechSynthesis || null;
+  var voices = [], seqToken = 0;
+  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix" };
+  function isReady(d) { return !!d.ready || prefs.preview; }
+  try {
+    var sp = JSON.parse(localStorage.getItem(PKEY) || "{}");
+    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; }
+  } catch (e) {}
+  function savePrefs() { try { localStorage.setItem(PKEY, JSON.stringify(prefs)); } catch (e) {} }
+
+  // Recorded clips (the parent's own voice) are filled in when the page is built. Keys: "s" for a sound, "w:s" for its word.
+  var CLIPS = {"s":"audio/s.mp3","w:s":"audio/w-s.mp3","a":"audio/a.mp3","w:a":"audio/w-a.mp3","t":"audio/t.mp3","w:t":"audio/w-t.mp3","p":"audio/p.mp3","w:p":"audio/w-p.mp3","i":"audio/i.mp3","w:i":"audio/w-i.mp3","n":"audio/n.mp3","w:n":"audio/w-n.mp3","m":"audio/m.mp3","w:m":"audio/w-m.mp3","d":"audio/d.mp3","w:d":"audio/w-d.mp3","g":"audio/g.mp3","w:g":"audio/w-g.mp3","o":"audio/o.mp3","w:o":"audio/w-o.mp3","c":"audio/c.mp3","w:c":"audio/w-c.mp3","k":"audio/k.mp3","w:k":"audio/w-k.mp3","ck":"audio/ck.mp3","w:ck":"audio/w-ck.mp3","e":"audio/e.mp3","w:e":"audio/w-e.mp3","u":"audio/u.mp3","w:u":"audio/w-u.mp3","r":"audio/r.mp3","w:r":"audio/w-r.mp3","h":"audio/h.mp3","w:h":"audio/w-h.mp3","b":"audio/b.mp3","w:b":"audio/w-b.mp3","f":"audio/f.mp3","w:f":"audio/w-f.mp3","l":"audio/l.mp3","w:l":"audio/w-l.mp3","ff":"audio/ff.mp3","w:ff":"audio/w-ff.mp3","ll":"audio/ll.mp3","w:ll":"audio/w-ll.mp3","ss":"audio/ss.mp3","w:ss":"audio/w-ss.mp3","j":"audio/j.mp3","w:j":"audio/w-j.mp3","v":"audio/v.mp3","w:v":"audio/w-v.mp3","w":"audio/w.mp3","w:w":"audio/w-w.mp3","x":"audio/x.mp3","w:x":"audio/w-x.mp3","y":"audio/y.mp3","w:y":"audio/w-y.mp3","z":"audio/z.mp3","w:z":"audio/w-z.mp3","qu":"audio/qu.mp3","w:qu":"audio/w-qu.mp3","th":"audio/th.mp3","w:th":"audio/w-th.mp3","sh":"audio/sh.mp3","w:sh":"audio/w-sh.mp3","ch":"audio/ch.mp3","w:ch":"audio/w-ch.mp3","nk":"audio/nk.mp3","w:nk":"audio/w-nk.mp3","ng":"audio/ng.mp3","w:ng":"audio/w-ng.mp3","n1_01":"audio/n1-01.mp3","n1_02":"audio/n1-02.mp3","n1_03":"audio/n1-03.mp3","n1_04":"audio/n1-04.mp3","n1_05":"audio/n1-05.mp3","n1_06":"audio/n1-06.mp3","n1_07":"audio/n1-07.mp3","n1_08":"audio/n1-08.mp3","n1_09":"audio/n1-09.mp3","n1_10":"audio/n1-10.mp3","n1_11":"audio/n1-11.mp3","n1_12":"audio/n1-12.mp3","n1_13":"audio/n1-13.mp3","n1_14":"audio/n1-14.mp3","n1_15":"audio/n1-15.mp3","n2_01":"audio/n2-01.mp3","n2_02":"audio/n2-02.mp3","n2_03":"audio/n2-03.mp3","n2_04":"audio/n2-04.mp3","n2_05":"audio/n2-05.mp3","n2_06":"audio/n2-06.mp3","n2_07":"audio/n2-07.mp3","n2_08":"audio/n2-08.mp3","n2_09":"audio/n2-09.mp3","n2_10":"audio/n2-10.mp3","n2_11":"audio/n2-11.mp3","n2_12":"audio/n2-12.mp3","n2_13":"audio/n2-13.mp3","n2_14":"audio/n2-14.mp3","n2_15":"audio/n2-15.mp3","n2_16":"audio/n2-16.mp3","n2_17":"audio/n2-17.mp3","n2_18":"audio/n2-18.mp3","n2_19":"audio/n2-19.mp3","n2_20":"audio/n2-20.mp3","n3_01":"audio/n3-01.mp3","n3_02":"audio/n3-02.mp3","n3_03":"audio/n3-03.mp3","n3_04":"audio/n3-04.mp3","n3_05":"audio/n3-05.mp3","n3_06":"audio/n3-06.mp3","n3_07":"audio/n3-07.mp3","n3_08":"audio/n3-08.mp3","n3_09":"audio/n3-09.mp3","n3_10":"audio/n3-10.mp3","n3_11":"audio/n3-11.mp3","n3_12":"audio/n3-12.mp3","n3_13":"audio/n3-13.mp3","n3_14":"audio/n3-14.mp3","n3_15":"audio/n3-15.mp3","n3_16":"audio/n3-16.mp3","n3_17":"audio/n3-17.mp3","n3_18":"audio/n3-18.mp3","n3_19":"audio/n3-19.mp3","n3_20":"audio/n3-20.mp3","l:l1-adios-en":"audio/lang/en/l1-adios-en.mp3","l:l1-gracias-en":"audio/lang/en/l1-gracias-en.mp3","l:l1-hola-en":"audio/lang/en/l1-hola-en.mp3","l:l1-no-en":"audio/lang/en/l1-no-en.mp3","l:l1-si-en":"audio/lang/en/l1-si-en.mp3","l:l3-amarillo-en":"audio/lang/en/l3-amarillo-en.mp3","l:l3-azul-en":"audio/lang/en/l3-azul-en.mp3","l:l3-naranja-en":"audio/lang/en/l3-naranja-en.mp3","l:l3-rojo-en":"audio/lang/en/l3-rojo-en.mp3","l:l3-rosa-en":"audio/lang/en/l3-rosa-en.mp3","l:l3-verde-en":"audio/lang/en/l3-verde-en.mp3","l:l7-cinco-en":"audio/lang/en/l7-cinco-en.mp3","l:l7-cuatro-en":"audio/lang/en/l7-cuatro-en.mp3","l:l7-diez-en":"audio/lang/en/l7-diez-en.mp3","l:l7-dos-en":"audio/lang/en/l7-dos-en.mp3","l:l7-nueve-en":"audio/lang/en/l7-nueve-en.mp3","l:l7-ocho-en":"audio/lang/en/l7-ocho-en.mp3","l:l7-seis-en":"audio/lang/en/l7-seis-en.mp3","l:l7-siete-en":"audio/lang/en/l7-siete-en.mp3","l:l7-tres-en":"audio/lang/en/l7-tres-en.mp3","l:l7-uno-en":"audio/lang/en/l7-uno-en.mp3","l:l8-buenas-noches-en":"audio/lang/en/l8-buenas-noches-en.mp3","l:l8-buenos-dias-en":"audio/lang/en/l8-buenos-dias-en.mp3","l:l8-como-estas-en":"audio/lang/en/l8-como-estas-en.mp3","l:l8-me-llamo-en":"audio/lang/en/l8-me-llamo-en.mp3","l:l8-por-favor-en":"audio/lang/en/l8-por-favor-en.mp3","l:q-end-01":"audio/lang/en/q-end-01.mp3","l:q-end-02":"audio/lang/en/q-end-02.mp3","l:q-end-03":"audio/lang/en/q-end-03.mp3","l:q-end-04":"audio/lang/en/q-end-04.mp3","l:q-open-01":"audio/lang/en/q-open-01.mp3","l:q-open-02":"audio/lang/en/q-open-02.mp3","l:q-open-03":"audio/lang/en/q-open-03.mp3","l:q-open-04":"audio/lang/en/q-open-04.mp3","l:q-open-05":"audio/lang/en/q-open-05.mp3","l:q-open-06":"audio/lang/en/q-open-06.mp3","l:q-open-07":"audio/lang/en/q-open-07.mp3","l:l1-adios-es":"audio/lang/es/l1-adios-es.mp3","l:l1-gracias-es":"audio/lang/es/l1-gracias-es.mp3","l:l1-hola-es":"audio/lang/es/l1-hola-es.mp3","l:l1-no-es":"audio/lang/es/l1-no-es.mp3","l:l1-si-es":"audio/lang/es/l1-si-es.mp3","l:l3-amarillo-es":"audio/lang/es/l3-amarillo-es.mp3","l:l3-azul-es":"audio/lang/es/l3-azul-es.mp3","l:l3-naranja-es":"audio/lang/es/l3-naranja-es.mp3","l:l3-rojo-es":"audio/lang/es/l3-rojo-es.mp3","l:l3-rosa-es":"audio/lang/es/l3-rosa-es.mp3","l:l3-verde-es":"audio/lang/es/l3-verde-es.mp3","l:l7-cinco-es":"audio/lang/es/l7-cinco-es.mp3","l:l7-cuatro-es":"audio/lang/es/l7-cuatro-es.mp3","l:l7-diez-es":"audio/lang/es/l7-diez-es.mp3","l:l7-dos-es":"audio/lang/es/l7-dos-es.mp3","l:l7-nueve-es":"audio/lang/es/l7-nueve-es.mp3","l:l7-ocho-es":"audio/lang/es/l7-ocho-es.mp3","l:l7-seis-es":"audio/lang/es/l7-seis-es.mp3","l:l7-siete-es":"audio/lang/es/l7-siete-es.mp3","l:l7-tres-es":"audio/lang/es/l7-tres-es.mp3","l:l7-uno-es":"audio/lang/es/l7-uno-es.mp3","l:l8-buenas-noches-es":"audio/lang/es/l8-buenas-noches-es.mp3","l:l8-buenos-dias-es":"audio/lang/es/l8-buenos-dias-es.mp3","l:l8-como-estas-es":"audio/lang/es/l8-como-estas-es.mp3","l:l8-me-llamo-es":"audio/lang/es/l8-me-llamo-es.mp3","l:l8-por-favor-es":"audio/lang/es/l8-por-favor-es.mp3"};
+  var clipEl = null, actx = null, lastMaster = null;
+  var clipTok = 0;
+  function playClip(uri) {
+    try {
+      clipTok++;
+      if (synth) { seqToken++; synth.cancel(); }
+      if (lastMaster) { lastMaster.gain.setValueAtTime(0, 0); }
+      if (clipEl) clipEl.pause();
+      clipEl = new Audio(uri);
+      var p = clipEl.play();
+      if (p && p.catch) p.catch(function () {});
+      return true;
+    } catch (e) { return false; }
+  }
+  function playSeq(uris) {
+    try {
+      if (synth) { seqToken++; synth.cancel(); }
+      if (lastMaster) { lastMaster.gain.setValueAtTime(0, 0); }
+      if (clipEl) clipEl.pause();
+      var tok = ++clipTok, i = 0;
+      (function next() {
+        if (tok !== clipTok || i >= uris.length) return;
+        var a = new Audio(uris[i++]); clipEl = a;
+        a.onended = function () { setTimeout(next, 160); };
+        a.onerror = next;
+        var pr = a.play(); if (pr && pr.catch) pr.catch(function () {});
+      })();
+      return true;
+    } catch (e) { return false; }
+  }
+  function makeUtt(text, rate) {
+    var u = new SpeechSynthesisUtterance(text), v = null;
+    for (var i = 0; i < voices.length; i++) if (voices[i].name === prefs.voice) v = voices[i];
+    if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = "en-GB"; }
+    u.rate = rate;
+    return u;
+  }
+  function speak(text) {
+    if (!synth || !text) return;
+    try { seqToken++; synth.cancel(); synth.speak(makeUtt(text, prefs.rate)); } catch (e) {}
+  }
+  function speakSeq(parts, rate, gap) {
+    if (!synth) return;
+    try {
+      var token = ++seqToken, i = 0;
+      synth.cancel();
+      (function next() {
+        if (token !== seqToken || i >= parts.length) return;
+        var u = makeUtt(parts[i], rate); i++;
+        u.onend = function () { setTimeout(next, gap); };
+        synth.speak(u);
+      })();
+    } catch (e) {}
+  }
+  function audioCtx() {
+    try {
+      if (!actx) { var AC = window.AudioContext || window.webkitAudioContext; if (AC) actx = new AC(); }
+      if (actx && actx.state === "suspended") actx.resume();
+    } catch (e) { actx = null; }
+    return actx;
+  }
+  var NOISE = { s: ["highpass", 5500, 0.7, 0.4], sh: ["bandpass", 3200, 1.0, 1.0], f: ["bandpass", 4500, 0.4, 0.25], z: ["highpass", 5500, 0.7, 0.18], v: ["bandpass", 4500, 0.4, 0.1] };
+  NOISE.ff = NOISE.f; NOISE.ss = NOISE.s;
+  var VOICED = {
+    z: [[250, 4, 0.7], [1800, 4, 0.08]], v: [[250, 4, 0.8], [1200, 5, 0.12]], m: [[250, 4, 1.0], [1000, 6, 0.05]],
+    n: [[250, 4, 0.9], [1900, 5, 0.18]], l: [[360, 6, 1.0], [1300, 8, 0.55], [2700, 10, 0.25]], r: [[420, 6, 1.0], [1250, 8, 0.65], [1650, 10, 0.55]]
+  };
+  function renderHold(c, key, t0, dur, master) {
+    var out = c.createGain();
+    out.gain.setValueAtTime(0, t0);
+    out.gain.linearRampToValueAtTime(1, t0 + 0.15);
+    out.gain.setValueAtTime(1, t0 + dur - 0.2);
+    out.gain.linearRampToValueAtTime(0, t0 + dur);
+    out.connect(master);
+    var stop = t0 + dur + 0.05, nz = NOISE[key], vc = VOICED[key];
+    if (nz) {
+      var len = c.sampleRate * 2, buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      var src = c.createBufferSource(); src.buffer = buf; src.loop = true;
+      var f = c.createBiquadFilter(); f.type = nz[0]; f.frequency.value = nz[1]; f.Q.value = nz[2];
+      var g = c.createGain(); g.gain.value = nz[3];
+      src.connect(f); f.connect(g); g.connect(out);
+      src.start(t0); src.stop(stop);
+    }
+    if (vc) {
+      var osc = c.createOscillator(); osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(130, t0);
+      osc.frequency.linearRampToValueAtTime(118, t0 + dur);
+      var s2 = c.createGain(); s2.gain.value = 0.5;
+      osc.connect(s2);
+      vc.forEach(function (fm) {
+        var bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = fm[0]; bp.Q.value = fm[1];
+        var fg = c.createGain(); fg.gain.value = fm[2];
+        s2.connect(bp); bp.connect(fg); fg.connect(out);
+      });
+      osc.start(t0); osc.stop(stop);
+    }
+  }
+  VOICED.ll = VOICED.l;
+  function playHold(key) {
+    var c = audioCtx();
+    if (!c || !(NOISE[key] || VOICED[key])) return false;
+    try {
+      if (synth) { seqToken++; synth.cancel(); }
+      if (lastMaster) { lastMaster.gain.cancelScheduledValues(c.currentTime); lastMaster.gain.setValueAtTime(0, c.currentTime); }
+      var master = c.createGain(); master.gain.value = 0.6; master.connect(c.destination);
+      lastMaster = master;
+      var t0 = c.currentTime + 0.05;
+      renderHold(c, key, t0, 1.5, master);
+      renderHold(c, key, t0 + 1.95, 1.5, master);
+      return true;
+    } catch (e) { return false; }
+  }
+  function keyOf(c) { return c.g + (c.hint ? ":" + c.hint : ""); }
+  function playSound(c) {
+    if (c.key) { if (CLIPS[c.key] && playClip(CLIPS[c.key])) return; speak(c.say); return; }
+    var key = keyOf(c);
+    if (CLIPS[key] && playClip(CLIPS[key])) return;
+    var held = HOLD[key];
+    if (held) { if (playHold(key)) return; speakSeq([held, held], Math.min(prefs.rate, 0.55), 350); return; }
+    var t = SAY[key] || c.g;
+    speakSeq([t, t, t], Math.min(prefs.rate, 0.7), 450);
+  }
+  var QPATS = [
+    { o: 1, mid: "es", e: 1 }, { o: 2, mid: "es", e: 2 }, { o: 3, mid: "es", e: 3 },
+    { o: 4, mid: "en", e: 4 }, { o: 5, mid: "en", e: 4 }, { o: 6, mid: "en", e: 0 }, { o: 7, mid: "en", e: 4 }
+  ];
+  var curPat = 0;
+  function pickPat() {
+    var pool = [];
+    QPATS.forEach(function (q, i) { if (prefs.lq === "hear" ? q.mid === "es" : prefs.lq === "say" ? q.mid === "en" : true) pool.push(i); });
+    var cand = pool.filter(function (i) { return i !== curPat; });
+    curPat = cand[Math.floor(Math.random() * cand.length)];
+  }
+  function lc(id) { return CLIPS["l:" + id]; }
+  function playLang(c) {
+    var q = QPATS[curPat], u = [];
+    function add(id) { var x = lc(id); if (x) u.push(x); }
+    if (!flipped) {
+      add("q-open-0" + q.o);
+      add(c.audio[q.mid]);
+      if (q.e) add("q-end-0" + q.e);
+    } else {
+      if (q.mid === "es") add(c.audio.en);
+      add(c.audio.es);
+    }
+    if (u.length) playSeq(u);
+  }
+  function playWord(d, c) {
+    var clip = d.type === "sound" ? CLIPS["w:" + keyOf(c)] : null;
+    if (clip && playClip(clip)) return;
+    speak(d.type === "tricky" ? c.g : (d.type === "sound" ? c.w : ""));
+  }
+  function loadVoices() {
+    if (!synth) return;
+    voices = (synth.getVoices() || []).filter(function (v) { return /^en/i.test(v.lang); });
+    voices.sort(function (a, b) {
+      var ga = /en[-_]GB/i.test(a.lang) ? 0 : 1, gb = /en[-_]GB/i.test(b.lang) ? 0 : 1;
+      return ga !== gb ? ga - gb : a.name.localeCompare(b.name);
+    });
+    $("voice").innerHTML = voices.map(function (v) { return "<option>" + esc(v.name) + " (" + esc(v.lang) + ")</option>"; }).join("");
+    var idx = -1;
+    voices.forEach(function (v, i) { if (v.name === prefs.voice) idx = i; });
+    if (idx < 0 && voices.length) { idx = 0; prefs.voice = voices[0].name; }
+    if (idx >= 0) $("voice").selectedIndex = idx;
+    $("vnote").textContent = voices.length
+      ? "Sounds and words with a recording play from that recording. For the rest, the long sounds (s, n, m and similar) are made by the app itself and the others use this voice."
+      : "No English voices were found on this device. Recorded sounds will still play.";
+  }
+
+  // ---- Progress ----
+  var lockUntil = 0;
+  function locked() { return Date.now() < lockUntil; }
+  function lockFor(ms) { if (reduce) ms = Math.min(ms, 300); lockUntil = Date.now() + ms; $("dock").classList.add("wait"); setTimeout(function () { if (!locked()) $("dock").classList.remove("wait"); }, ms + 20); }
+  function say(t) { var el = $("sr"); el.textContent = ""; setTimeout(function () { el.textContent = t; }, 30); }
+  var deckIx = 0, queue = [], pos = 0, got = 0, flipped = false, answered = false, fbTimer = null, armed = false;
+  function deck() { return DECKS[deckIx]; }
+  function box(d, i) { return (progress[d.id] || {})[i] || 0; }
+  function setBox(d, i, v) { if (!progress[d.id]) progress[d.id] = {}; progress[d.id][i] = v; save(); }
+  function isLearned(d, i) { return box(d, i) >= MASTER || !!(progress[d.id] || {})["L" + i]; }
+  function markLearned(d, i) { if (!progress[d.id]) progress[d.id] = {}; progress[d.id]["L" + i] = 1; }
+  function learned(d) { var n = 0; for (var i = 0; i < d.cards.length; i++) if (isLearned(d, i)) n++; return n; }
+  function curCard() { return deck().cards[queue[pos]]; }
+
+  // ---- Screens ----
+  function show(which) {
+    $("cover").hidden = which !== "cover";
+    $("home").hidden = which !== "home";
+    $("session").hidden = which !== "session";
+    $("summary").hidden = which !== "summary";
+    $("ppTotal").hidden = which === "cover";
+    $("menuBtn").hidden = which === "session";
+    $("logo").disabled = which === "session";
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
+  function renderPP() { $("ppNum").textContent = pompoms; var ic = $("ppIcon"); if (ic && ic.firstChild) { ic.innerHTML = pompomSVG(pomColor(Math.max(0, pompoms - 1)), 3); ic.firstChild.setAttribute("width", "34"); ic.firstChild.setAttribute("height", "34"); } }
+
+  function jarSVG(d) {
+    var n = d.cards.length, l = learned(d), cols = n <= 14 ? 4 : (n <= 22 ? 5 : 6), rows = Math.ceil(n / cols);
+    var ix = 9, iw = 38, iy = 22, ih = 36, cell = Math.min(iw / cols, ih / rows), r = cell * 0.42;
+    var ox = ix + (iw - cell * cols) / 2, bottom = iy + ih;
+    var h = '<svg class="jar" viewBox="0 0 56 64" aria-hidden="true">';
+    h += '<rect x="12" y="3" width="32" height="8" rx="3" fill="currentColor" opacity="0.4"/>';
+    h += '<path d="M14 12H42V16C48 18 50 22 50 28V56A6 6 0 0 1 44 62H12A6 6 0 0 1 6 56V28C6 22 8 18 14 16Z" fill="#fff" fill-opacity="0.5" stroke="currentColor" stroke-opacity="0.6" stroke-width="2"/>';
+    for (var k = 0; k < n; k++) {
+      var cx = ox + (k % cols) * cell + cell / 2, cy = bottom - Math.floor(k / cols) * cell - cell / 2;
+      if (k < l) {
+        h += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(2) + '" fill="' + POM[k % POM.length] + '"/>';
+        h += '<circle cx="' + (cx - r * 0.3).toFixed(1) + '" cy="' + (cy - r * 0.3).toFixed(1) + '" r="' + (r * 0.3).toFixed(2) + '" fill="#fff" opacity="0.6"/>';
+      } else {
+        h += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(2) + '" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>';
+      }
+    }
+    return h + "</svg>";
+  }
+
+  function renderHome() {
+    var h = "";
+    var isNum = curWiz === "number", isLang = curWiz === "language";
+    $("title").textContent = isLang ? "Language Wizards" : (isNum ? "Number Wizards" : "Word Wizards");
+    $("tip").innerHTML = isLang
+      ? "<b>First Spanish:</b> a grown-up is beside the child. Press the sound button, listen, then tap the card to turn it over. Younger children listen and point. Older children say the Spanish word back. Progress and pompoms are saved on this device."
+      : isNum
+      ? "<b>Counting:</b> point to each one once (without tapping the screen) and say one number each. The last number says how many. Tap a card to turn it over. Progress and pompoms are saved on this device."
+      : "<b>Saying sounds:</b> keep them short and crisp, \"sss\" and \"mmm\", not \"suh\" or \"muh\". Tap a card to turn it over. Progress and pompoms are saved on this device.";
+    DECKS.forEach(function (d, i) {
+      if (wizOf(d) !== curWiz) return;
+      var n = d.cards.length, l = learned(d), st = ' style="--c:var(--t' + d.tint + ');--l:var(--t' + d.tint + 'l)"';
+      var top = '<span class="fluff">' + pompomSVG(pomColor(i), i) + "</span>" + '<span class="name">' + esc(d.name) + "</span>" + '<span class="what">' + esc(d.what) + "</span>";
+      if (!isReady(d)) {
+        h += '<button type="button" class="tile soon" disabled data-i="' + i + '" aria-label="' + esc(d.name) + ', coming soon"' + st + ">" + top +
+          '<span class="meter"><span class="n">Coming soon</span></span></button>';
+        return;
+      }
+      h += '<button type="button" class="tile" data-i="' + i + '" aria-label="' + esc(d.name) + ", " + l + " of " + n + ' learned"' + st + ">" + top +
+        '<span class="meter">' + jarSVG(d) + '<span class="n">' + l + " of " + n + " learned</span></span></button>";
+    });
+    $("tiles").innerHTML = h;
+    renderPP();
+  }
+
+  function startSession(i) {
+    if (!DECKS[i] || !isReady(DECKS[i])) return;
+    deckIx = i; var d = deck();
+    var idx = d.cards.map(function (_, k) { return k; });
+    idx.sort(function (a, b) { var df = box(d, a) - box(d, b); return df !== 0 ? df : (d.id === "n3" ? a - b : Math.random() - 0.5); });
+    queue = idx.slice(0, Math.min(SESSION_SIZE, idx.length));
+    pos = 0; got = 0;
+    $("setname").textContent = d.name;
+    show("session");
+    renderCard();
+  }
+
+  var RAINBOW = ["#E53935", "#FB8C00", "#FDD835", "#43A047", "#1E88E5", "#3949AB", "#8E24AA"], GREYS = ["#BDBDBD", "#9E9E9E", "#757575"];
+  var NUMCOL = { 1: "#E53935", 2: "#FB8C00", 3: "#FDD835", 4: "#43A047", 5: "#1E88E5", 6: "#3949AB", 7: "rainbow", 8: "#EC407A", 9: "greys", 10: "white-red-edge" };
+  function rowsFor(n) { return n <= 5 ? [n] : (n === 6 ? [5, 1] : n === 7 ? [5, 2] : n === 8 ? [5, 3] : n === 9 ? [3, 3, 3] : [5, 5]); }
+  function cellFill(col, idx, row) { if (col === "rainbow") return RAINBOW[idx % 7]; if (col === "greys") return GREYS[row % 3]; if (col === "white-red-edge") return "#ffffff"; return col; }
+  function blocksAlt(n) { return n === 1 ? "1 block" : n + " blocks"; }
+  function blocksSVG(groups, label) {
+    var S = 22, G = 4, GG = 20, x = 0, hmax = 0, out = "";
+    groups.forEach(function (g) {
+      if (g.zero) {
+        out += '<rect x="' + x + '" y="0" width="' + S + '" height="' + S + '" rx="4" fill="none" stroke="var(--outline)" stroke-width="2" stroke-dasharray="4 3"/><text x="' + (x + S / 2) + '" y="' + (S * 0.72) + '" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">0</text>';
+        x += S + GG; hmax = Math.max(hmax, S); return;
+      }
+      var maxw = Math.max.apply(null, g.rows), idx = 0;
+      g.rows.forEach(function (rc, ri) {
+        for (var k = 0; k < rc; k++) {
+          var cx = x + k * (S + G), cy = ri * (S + G), fill = g.fill ? g.fill(idx, ri) : cellFill(g.col, idx, ri);
+          out += '<rect x="' + cx + '" y="' + cy + '" width="' + S + '" height="' + S + '" rx="4" fill="' + fill + '" stroke="var(--outline)" stroke-width="2"/>';
+          if (g.col === "white-red-edge" && !g.fill) out += '<rect x="' + (cx + 4.5) + '" y="' + (cy + 4.5) + '" width="' + (S - 9) + '" height="' + (S - 9) + '" rx="2" fill="none" stroke="#E53935" stroke-width="2.5"/>';
+          idx++;
+        }
+      });
+      x += maxw * (S + G) - G + GG; hmax = Math.max(hmax, g.rows.length * (S + G) - G);
+    });
+    var w = x - GG;
+    return '<svg class="nb" viewBox="-2 -2 ' + (w + 4) + " " + (hmax + 4) + '" style="width:min(100%,' + Math.round((w + 4) * 2.1) + 'px)" role="img" aria-label="' + esc(label) + '">' + out + "</svg>";
+  }
+  function nbGroup(c) {
+    if (c.n >= 6 && c.n <= 8 && c.blocks.length === 2 && c.blocks[0] === 5) {
+      var more = NUMCOL[c.n - 5];
+      return { rows: c.blocks, fill: function (t) { return t < 5 ? NUMCOL[5] : more; } };
+    }
+    return { rows: c.blocks, col: c.col };
+  }
+  function numChip(c, small) {
+    var col = NUMCOL[c.n], edge = col === "rainbow" ? "#8E24AA" : (col === "greys" ? "#757575" : (col === "white-red-edge" ? "#E53935" : col));
+    return '<div class="numchip' + (small ? " sm" : "") + '" style="border-color:' + edge + '">' + c.n + "</div>";
+  }
+  function partsGroups(c) {
+    if (c.kind === "tens" || c.kind === "tensmissing") {
+      return [{ rows: [5, 5], fill: function (t, row) { var pi = t < c.parts[0] ? 0 : 1, li = pi ? t - c.parts[0] : t; return cellFill(c.partCols[pi].col, li, row); } }];
+    }
+    return c.parts.map(function (n, i) { return n === 0 ? { zero: true } : { rows: rowsFor(n), col: c.partCols[i].col }; });
+  }
+  function isAdd(c) { return c.kind === "split" || c.kind === "zero" || c.kind === "tens"; }
+  function addEq(c, hide) { return c.parts[0] + " + " + c.parts[1] + " = " + (hide ? "?" : c.whole); }
+  function joinedGroups(c) {
+    if (c.kind === "tens") return partsGroups(c);
+    return [{ rows: c.wholeBlocks, fill: function (t, row) { var pi = t < c.parts[0] ? 0 : 1, col = c.partCols[pi].col; if (!col || col === "none") col = c.wholeCol; return cellFill(col, pi ? t - c.parts[0] : t, row); } }];
+  }
+  function eqFilled(c) { return c.eq.replace("?", c.parts[c.hide]); }
+  function hintLine(s) { return '<div class="qhint">' + esc(s) + "</div>"; }
+  function items(c, numbered) {
+    var seg = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter() : null, n = 0;
+    return '<div class="pic" aria-hidden="true">' + c.p.split("\n").map(function (line) {
+      var arr = seg ? Array.from(seg.segment(line), function (x) { return x.segment; }) : Array.from(line);
+      return '<div class="irow">' + arr.map(function (e) { n++; return '<span class="it"><span>' + esc(e) + "</span>" + (numbered ? '<span class="ix">' + n + "</span>" : "") + "</span>"; }).join("") + "</div>";
+    }).join("") + "</div>";
+  }
+  function fingersSVG(n) {
+    var H = [30, 46, 54, 48, 36], W = 15, G = 4, hw = 5 * W + 4 * G, out = "", x0 = 0, hands = n > 5 ? 2 : 1;
+    for (var h = 0; h < hands; h++) {
+      var up = hands === 1 ? n : (h === 0 ? 5 : n - 5), col = hands === 1 ? NUMCOL[n] : NUMCOL[up];
+      for (var f = 0; f < 5; f++) {
+        var raised = f < up, hgt = raised ? H[f] : 12, x = x0 + f * (W + G), y = 58 - hgt;
+        out += '<rect x="' + x + '" y="' + y + '" width="' + W + '" height="' + (hgt + 8) + '" rx="7" fill="' + (raised ? col : "none") + '" stroke="var(--outline)" stroke-width="2"' + (raised ? "" : ' stroke-dasharray="4 3" opacity="0.55"') + "/>";
+      }
+      out += '<rect x="' + x0 + '" y="58" width="' + hw + '" height="30" rx="12" fill="var(--surface)" stroke="var(--outline)" stroke-width="2"/>';
+      x0 += hw + 22;
+    }
+    var w = x0 - 22, lbl = n === 1 ? "1 finger up" : n + " fingers up";
+    return '<svg class="fing" viewBox="-2 -2 ' + (w + 4) + ' 92" style="width:min(100%,' + Math.round((w + 4) * 2.1) + 'px)" role="img" aria-label="' + lbl + '">' + out + "</svg>";
+  }
+  var SWATCH = { rojo: "#E53935", azul: "#1E88E5", verde: "#43A047", amarillo: "#FDD835", rosa: "#EC407A", naranja: "#FB8C00" };
+  function langArt(c) {
+    if (c.video) {
+      if (reduce) return '<img class="lpic" src="' + esc(c.poster) + '" alt="Picture for ' + esc(c.en) + '" width="540" height="540">';
+      return '<div class="vwrap"><video class="lvid" controls playsinline muted preload="none" poster="' + esc(c.poster) + '" src="' + esc(c.video) + '" aria-label="Short picture clip for ' + esc(c.en) + '. Press play."></video></div>';
+    }
+    if (c.t === "adj" && SWATCH[c.es]) return '<div class="swatch" style="background:' + SWATCH[c.es] + '" role="img" aria-label="' + esc(c.en) + ' colour"></div>';
+    if (c.t === "number") { var n = c.n; return blocksSVG([nbGroup({ n: n, blocks: rowsFor(n), col: NUMCOL[n] })], blocksAlt(n)); }
+    return '<div class="pic" role="img" aria-label="' + esc(c.en) + '">' + c.art + "</div>";
+  }
+  function langFront(d, c) {
+    return langArt(c) + '<div class="hint">Press the sound button to hear the question.</div><span class="tapnote">Tap to turn over</span>';
+  }
+  function langBack(d, c) {
+    var h = '<div class="big word lw">' + esc(c.es) + "</div>";
+    h += '<div class="mn cp">Say it like: <b>' + esc(c.p) + "</b></div>";
+    h += '<div class="mn">' + esc(c.en) + "</div>";
+    if (c.pron) h += '<div class="tipline">' + esc(c.pron) + "</div>";
+    return h;
+  }
+  function numFront(d, c) {
+    var k = c.kind, h = "";
+    if (k === "see") h = blocksSVG([nbGroup(c)], "Blocks") + hintLine("Look. How many?");
+    else if (k === "count") h = items(c, false) + hintLine("Point to each one and count.");
+    else if (k === "howmany") h = items(c, false) + hintLine("How many?");
+    else if (k === "numeral") h = numChip(c, false) + hintLine("Say it. Show that many fingers.");
+    else if (isAdd(c)) h = '<div class="eq">' + esc(addEq(c, true)).replace("?", '<span class="q">?</span>') + "</div>" + blocksSVG(partsGroups(c), c.parts[0] + " and " + c.parts[1]) + hintLine("How many altogether?");
+    else h = '<div class="eq">' + esc(c.eq).replace("?", '<span class="q">?</span>') + "</div>" + blocksSVG([{ rows: c.wholeBlocks, col: c.wholeCol }], "The whole number") + hintLine("What goes in the box?");
+    return h + '<span class="tapnote">Tap to turn over</span>';
+  }
+  function numBack(d, c) {
+    var k = c.kind, h = "", tip = c.t;
+    if (k === "see") {
+      h = numChip(c, true) + blocksSVG([nbGroup(c)], blocksAlt(c.n));
+    } else if (k === "count" || k === "howmany") {
+      h = numChip(c, true) + items(c, k === "count");
+    } else if (k === "numeral") {
+      h = numChip(c, true) + fingersSVG(c.n);
+    } else {
+      var add = isAdd(c), eq = add ? addEq(c, false) : eqFilled(c);
+      h = '<div class="eq">' + esc(eq) + "</div>" + blocksSVG(add ? joinedGroups(c) : partsGroups(c), c.whole + " is " + c.parts[0] + " and " + c.parts[1]);
+      tip = k === "zero" ? c.t : (add ? "Count all the blocks together." : "Count the blocks that fill the gap.");
+    }
+    return h + '<div class="mn cp">' + esc(c.say) + '</div><div class="tipline">' + esc(tip) + "</div>";
+  }
+  function frontHtml(d, c) {
+    if (wizOf(d) === "number") return numFront(d, c);
+    if (wizOf(d) === "language") return langFront(d, c);
+    var h = '<div class="big' + (d.type === "tricky" ? " word" : "") + '">' + esc(c.g) + "</div>";
+    if (c.hint) h += '<div class="hint">' + esc(c.hint) + "</div>";
+    if (d.type === "alt") h += '<div class="hint">How else can we write this sound?</div>';
+    return h + '<span class="tapnote">Tap to turn over</span>';
+  }
+  function backHtml(d, c) {
+    if (wizOf(d) === "number") return numBack(d, c);
+    if (wizOf(d) === "language") return langBack(d, c);
+    var h = "";
+    if (d.type === "sound") {
+      h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
+      h += '<div class="pic" aria-hidden="true">' + c.p + "</div>";
+      h += '<div class="mn">' + esc(c.w) + "</div>";
+      if (c.cp) h += '<div class="mn cp">' + esc(c.cp) + "</div>";
+      h += '<div class="tipline">' + esc(c.t) + "</div>";
+    } else if (d.type === "alt") {
+      h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
+      h += '<div class="chips">' + c.alt.map(function (a) { return '<span class="chip">' + esc(a) + "</span>"; }).join("") + "</div>";
+    } else {
+      var w = c.g, k = w.lastIndexOf(c.part);
+      var shown = k < 0 ? esc(w) : esc(w.slice(0, k)) + '<span class="mark">' + esc(c.part) + "</span>" + esc(w.slice(k + c.part.length));
+      h += '<div class="big word">' + shown + "</div>";
+      h += '<div class="tipline">' + esc(c.t) + "</div>";
+    }
+    return h;
+  }
+
+  function renderDock() {
+    var h = "";
+    if (answered) return;
+    if (!flipped) h = '<div class="row"><button class="btn sky wide" id="turn" type="button">Turn over</button></div>';
+    else h = '<div class="row"><button class="btn warn" id="retry" type="button">Not yet</button><button class="btn good" id="good" type="button">Got it</button></div>';
+    $("dock").innerHTML = h;
+  }
+
+  function renderCard() {
+    var d = deck(), c = curCard();
+    flipped = false; answered = false;
+    $("card").classList.remove("flipped");
+    $("front").innerHTML = frontHtml(d, c);
+    $("backface").innerHTML = backHtml(d, c);
+    setFaces();
+    lockFor(500);
+    var pct = Math.round(pos / queue.length * 100);
+    $("progFill").style.width = Math.max(pct, 4) + "%";
+    $("prog").setAttribute("aria-valuenow", pct);
+    var isNum = wizOf(d) === "number", isLang = wizOf(d) === "language";
+    if (isLang) pickPat();
+    $("hearSound").hidden = d.type === "tricky";
+    $("hearSound").lastChild.textContent = isLang ? "Hear the question" : (isNum ? "Listen to the answer" : "Sound");
+    $("hearSound").style.visibility = isNum ? "hidden" : "";
+    $("hearWord").hidden = d.type === "alt" || isNum || isLang;
+    renderDock();
+    if (document.activeElement === document.body || !document.activeElement) $("card").focus({ preventScroll: true });
+  }
+
+  function cardLabel(d, c) {
+    if (flipped) return [].filter.call($("backface").children, function (e) { return e.getAttribute("aria-hidden") !== "true" && e.textContent.trim(); }).map(function (e) { return e.textContent.trim().replace(/[.!?]$/, ""); }).join(". ") + ". Tap to turn back.";
+    if (!c.g) return (c.es ? "Spanish card" : "Number card") + ". Tap to turn over.";
+    return "Card " + c.g + (c.hint ? " (" + c.hint + ")" : "") + ". Tap to turn over.";
+  }
+  function setFaces() {
+    $("front").setAttribute("aria-hidden", flipped ? "true" : "false");
+    $("backface").setAttribute("aria-hidden", flipped ? "false" : "true");
+    $("card").setAttribute("aria-label", cardLabel(deck(), curCard()));
+  }
+  function keepFocus(was) { if (was) { var b = $("dock").querySelector("button"); if (b) b.focus({ preventScroll: true }); } }
+  function flip() {
+    if (answered || locked()) return;
+    var was = $("dock").contains(document.activeElement);
+    flipped = !flipped;
+    $("card").classList.toggle("flipped", flipped);
+    renderDock(); keepFocus(was); setFaces();
+    if (wizOf(deck()) === "number") $("hearSound").style.visibility = flipped ? "" : "hidden";
+    if (wizOf(deck()) === "language") $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question";
+    if (flipped) say($("card").getAttribute("aria-label"));
+    lockFor(650);
+    if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (wizOf(d) === "language") playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
+  }
+
+  function flyPompom() {
+    if (reduce) return;
+    var card = $("card").getBoundingClientRect(), tgt = $("ppIcon").getBoundingClientRect();
+    var el = document.createElement("div"); el.className = "fly";
+    el.innerHTML = pompomSVG(pomColor(pompoms), pompoms);
+    $("fx").appendChild(el);
+    var x0 = card.left + card.width / 2 - 28, y0 = card.top + card.height / 2 - 28;
+    var x1 = tgt.left + tgt.width / 2 - 28, y1 = tgt.top + tgt.height / 2 - 28;
+    var a = el.animate([
+      { transform: "translate(" + x0 + "px," + y0 + "px) scale(0.2)", opacity: 0 },
+      { transform: "translate(" + x0 + "px," + (y0 - 30) + "px) scale(1.15)", opacity: 1, offset: 0.35 },
+      { transform: "translate(" + x1 + "px," + y1 + "px) scale(0.45)", opacity: 1 }
+    ], { duration: 800, easing: "cubic-bezier(.5,0,.4,1)" });
+    a.onfinish = function () { el.remove(); $("ppTotal").classList.remove("bump"); void $("ppTotal").offsetWidth; $("ppTotal").classList.add("bump"); };
+  }
+
+  var PRAISE = ["Lovely!", "Brilliant!", "Super!", "You've got it!", "Well done!"];
+  function answer(ok) {
+    if (!flipped || answered || locked()) return;
+    answered = true;
+    var d = deck(), i = queue[pos];
+    if (box(d, i) >= MASTER) markLearned(d, i);
+    var nb = ok ? Math.min(MASTER + 1, box(d, i) + 1) : 0;
+    if (nb >= MASTER) markLearned(d, i);
+    setBox(d, i, nb);
+    if (ok) got++;
+    pompoms++; save(); flyPompom(); setTimeout(renderPP, reduce ? 0 : 700);
+    var pc = Math.round((pos + 1) / queue.length * 100);
+    $("progFill").style.width = pc + "%"; $("prog").setAttribute("aria-valuenow", pc);
+    $("dock").innerHTML = ok
+      ? '<div class="banner good" id="fb">' + pompomSVG(pomColor(pompoms), pompoms) + "<div>" + PRAISE[pos % PRAISE.length] + "<small>You earned a pompom.</small></div></div>"
+      : '<div class="banner warn" id="fb">' + pompomSVG(pomColor(pompoms), pompoms) + "<div>Nearly there.<small>This card will come back soon.</small></div></div>";
+    say(ok ? "Lovely! You earned a pompom." : "Nearly there. This card will come back soon. You still earned a pompom.");
+    lockFor(700);
+    clearTimeout(fbTimer);
+    fbTimer = setTimeout(next, ok ? 1300 : 1100);
+  }
+  function next() {
+    clearTimeout(fbTimer);
+    if (!answered) return;
+    pos++;
+    if (pos >= queue.length) { renderSummary(); return; }
+    renderCard();
+  }
+
+  function renderSummary() {
+    var d = deck(), n = queue.length, h = "";
+    var title = got === n ? "Perfect round!" : (got >= n / 2 ? "Great practice!" : "Good try!");
+    var line = "You earned " + n + (n === 1 ? " pompom" : " pompoms") + " on " + d.name + ".";
+    h += '<h2>' + esc(title) + '</h2><p>' + esc(line) + '</p>';
+    h += '<div class="heap">'; for (var i = 0; i < n; i++) h += pompomSVG(pomColor(pompoms - n + i), i); h += "</div>";
+    h += '<p>' + got + " of " + n + " cards known. " + learned(d) + " of " + d.cards.length + " learned in this set.</p>";
+    h += '<div class="actions"><button class="btn good" id="again" type="button">Practise again</button><button class="btn sky" id="sets" type="button">Choose another set</button></div>';
+    $("summary").innerHTML = h;
+    $("dock").innerHTML = "";
+    show("summary");
+    renderPP();
+    rain(n);
+  }
+  function rain(count) {
+    if (reduce || count < 1) return;
+    var n = Math.min(count + 4, 16);
+    for (var i = 0; i < n; i++) {
+      var el = document.createElement("div"); el.className = "drop";
+      el.style.left = Math.round(Math.random() * 88) + "%";
+      el.style.animationDuration = (2 + Math.random() * 1.6).toFixed(2) + "s";
+      el.style.animationDelay = (Math.random() * 0.9).toFixed(2) + "s";
+      el.innerHTML = pompomSVG(pomColor(i), i);
+      $("fx").appendChild(el);
+      (function (e) { setTimeout(function () { e.remove(); }, 4800); })(el);
+    }
+  }
+  var WIZARDS = [
+    { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
+    { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
+    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: false }
+  ];
+  function wizReady(w) { return !!w.ready || (prefs.preview && w.id === "language"); }
+  function renderCover() {
+    var h = "";
+    WIZARDS.forEach(function (w, i) {
+      w = Object.assign({}, w, { ready: wizReady(w) });
+      var st = ' style="--c:var(--t' + w.tint + ');--l:var(--t' + w.tint + 'l)"';
+      h += '<button type="button" class="tile' + (w.ready ? "" : " soon") + '"' + (w.ready ? "" : " disabled") + ' data-w="' + w.id + '" aria-label="' + esc(w.name) + (w.ready ? "" : ", coming soon") + '"' + st + ">" +
+        '<span class="glyph" aria-hidden="true">' + esc(w.glyph) + "</span>" +
+        '<span class="name">' + esc(w.name) + "</span>" +
+        '<span class="what">' + esc(w.what) + "</span>" +
+        '<span class="meter"><span class="n">' + (w.ready ? "Ready to play" : "Coming soon") + "</span></span></button>";
+    });
+    $("wizlist").innerHTML = h;
+    var m = "";
+    WIZARDS.forEach(function (w) {
+      w = Object.assign({}, w, { ready: wizReady(w) });
+      m += '<button type="button" data-w="' + w.id + '"' + (w.ready ? "" : " disabled") + (w.id === curWiz ? ' aria-current="true"' : "") + "><span>" + esc(w.name) + "</span>" + (w.ready ? "" : "<small>Coming soon</small>") + "</button>";
+    });
+    $("menu").innerHTML = m;
+  }
+  function openWizard(id) { var w = WIZARDS.filter(function (x) { return x.id === id; })[0]; if (!w || !wizReady(w)) return; setWiz(id); renderCover(); goHome(); }
+  function goCover() { clearTimeout(fbTimer); answered = false; show("cover"); }
+  function closeMenu() { var mn = $("menu"); if (mn && !mn.hidden) { mn.hidden = true; $("menuBtn").setAttribute("aria-expanded", "false"); } }
+  function goHome() { clearTimeout(fbTimer); answered = false; renderHome(); show("home"); }
+
+  // ---- Events ----
+  $("tiles").addEventListener("click", function (e) { var b = e.target.closest(".tile"); if (b && !b.disabled) startSession(parseInt(b.getAttribute("data-i"), 10)); });
+  $("card").addEventListener("click", flip);
+  $("card").addEventListener("keydown", function (e) { if (e.target !== $("card")) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+  $("dock").addEventListener("click", function (e) {
+    if (e.target.closest("#turn")) flip();
+    else if (e.target.closest("#good")) answer(true);
+    else if (e.target.closest("#retry")) answer(false);
+    else if (e.target.closest("#fb")) { if (!locked()) next(); }
+  });
+  $("summary").addEventListener("click", function (e) {
+    if (e.target.closest("#again")) startSession(deckIx);
+    else if (e.target.closest("#sets")) goHome();
+  });
+  $("closeBtn").addEventListener("click", goHome);
+  $("logo").addEventListener("click", goCover);
+  $("wizlist").addEventListener("click", function (e) { var b = e.target.closest(".tile"); if (b && !b.disabled) openWizard(b.getAttribute("data-w")); });
+  $("menuBtn").addEventListener("click", function () {
+    var open = $("menu").hidden; $("menu").hidden = !open; $("menuBtn").setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) { var f = $("menu").querySelector("button:not(:disabled)"); if (f) f.focus({ preventScroll: true }); }
+  });
+  $("menu").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b && !b.disabled) { closeMenu(); openWizard(b.getAttribute("data-w")); } });
+  document.addEventListener("click", function (e) { if (!$("menu").hidden && !e.target.closest("#menu, #menuBtn")) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("menu").hidden) { closeMenu(); $("menuBtn").focus({ preventScroll: true }); } });
+  $("hearSound").addEventListener("click", function () { if (wizOf(deck()) === "language") playLang(curCard()); else playSound(curCard()); });
+  $("front").addEventListener("click", function (e) { if (e.target.closest(".vwrap")) e.stopPropagation(); });
+  $("hearWord").addEventListener("click", function () { playWord(deck(), curCard()); });
+  document.addEventListener("keydown", function (e) {
+    if ($("session").hidden || e.target.closest("select, input")) return;
+    if (e.key === "ArrowRight") answer(true); else if (e.key === "ArrowLeft") answer(false);
+  });
+  $("clear").addEventListener("click", function () {
+    if (!armed) { armed = true; $("clear").textContent = "Tap again to clear everything"; setTimeout(function () { armed = false; $("clear").textContent = "Clear all progress and pompoms"; }, 4000); return; }
+    progress = {}; pompoms = 0; ppStore = { word: 0, number: 0, language: 0 }; save(); armed = false; $("clear").textContent = "Clear all progress and pompoms"; renderHome();
+  });
+
+  function openSheet() { $("sheet").hidden = false; $("sheetDone").focus(); }
+  function closeSheet() { $("sheet").hidden = true; armed = false; $("clear").textContent = "Clear all progress and pompoms"; $("gear").focus({ preventScroll: true }); }
+  (function () {
+    var g = $("gear"), t = null, held = false;
+    function start(e) { held = false; g.classList.add("holding"); t = setTimeout(function () { held = true; g.classList.remove("holding"); openSheet(); }, 1000); }
+    function stop() { clearTimeout(t); g.classList.remove("holding"); }
+    g.addEventListener("pointerdown", start);
+    ["pointerup", "pointerleave", "pointercancel"].forEach(function (n) { g.addEventListener(n, stop); });
+    g.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    g.addEventListener("click", function (e) {
+      if (e.detail === 0) { openSheet(); return; }
+      if (!held) { var n = document.createElement("span"); n.className = "tipnote"; n.textContent = "Grown-ups: press and hold"; g.parentNode.appendChild(n); setTimeout(function () { n.remove(); }, 2200); }
+      held = false;
+    });
+    g.setAttribute("aria-label", "Voice and speed. Grown-ups: press and hold, or activate with a keyboard.");
+  })();
+  $("sheetDone").addEventListener("click", closeSheet);
+  $("sheet").addEventListener("click", function (e) { if (e.target === $("sheet")) closeSheet(); });
+  $("sheet").addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeSheet(); return; }
+    if (e.key !== "Tab") return;
+    var f = [].slice.call($("sheet").querySelectorAll("select, input, button")).filter(function (x) { return !x.disabled; });
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  $("voice").addEventListener("change", function () {
+    var v = voices[$("voice").selectedIndex]; if (v) { prefs.voice = v.name; savePrefs(); speak("Hello, let's learn some sounds."); }
+  });
+  $("rate").addEventListener("input", function () { prefs.rate = parseFloat($("rate").value); $("ratev").textContent = prefs.rate.toFixed(2) + "×"; savePrefs(); });
+  $("rate").addEventListener("change", function () { speak("Hello, let's learn some sounds."); });
+  $("auto").addEventListener("change", function () { prefs.auto = $("auto").checked; savePrefs(); });
+  $("lq").addEventListener("change", function () { prefs.lq = $("lq").value; savePrefs(); });
+  $("lq").value = prefs.lq;
+  $("prev").addEventListener("change", function () { prefs.preview = $("prev").checked; savePrefs(); renderCover(); renderHome(); });
+  $("rate").value = prefs.rate; $("ratev").textContent = prefs.rate.toFixed(2) + "×"; $("auto").checked = prefs.auto; $("prev").checked = prefs.preview;
+  if (synth) { loadVoices(); try { synth.onvoiceschanged = loadVoices; } catch (e) {} }
+  else { $("voice").disabled = true; $("rate").disabled = true; $("vnote").textContent = "This browser has no built-in voice. Recorded sounds will still play."; }
+
+  $("ppIcon").innerHTML = pompomSVG(POM[0], 3);
+  $("ppIcon").style.display = "inline-flex";
+  $("ppIcon").firstChild.setAttribute("width", "34"); $("ppIcon").firstChild.setAttribute("height", "34");
+  renderHome();
+  renderCover();
+  show("cover");
+})();
+</script>
+
+<script>if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body>
+</html>
