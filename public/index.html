@@ -67,7 +67,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .grow { flex: 1; min-width: 0; }
 .pagetitle { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; text-wrap: balance; }
 .logo { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 0; font: 700 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; border-radius: 12px; min-height: 44px; }
-.logo svg { width: 36px; height: 36px; flex: none; }
+.logo img { width: 36px; height: 36px; flex: none; border-radius: 10px; }
+.coverlogo { display: block; margin: 0 auto; width: min(38vw, 150px); height: auto; }
 .logo:disabled { cursor: default; }
 .menu { position: absolute; top: 52px; right: 0; z-index: 25; min-width: 240px; display: flex; flex-direction: column; gap: 2px; padding: 8px; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; box-shadow: 0 6px 0 var(--line); }
 .menu button { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; padding: 8px 12px; border: 0; border-radius: 12px; background: none; text-align: left; font: 600 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; }
@@ -226,7 +227,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 <div class="app">
   <header class="top">
     <button class="logo" id="logo" type="button" aria-label="Dino Gang. Back to the wizards.">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="9,15 13,3 18,13" fill="#ffb21f"/><polygon points="16,12 21,1 26,11" fill="#ff8f4d"/><polygon points="23,11 28,3 31,14" fill="#ffb21f"/><path d="M5 25C5 15 13 11 22 11C31 11 36 17 36 25C36 33 30 37 22 37H12C8 37 5 31 5 25Z" fill="#34b56b" stroke="#228a4f" stroke-width="2"/><circle cx="27" cy="21" r="4" fill="#fff"/><circle cx="28" cy="21.5" r="2" fill="#272650"/><path d="M23 30Q28 33 33 29" fill="none" stroke="#272650" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="27" r="1.6" fill="#228a4f"/></svg>
+      <img src="icons/logo-head.png" alt="" width="36" height="36">
       <span>Dino Gang</span>
     </button>
     <span class="grow"></span>
@@ -241,6 +242,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   </header>
 
   <section id="cover" class="cover" style="display:flex;flex-direction:column;gap:18px">
+    <img class="coverlogo" src="icons/logo.png" alt="Dino Gang: a friendly green dinosaur waving" width="220" height="256">
     <h1 class="pagetitle">Pick a wizard</h1>
     <div class="wizlist" id="wizlist"></div>
   </section>
