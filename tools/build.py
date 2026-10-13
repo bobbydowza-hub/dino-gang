@@ -24,7 +24,7 @@ for i, s in enumerate(pack["sets"]):
         if c.get("t") == "number": c["n"] = k + 1
         cards.append(c)
     decks.append({"id": s["id"], "wiz": "language", "name": s["name"], "type": s["type"], "tint": 3,
-                  "ready": bool(s.get("ready")), "what": s["what"], "info": s["what"], "cards": cards})
+                  "ready": True, "what": s["what"], "info": s["what"], "cards": cards})
 for d, s in zip(decks, pack["sets"]):
     assert all(c["audio"]["en"] in [x[2:] for x in clips if x.startswith("l:")] and c["audio"]["es"] in [x[2:] for x in clips if x.startswith("l:")] for c in d["cards"]), d["id"]
 

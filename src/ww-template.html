@@ -265,7 +265,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <div class="vrow"><label for="voice">Voice</label><select id="voice"></select></div>
       <div class="vrow"><label for="rate">Speed</label><input id="rate" type="range" min="0.5" max="1.1" step="0.05" value="0.75"><output id="ratev" for="rate"></output></div>
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
-      <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being checked (preview, includes Language Wizards)</span></label>
+      <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Spanish questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
       <p class="vnote" id="vnote"></p>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
@@ -1012,7 +1012,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var WIZARDS = [
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
-    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: false }
+    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true }
   ];
   function wizReady(w) { return !!w.ready || (prefs.preview && w.id === "language"); }
   function renderCover() {
