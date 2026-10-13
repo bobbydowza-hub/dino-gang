@@ -269,7 +269,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <div class="vrow"><label for="theme">Colours</label><select id="theme"><option value="light">Light</option><option value="auto">Match this device</option><option value="dark">Dark</option></select></div>
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
-      <div class="vrow"><label for="lq">Spanish questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
+      <div class="vrow"><label for="lq">Language questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
       <p class="vnote" id="vnote"></p>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
       <button class="btn sky" id="sheetDone" type="button">Done</button>
@@ -419,14 +419,15 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   DECKS = DECKS.concat(NUMDECKS).concat(LANGDECKS);
   var POM = ["#ff5c93", "#ffc83d", "#2fd0c4", "#8c6bff", "#ff8f4d", "#6bd44a"];
   var KEY = "soundcards-progress-v1", PKEY = "soundcards-voice-v1";
-  var PPKEYS = { word: "soundcards-pompoms-v1", number: "dinogang-pompoms-number-v1", language: "dinogang-pompoms-language-v1" };
-  var progress = {}, ppStore = { word: 0, number: 0, language: 0 }, curWiz = "word", pompoms = 0;
+  var PPKEYS = { word: "soundcards-pompoms-v1", number: "dinogang-pompoms-number-v1", language: "dinogang-pompoms-language-v1", portuguese: "dinogang-pompoms-portuguese-v1" };
+  var progress = {}, ppStore = { word: 0, number: 0, language: 0, portuguese: 0 }, curWiz = "word", pompoms = 0;
   try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
   Object.keys(PPKEYS).forEach(function (w) { try { ppStore[w] = parseInt(localStorage.getItem(PPKEYS[w]) || "0", 10) || 0; } catch (e) {} });
   pompoms = ppStore.word;
   function save() { ppStore[curWiz] = pompoms; try { localStorage.setItem(KEY, JSON.stringify(progress)); Object.keys(PPKEYS).forEach(function (w) { localStorage.setItem(PPKEYS[w], String(ppStore[w])); }); } catch (e) {} }
   function setWiz(w) { ppStore[curWiz] = pompoms; curWiz = w; pompoms = ppStore[w] || 0; }
   function wizOf(d) { return d.wiz || "word"; }
+  function isLangD(d) { return d.wiz === "language" || d.wiz === "portuguese"; }
 
   var $ = function (id) { return document.getElementById(id); };
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -614,16 +615,17 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var cand = pool.filter(function (i) { return i !== curPat; });
     curPat = cand[Math.floor(Math.random() * cand.length)];
   }
+  function pieceId(id, c, langSpecific) { return langSpecific && c.lg === "pt" ? id + "-pt" : id; }
   function lc(id) { return CLIPS["l:" + id]; }
   function playLang(c) {
     var q = QPATS[curPat], u = [];
     function add(id) { var x = lc(id); if (x) u.push(x); }
     if (!flipped) {
-      add("q-open-0" + q.o);
-      add(c.audio[q.mid]);
-      if (q.e) add("q-end-0" + q.e);
+      add(pieceId("q-open-0" + q.o, c, q.o === 6));
+      add(q.mid === "es" ? c.audio.tl : c.audio.en);
+      if (q.e) add(pieceId("q-end-0" + q.e, c, q.e === 4));
     } else {
-      add(q.mid === "es" ? c.audio.en : c.audio.es);
+      add(q.mid === "es" ? c.audio.en : c.audio.tl);
     }
     if (u.length) playSeq(u);
   }
@@ -698,10 +700,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 
   function renderHome() {
     var h = "";
-    var isNum = curWiz === "number", isLang = curWiz === "language";
-    $("title").textContent = isLang ? "Language Wizards" : (isNum ? "Number Wizards" : "Word Wizards");
+    var isNum = curWiz === "number", isLang = curWiz === "language" || curWiz === "portuguese", lname = curWiz === "portuguese" ? "Portuguese" : "Spanish";
+    $("title").textContent = isLang ? (curWiz === "portuguese" ? "Portuguese Wizards" : "Language Wizards") : (isNum ? "Number Wizards" : "Word Wizards");
     $("tip").innerHTML = isLang
-      ? "<b>First Spanish:</b> a grown-up is beside the child. The question plays by itself; press the sound button to hear it again. Then tap the card to turn it over. Younger children listen and point. Older children say the Spanish word back. Progress and pompoms are saved on this device."
+      ? "<b>First " + lname + ":</b> a grown-up is beside the child. The question plays by itself; press the sound button to hear it again. Then tap the card to turn it over. Younger children listen and point. Older children say the " + lname + " word back. Progress and pompoms are saved on this device."
       : isNum
       ? "<b>Counting:</b> point to each one once (without tapping the screen) and say one number each. The last number says how many. Tap a card to turn it over. Progress and pompoms are saved on this device."
       : "<b>Saying sounds:</b> keep them short and crisp, \"sss\" and \"mmm\", not \"suh\" or \"muh\". Tap a card to turn it over. Progress and pompoms are saved on this device.";
@@ -805,28 +807,30 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var w = x0 - 22, lbl = n === 1 ? "1 finger up" : n + " fingers up";
     return '<svg class="fing" viewBox="-2 -2 ' + (w + 4) + ' 92" style="width:min(100%,' + Math.round((w + 4) * 2.1) + 'px)" role="img" aria-label="' + lbl + '">' + out + "</svg>";
   }
-  var SWATCH = { rojo: "#E53935", azul: "#1E88E5", verde: "#43A047", amarillo: "#FDD835", rosa: "#EC407A", naranja: "#FB8C00" };
+  var SWATCH = { red: "#E53935", blue: "#1E88E5", green: "#43A047", yellow: "#FDD835", pink: "#EC407A", orange: "#FB8C00" };
   function langArt(c) {
     if (c.video) {
       if (reduce) return '<img class="lpic" src="' + esc(c.poster) + '" alt="Picture for ' + esc(c.en) + '" width="540" height="540">';
       return '<div class="vwrap"><video class="lvid" autoplay loop playsinline muted preload="auto" poster="' + esc(c.poster) + '" src="' + esc(c.video) + '" aria-label="Short picture clip for ' + esc(c.en) + '."></video></div>';
     }
-    if (c.t === "adj" && SWATCH[c.es]) return '<div class="swatch" style="background:' + SWATCH[c.es] + '" role="img" aria-label="' + esc(c.en) + ' colour"></div>';
+    if (c.t === "adj" && SWATCH[c.en]) return '<div class="swatch" style="background:' + SWATCH[c.en] + '" role="img" aria-label="' + esc(c.en) + ' colour"></div>';
     if (c.t === "number") { var n = c.n; return blocksSVG([nbGroup({ n: n, blocks: rowsFor(n), col: NUMCOL[n] })], blocksAlt(n)); }
     return '<div class="pic" role="img" aria-label="' + esc(c.en) + '">' + c.art + "</div>";
   }
   var QOPEN = ["", "What does", "Listen.", "Do you know what", "Can you say", "How do you say", "What's the Spanish for", "Let's try saying"];
+  var LNAME = { es: "Spanish", pt: "Portuguese" };
   var QEND = ["", "mean in English?", "What's that in English?", "means?", "in Spanish?"];
+  function langWord(s, c) { return s.replace("Spanish", LNAME[c.lg] || "Spanish"); }
   function qText(c) {
-    var q = QPATS[curPat], w = "\u201c" + (q.mid === "es" ? c.es : c.en) + "\u201d" + (q.o === 2 ? "." : "");
-    if (q.mid === "en" && q.o === 7) return QOPEN[7] + " " + w + " in Spanish.";
-    return QOPEN[q.o] + " " + w + (q.e ? " " + QEND[q.e] : "?");
+    var q = QPATS[curPat], w = "\u201c" + (q.mid === "es" ? c.tl : c.en) + "\u201d" + (q.o === 2 ? "." : "");
+    if (q.mid === "en" && q.o === 7) return QOPEN[7] + " " + w + " in " + (LNAME[c.lg] || "Spanish") + ".";
+    return langWord(QOPEN[q.o], c) + " " + w + (q.e ? " " + langWord(QEND[q.e], c) : "?");
   }
   function langFront(d, c) {
     return langArt(c) + '<div class="lq">' + esc(qText(c)) + '</div><span class="tapnote">Tap to turn over</span>';
   }
   function langBack(d, c) {
-    var h = '<div class="big word lw">' + esc(c.es) + "</div>";
+    var h = '<div class="big word lw">' + esc(c.tl) + "</div>";
     h += '<div class="mn cp">Say it like: <b>' + esc(c.p) + "</b></div>";
     h += '<div class="mn">' + esc(c.en) + "</div>";
     if (c.pron) h += '<div class="tipline">' + esc(c.pron) + "</div>";
@@ -859,7 +863,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   }
   function frontHtml(d, c) {
     if (wizOf(d) === "number") return numFront(d, c);
-    if (wizOf(d) === "language") return langFront(d, c);
+    if (isLangD(d)) return langFront(d, c);
     var h = '<div class="big' + (d.type === "tricky" ? " word" : "") + '">' + esc(c.g) + "</div>";
     if (c.hint) h += '<div class="hint">' + esc(c.hint) + "</div>";
     if (d.type === "alt") h += '<div class="hint">How else can we write this sound?</div>';
@@ -867,7 +871,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   }
   function backHtml(d, c) {
     if (wizOf(d) === "number") return numBack(d, c);
-    if (wizOf(d) === "language") return langBack(d, c);
+    if (isLangD(d)) return langBack(d, c);
     var h = "";
     if (d.type === "sound") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
@@ -898,7 +902,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function renderCard() {
     var d = deck(), c = curCard();
     flipped = false; answered = false;
-    if (wizOf(d) === "language") pickPat();
+    if (isLangD(d)) pickPat();
     $("card").classList.remove("flipped");
     $("front").innerHTML = frontHtml(d, c);
     $("backface").innerHTML = backHtml(d, c);
@@ -907,7 +911,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var pct = Math.round(pos / queue.length * 100);
     $("progFill").style.width = Math.max(pct, 4) + "%";
     $("prog").setAttribute("aria-valuenow", pct);
-    var isNum = wizOf(d) === "number", isLang = wizOf(d) === "language";
+    var isNum = wizOf(d) === "number", isLang = isLangD(d);
     $("hearSound").hidden = d.type === "tricky";
     $("hearSound").lastChild.textContent = isLang ? "Hear the question again" : (isNum ? "Listen to the answer" : "Sound");
     $("hearSound").style.visibility = isNum ? "hidden" : "";
@@ -919,7 +923,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 
   function cardLabel(d, c) {
     if (flipped) return [].filter.call($("backface").children, function (e) { return e.getAttribute("aria-hidden") !== "true" && e.textContent.trim(); }).map(function (e) { return e.textContent.trim().replace(/[.!?]$/, ""); }).join(". ") + ". Tap to turn back.";
-    if (!c.g) return (c.es ? "Spanish card" : "Number card") + ". Tap to turn over.";
+    if (!c.g) return (c.tl ? "Language card" : "Number card") + ". Tap to turn over.";
     return "Card " + c.g + (c.hint ? " (" + c.hint + ")" : "") + ". Tap to turn over.";
   }
   function setFaces() {
@@ -935,10 +939,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("card").classList.toggle("flipped", flipped);
     renderDock(); keepFocus(was); setFaces();
     if (wizOf(deck()) === "number") $("hearSound").style.visibility = flipped ? "" : "hidden";
-    if (wizOf(deck()) === "language") $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question again";
+    if (isLangD(deck())) $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question again";
     if (flipped) say($("card").getAttribute("aria-label"));
     lockFor(650);
-    if (flipped && wizOf(deck()) === "language") { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (wizOf(d) === "language") playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
+    if (flipped && isLangD(deck())) { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (isLangD(d)) playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
   }
 
   function flyPompom() {
@@ -1016,9 +1020,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var WIZARDS = [
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
-    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true }
+    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
+    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: false }
   ];
-  function wizReady(w) { return !!w.ready || (prefs.preview && w.id === "language"); }
+  function wizReady(w) { return !!w.ready || (prefs.preview && w.id === "portuguese"); }
   function renderCover() {
     var h = "";
     WIZARDS.forEach(function (w, i) {
@@ -1067,7 +1072,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("menu").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b && !b.disabled) { closeMenu(); openWizard(b.getAttribute("data-w")); } });
   document.addEventListener("click", function (e) { if (!$("menu").hidden && !e.target.closest("#menu, #menuBtn")) closeMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("menu").hidden) { closeMenu(); $("menuBtn").focus({ preventScroll: true }); } });
-  $("hearSound").addEventListener("click", function () { if (wizOf(deck()) === "language") playLang(curCard()); else playSound(curCard()); });
+  $("hearSound").addEventListener("click", function () { if (isLangD(deck())) playLang(curCard()); else playSound(curCard()); });
   $("front").addEventListener("click", function (e) { if (e.target.closest(".vwrap")) e.stopPropagation(); });
   $("hearWord").addEventListener("click", function () { playWord(deck(), curCard()); });
   document.addEventListener("keydown", function (e) {
@@ -1076,7 +1081,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   });
   $("clear").addEventListener("click", function () {
     if (!armed) { armed = true; $("clear").textContent = "Tap again to clear everything"; setTimeout(function () { armed = false; $("clear").textContent = "Clear all progress and pompoms"; }, 4000); return; }
-    progress = {}; pompoms = 0; ppStore = { word: 0, number: 0, language: 0 }; save(); armed = false; $("clear").textContent = "Clear all progress and pompoms"; renderHome();
+    progress = {}; pompoms = 0; ppStore = { word: 0, number: 0, language: 0, portuguese: 0 }; save(); armed = false; $("clear").textContent = "Clear all progress and pompoms"; renderHome();
   });
 
   function openSheet() { $("sheet").hidden = false; $("sheetDone").focus(); }
