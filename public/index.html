@@ -230,6 +230,24 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .lvid, .lpic { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lpic { width: min(86%, 300px); height: auto; aspect-ratio: 1; border-radius: 22px; border: 3px solid var(--outline); }
 .lq { font-family: var(--font-card); font-weight: 600; font-size: 1.3rem; text-align: center; text-wrap: balance; max-width: 90%; }
+.zh { font-size: 1.15rem; margin: 6px 0 0; }
+.zgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+.ztile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 96px; padding: 8px; border: 2px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: 0 4px 0 var(--line); color: var(--ink); font: inherit; cursor: pointer; }
+.ztile .za { font-size: 2.1rem; line-height: 1.1; }
+.ztile .zn { font-family: var(--font-card); font-weight: 700; font-size: 2.2rem; line-height: 1.1; }
+.ztile .zsw { width: 38px; height: 38px; border-radius: 12px; border: 2px solid var(--outline); }
+.ztile .zw { font-family: var(--font-ui); font-weight: 600; font-size: 0.85rem; text-align: center; }
+.zart { display: flex; justify-content: center; align-items: center; min-height: 150px; }
+.zart .pic { font-size: clamp(4rem, 22vw, 6rem); }
+.zart .swatch { width: min(40%, 150px); }
+.zrow { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 64px; padding: 10px 16px; border: 2px solid var(--line); border-radius: 20px; color: var(--ink); font: inherit; text-align: left; cursor: pointer; box-shadow: 0 4px 0 var(--line); }
+.zrow.z1 { background: var(--t2); } .zrow.z2 { background: var(--t1); } .zrow.z3 { background: var(--t3); }
+.zrow .zi { width: 30px; height: 30px; flex: none; } .zrow .zi svg { width: 100%; height: 100%; }
+.zrow .zt { display: flex; flex-direction: column; min-width: 0; }
+.zrow b { font-family: var(--font-card); font-size: 1.7rem; line-height: 1.15; overflow-wrap: anywhere; }
+.zrow small { font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink-soft); }
+.zbar { display: flex; gap: 10px; justify-content: space-between; }
+.zbar .btn { flex: 1; }
 .big.lw { font-size: clamp(3rem, 15vw, 5rem); }
 .mn.cp b { color: var(--ink); font-weight: 600; }
 </style>
@@ -288,6 +306,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     </div>
     <div class="dock" id="dock"></div>
   </section>
+
+  <section id="zone" hidden class="zone" style="display:flex;flex-direction:column;gap:16px"></section>
 
   <section id="summary" hidden class="sum"></section>
 
@@ -525,7 +545,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       return true;
     } catch (e) { return false; }
   }
-  function playSeq(uris) {
+  function playSeq(uris, gap) {
     try {
       if (synth) { seqToken++; synth.cancel(); }
       if (lastMaster) { lastMaster.gain.setValueAtTime(0, 0); }
@@ -534,7 +554,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       (function next() {
         if (tok !== clipTok || i >= uris.length) return;
         var a = new Audio(uris[i++]); clipEl = a;
-        a.onended = function () { setTimeout(next, 160); };
+        a.onended = function () { setTimeout(next, gap || 160); };
         a.onerror = next;
         var pr = a.play(); if (pr && pr.catch) pr.catch(function () {});
       })();
@@ -701,7 +721,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("home").hidden = which !== "home";
     $("session").hidden = which !== "session";
     $("summary").hidden = which !== "summary";
-    $("ppTotal").hidden = which === "cover";
+    $("zone").hidden = which !== "zone";
+    $("ppTotal").hidden = which === "cover" || which === "zone";
     $("menuBtn").hidden = which === "session";
     $("logo").disabled = which === "session";
     closeMenu();
@@ -1047,11 +1068,69 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       (function (e) { setTimeout(function () { e.remove(); }, 4800); })(el);
     }
   }
+  // ---- Language Zone: hear any word in English, Spanish and Portuguese. No scores, no pompoms. ----
+  var ZSETS = { l1: "Hello and goodbye", l3: "Colours", l7: "Numbers 1 to 10", l8: "Short phrases" };
+  var zoneIdx = -1, ZWORDS = null;
+  function zoneWords() {
+    if (ZWORDS) return ZWORDS;
+    ZWORDS = [];
+    DECKS.forEach(function (d) {
+      if (d.lg !== "es") return;
+      var pt = DECKS.filter(function (x) { return x.id === "pt-" + d.id; })[0];
+      if (!pt) return;
+      d.cards.forEach(function (c, k) {
+        var q = pt.cards[k];
+        ZWORDS.push({ set: d.id, c: c, en: c.en, es: c.tl, pt: q.tl, esP: c.p, ptP: q.p, aen: c.audio.en, aes: c.audio.tl, apt: q.audio.tl });
+      });
+    });
+    return ZWORDS;
+  }
+  function zoneSmall(w) {
+    var c = w.c;
+    if (c.t === "adj" && SWATCH[c.en]) return '<span class="zsw" style="background:' + SWATCH[c.en] + '"></span>';
+    if (c.t === "number") return '<span class="zn">' + c.n + "</span>";
+    return '<span class="za">' + c.art + "</span>";
+  }
+  var SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>';
+  function renderZone() {
+    var ws = zoneWords(), h = "";
+    if (zoneIdx < 0) {
+      h += '<h1 class="pagetitle">Language Zone</h1><p class="lead">Tap a picture to hear the word in English, Spanish and Portuguese.</p>';
+      var last = "";
+      ws.forEach(function (w, i) {
+        if (w.set !== last) { if (last) h += "</div>"; last = w.set; h += '<h2 class="zh">' + esc(ZSETS[w.set]) + '</h2><div class="zgrid">'; }
+        h += '<button type="button" class="ztile" data-z="' + i + '" aria-label="' + esc(w.en) + ', in English, Spanish and Portuguese">' + zoneSmall(w) + '<span class="zw">' + esc(w.en) + "</span></button>";
+      });
+      h += "</div>";
+    } else {
+      var w = ws[zoneIdx], n = ws.length;
+      h += '<div class="zbar"><button type="button" class="btn sky" id="zBack">All words</button></div>';
+      h += '<div class="zart">' + langArt(Object.assign({}, w.c, { poster: w.c.poster, video: w.c.video })) + "</div>";
+      h += '<button type="button" class="zrow z1" data-zl="en"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.en) + '</b><small>English</small></span></button>';
+      h += '<button type="button" class="zrow z2" data-zl="es"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.es) + '</b><small>Español · say it like ' + esc(w.esP) + '</small></span></button>';
+      h += '<button type="button" class="zrow z3" data-zl="pt"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.pt) + '</b><small>Português · say it like ' + esc(w.ptP) + '</small></span></button>';
+      h += '<div class="zbar"><button type="button" class="btn warn" id="zPrev"' + (zoneIdx === 0 ? " disabled" : "") + '>Back</button><button type="button" class="btn good" id="zAll">Play all</button><button type="button" class="btn warn" id="zNext"' + (zoneIdx === n - 1 ? " disabled" : "") + '>Next</button></div>';
+    }
+    $("zone").innerHTML = h;
+    window.scrollTo(0, 0);
+  }
+  function zoneAll() { var w = zoneWords()[zoneIdx], u = []; [w.aen, w.aes, w.apt].forEach(function (id) { var x = lc(id); if (x) u.push(x); }); if (u.length) playSeq(u, 450); }
+  function zoneOne(l) { var w = zoneWords()[zoneIdx], x = lc(l === "en" ? w.aen : l === "es" ? w.aes : w.apt); if (x) playSeq([x]); }
+  $("zone").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.z !== undefined) { zoneIdx = parseInt(b.dataset.z, 10); renderZone(); setTimeout(zoneAll, 250); }
+    else if (b.dataset.zl) zoneOne(b.dataset.zl);
+    else if (b.id === "zBack") { var k = zoneIdx; zoneIdx = -1; if (clipEl) clipEl.pause(); clipTok++; renderZone(); var t = $("zone").querySelector('[data-z="' + k + '"]'); if (t) t.focus({ preventScroll: true }); }
+    else if (b.id === "zAll") zoneAll();
+    else if (b.id === "zPrev" && zoneIdx > 0) { zoneIdx--; renderZone(); setTimeout(zoneAll, 250); }
+    else if (b.id === "zNext" && zoneIdx < zoneWords().length - 1) { zoneIdx++; renderZone(); setTimeout(zoneAll, 250); }
+  });
   var WIZARDS = [
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
     { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
-    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: true }
+    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: true },
+    { id: "zone", name: "Language Zone", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
   ];
   function wizReady(w) { return !!w.ready || false; }
   function renderCover() {
@@ -1073,7 +1152,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     });
     $("menu").innerHTML = m;
   }
-  function openWizard(id) { var w = WIZARDS.filter(function (x) { return x.id === id; })[0]; if (!w || !wizReady(w)) return; setWiz(id); renderCover(); goHome(); }
+  function openWizard(id) { var w = WIZARDS.filter(function (x) { return x.id === id; })[0]; if (!w || !wizReady(w)) return; if (id === "zone") { zoneIdx = -1; renderZone(); show("zone"); return; } setWiz(id); renderCover(); goHome(); }
   function goCover() { clearTimeout(fbTimer); answered = false; show("cover"); }
   function closeMenu() { var mn = $("menu"); if (mn && !mn.hidden) { mn.hidden = true; $("menuBtn").setAttribute("aria-expanded", "false"); } }
   function goHome() { clearTimeout(fbTimer); answered = false; renderHome(); show("home"); }
