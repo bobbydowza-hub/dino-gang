@@ -934,7 +934,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (wizOf(deck()) === "language") $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question again";
     if (flipped) say($("card").getAttribute("aria-label"));
     lockFor(650);
-    if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (wizOf(d) === "language") playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
+    if (flipped && wizOf(deck()) === "language") { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (wizOf(d) === "language") playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
   }
 
   function flyPompom() {
