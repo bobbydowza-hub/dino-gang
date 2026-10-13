@@ -1021,9 +1021,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
     { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
-    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: false }
+    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: true }
   ];
-  function wizReady(w) { return !!w.ready || (prefs.preview && w.id === "portuguese"); }
+  function wizReady(w) { return !!w.ready || false; }
   function renderCover() {
     var h = "";
     WIZARDS.forEach(function (w, i) {

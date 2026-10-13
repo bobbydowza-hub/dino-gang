@@ -14,7 +14,7 @@ for lg in ("en", "es", "pt"):
             if fn.endswith(".mp3"): clips["l:" + fn[:-4]] = "audio/lang/%s/%s" % (lg, fn)
 
 decks = []
-WIZ = {"es": ("language", True), "pt": ("portuguese", False)}
+WIZ = {"es": ("language", True), "pt": ("portuguese", True)}
 for lg in ("es", "pt"):
     pk = json.load(open(os.path.join(R, "src/language-wizards-%s-pack.json" % lg), encoding="utf-8"))
     wiz, live = WIZ[lg]
@@ -52,9 +52,9 @@ for w in (400, 700):
 head = ('<!doctype html>\n<html lang="en-GB">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="color-scheme" content="light dark">\n<meta name="theme-color" content="#ff5c93">\n'
-        '<title>Dino Gang</title>\n<meta name="description" content="Little learning games for ages 3 to 6: phonics, numbers and first Spanish, played with a grown-up. No accounts, no ads.">\n'
+        '<title>Dino Gang</title>\n<meta name="description" content="Little learning games for ages 3 to 6: phonics, numbers and first Spanish and Portuguese, played with a grown-up. No accounts, no ads.">\n'
         '<meta property="og:type" content="website">\n<meta property="og:site_name" content="Dino Gang">\n<meta property="og:title" content="Dino Gang">\n'
-        '<meta property="og:description" content="Little learning games for ages 3 to 6: phonics, numbers and first Spanish, played with a grown-up.">\n'
+        '<meta property="og:description" content="Little learning games for ages 3 to 6: phonics, numbers and first Spanish and Portuguese, played with a grown-up.">\n'
         '<meta property="og:url" content="https://dinogang.netlify.app/">\n<meta property="og:image" content="https://dinogang.netlify.app/og-image.png">\n'
         '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Dino Gang: a friendly green dinosaur waving">\n'
         '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="https://dinogang.netlify.app/og-image.png">\n'

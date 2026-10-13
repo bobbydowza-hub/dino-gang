@@ -4,7 +4,9 @@ Little learning games for ages 3 to 6, played with a grown-up beside the child.
 
 - **Word Wizards**: phonics sounds, spellings and tricky words.
 - **Number Wizards**: counting, seeing numbers, number bonds.
-- **Language Wizards**: first Spanish (Spain). Live. A fluent-speaker check of the Spanish is still outstanding.
+- **Language Wizards**: first Spanish (Spain). Live. A fluent-speaker check is still outstanding.
+
+- **Portuguese Wizards**: first European Portuguese. Live. Audio is text-to-speech; a fluent-speaker check is still outstanding.
 
 No accounts, no tracking, no ads. Progress and pompoms stay on the device. Works offline after the first visit.
 
