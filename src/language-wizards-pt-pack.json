@@ -27,7 +27,7 @@
      "t": "greeting",
      "audio": {
       "en": "l1-hola-en",
-      "pt": "l1-olá-pt"
+      "pt": "l1-ola-pt"
      },
      "video": "l1-hola-vid.mp4"
     },
@@ -378,7 +378,7 @@
  ],
  "audioIds": [
   "l1-hola-en",
-  "l1-olá-pt",
+  "l1-ola-pt",
   "l1-adios-en",
   "l1-adeus-pt",
   "l1-si-en",
