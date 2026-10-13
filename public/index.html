@@ -216,6 +216,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .vwrap { width: min(86%, 300px); aspect-ratio: 1; border-radius: 22px; overflow: hidden; border: 3px solid var(--outline); background: #000; }
 .lvid, .lpic { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lpic { width: min(86%, 300px); height: auto; aspect-ratio: 1; border-radius: 22px; border: 3px solid var(--outline); }
+.lq { font-family: var(--font-card); font-weight: 600; font-size: 1.3rem; text-align: center; text-wrap: balance; max-width: 90%; }
 .big.lw { font-size: clamp(3rem, 15vw, 5rem); }
 .mn.cp b { color: var(--ink); font-weight: 600; }
 </style>
@@ -714,7 +715,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var isNum = curWiz === "number", isLang = curWiz === "language";
     $("title").textContent = isLang ? "Language Wizards" : (isNum ? "Number Wizards" : "Word Wizards");
     $("tip").innerHTML = isLang
-      ? "<b>First Spanish:</b> a grown-up is beside the child. Press the sound button, listen, then tap the card to turn it over. Younger children listen and point. Older children say the Spanish word back. Progress and pompoms are saved on this device."
+      ? "<b>First Spanish:</b> a grown-up is beside the child. The question plays by itself; press the sound button to hear it again. Then tap the card to turn it over. Younger children listen and point. Older children say the Spanish word back. Progress and pompoms are saved on this device."
       : isNum
       ? "<b>Counting:</b> point to each one once (without tapping the screen) and say one number each. The last number says how many. Tap a card to turn it over. Progress and pompoms are saved on this device."
       : "<b>Saying sounds:</b> keep them short and crisp, \"sss\" and \"mmm\", not \"suh\" or \"muh\". Tap a card to turn it over. Progress and pompoms are saved on this device.";
@@ -822,14 +823,21 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function langArt(c) {
     if (c.video) {
       if (reduce) return '<img class="lpic" src="' + esc(c.poster) + '" alt="Picture for ' + esc(c.en) + '" width="540" height="540">';
-      return '<div class="vwrap"><video class="lvid" controls playsinline muted preload="none" poster="' + esc(c.poster) + '" src="' + esc(c.video) + '" aria-label="Short picture clip for ' + esc(c.en) + '. Press play."></video></div>';
+      return '<div class="vwrap"><video class="lvid" autoplay loop playsinline muted preload="auto" poster="' + esc(c.poster) + '" src="' + esc(c.video) + '" aria-label="Short picture clip for ' + esc(c.en) + '."></video></div>';
     }
     if (c.t === "adj" && SWATCH[c.es]) return '<div class="swatch" style="background:' + SWATCH[c.es] + '" role="img" aria-label="' + esc(c.en) + ' colour"></div>';
     if (c.t === "number") { var n = c.n; return blocksSVG([nbGroup({ n: n, blocks: rowsFor(n), col: NUMCOL[n] })], blocksAlt(n)); }
     return '<div class="pic" role="img" aria-label="' + esc(c.en) + '">' + c.art + "</div>";
   }
+  var QOPEN = ["", "What does", "Listen.", "Do you know what", "Can you say", "How do you say", "What's the Spanish for", "Let's try saying"];
+  var QEND = ["", "mean in English?", "What's that in English?", "means?", "in Spanish?"];
+  function qText(c) {
+    var q = QPATS[curPat], w = c.mid_ || (q.mid === "es" ? c.es : c.en);
+    if (q.mid === "en" && q.o === 7) return QOPEN[7] + " " + w + " in Spanish.";
+    return QOPEN[q.o] + " " + w + (q.e ? " " + QEND[q.e] : "?");
+  }
   function langFront(d, c) {
-    return langArt(c) + '<div class="hint">Press the sound button to hear the question.</div><span class="tapnote">Tap to turn over</span>';
+    return langArt(c) + '<div class="lq">' + esc(qText(c)) + '</div><span class="tapnote">Tap to turn over</span>';
   }
   function langBack(d, c) {
     var h = '<div class="big word lw">' + esc(c.es) + "</div>";
@@ -904,6 +912,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function renderCard() {
     var d = deck(), c = curCard();
     flipped = false; answered = false;
+    if (wizOf(d) === "language") pickPat();
     $("card").classList.remove("flipped");
     $("front").innerHTML = frontHtml(d, c);
     $("backface").innerHTML = backHtml(d, c);
@@ -913,12 +922,12 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("progFill").style.width = Math.max(pct, 4) + "%";
     $("prog").setAttribute("aria-valuenow", pct);
     var isNum = wizOf(d) === "number", isLang = wizOf(d) === "language";
-    if (isLang) pickPat();
     $("hearSound").hidden = d.type === "tricky";
-    $("hearSound").lastChild.textContent = isLang ? "Hear the question" : (isNum ? "Listen to the answer" : "Sound");
+    $("hearSound").lastChild.textContent = isLang ? "Hear the question again" : (isNum ? "Listen to the answer" : "Sound");
     $("hearSound").style.visibility = isNum ? "hidden" : "";
     $("hearWord").hidden = d.type === "alt" || isNum || isLang;
     renderDock();
+    if (isLang) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c) playLang(c); }, 450);
     if (document.activeElement === document.body || !document.activeElement) $("card").focus({ preventScroll: true });
   }
 
@@ -940,7 +949,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("card").classList.toggle("flipped", flipped);
     renderDock(); keepFocus(was); setFaces();
     if (wizOf(deck()) === "number") $("hearSound").style.visibility = flipped ? "" : "hidden";
-    if (wizOf(deck()) === "language") $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question";
+    if (wizOf(deck()) === "language") $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question again";
     if (flipped) say($("card").getAttribute("aria-label"));
     lockFor(650);
     if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (wizOf(d) === "language") playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
