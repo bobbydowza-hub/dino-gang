@@ -59,7 +59,7 @@ head = ('<!doctype html>\n<html lang="en-GB">\n<head>\n<meta charset="utf-8">\n'
         '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Dino Gang: a friendly green dinosaur waving">\n'
         '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="https://dinogang.netlify.app/og-image-v3.png">\n'
         '<link rel="manifest" href="manifest.webmanifest">\n'
-        '<link rel="icon" href="icons/icon-192.png">\n<link rel="apple-touch-icon" href="icons/icon-192.png">\n'
+        '<link rel="icon" href="icons/icon-192.png">\n<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">\n'
         '<style>\n' + faces + '</style>\n')
 sw_reg = ("<script>if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',function(){"
           "navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>\n")
