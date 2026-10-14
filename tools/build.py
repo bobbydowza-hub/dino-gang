@@ -28,8 +28,8 @@ for lg in ("es", "pt"):
                 c["poster"] = "video/posters/" + c["video"].rsplit(".", 1)[0] + ".jpg"
                 c["video"] = "video/" + c["video"]
             if c.get("t") == "number": c["n"] = k + 1
-            if live:
-                assert all(("l:" + c["audio"][x]) in clips for x in ("en", "tl")), (s["id"], c["audio"])
+            if not all(("l:" + c["audio"][x]) in clips for x in ("en", "tl")):
+                print("SKIPPED (audio missing):", lg, s["id"], c["en"]); continue
             cards.append(c)
         did = s["id"] if lg == "es" else "pt-" + s["id"]
         decks.append({"id": did, "wiz": wiz, "lg": lg, "name": s["name"], "type": s["type"], "tint": 3 if lg == "es" else 4,

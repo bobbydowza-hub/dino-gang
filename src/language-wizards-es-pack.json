@@ -1,448 +1,463 @@
 {
-  "lang": "es",
-  "name": "Español",
-  "icon": "💬",
-  "variant": {
-    "decided": true,
-    "value": "es-ES",
-    "audioRoute": "native-speaker",
-    "nativeCheck": null
-  },
-  "sets": [
+ "lang": "es",
+ "name": "Español",
+ "icon": "💬",
+ "variant": {
+  "decided": true,
+  "value": "es-ES",
+  "audioRoute": "native-speaker",
+  "nativeCheck": null
+ },
+ "sets": [
+  {
+   "id": "l1",
+   "lang": "es",
+   "name": "Hola y adiós",
+   "type": "vocab",
+   "ready": false,
+   "what": "Greetings, yes, no, thank you",
+   "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
+   "cards": [
     {
-      "id": "l1",
-      "lang": "es",
-      "name": "Hola y adiós",
-      "type": "vocab",
-      "ready": false,
-      "what": "Greetings, yes, no, thank you",
-      "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
-      "cards": [
-        {
-          "es": "hola",
-          "en": "hello",
-          "art": "😀👋",
-          "p": "OH-lah",
-          "pron": "h is silent",
-          "t": "greeting",
-          "audio": {
-            "en": "l1-hola-en",
-            "es": "l1-hola-es"
-          },
-          "video": "l1-hola-vid.mp4"
-        },
-        {
-          "es": "adiós",
-          "en": "goodbye",
-          "art": "🚌👋",
-          "p": "ah-DYOHSS",
-          "pron": "stress the end",
-          "t": "greeting",
-          "audio": {
-            "en": "l1-adios-en",
-            "es": "l1-adios-es"
-          },
-          "video": "l1-adios-vid.mp4"
-        },
-        {
-          "es": "sí",
-          "en": "yes",
-          "art": "👍",
-          "p": "SEE",
-          "pron": "accent mark = just 'see'",
-          "t": "word",
-          "audio": {
-            "en": "l1-si-en",
-            "es": "l1-si-es"
-          },
-          "video": "l1-si-vid.mp4"
-        },
-        {
-          "es": "no",
-          "en": "no",
-          "art": "🙅",
-          "p": "NOH",
-          "pron": "same as English, longer o",
-          "t": "word",
-          "audio": {
-            "en": "l1-no-en",
-            "es": "l1-no-es"
-          },
-          "video": "l1-no-vid.mp4"
-        },
-        {
-          "es": "gracias",
-          "en": "thank you",
-          "art": "🎁",
-          "p": "GRAH-thyahss",
-          "pron": "th as in 'thin'",
-          "t": "phrase",
-          "audio": {
-            "en": "l1-gracias-en",
-            "es": "l1-gracias-es"
-          },
-          "video": "l1-gracias-vid.mp4"
-        }
-      ]
+     "es": "hola",
+     "en": "hello",
+     "art": "😀👋",
+     "p": "OH-lah",
+     "pron": "h is silent",
+     "t": "greeting",
+     "audio": {
+      "en": "l1-hola-en",
+      "es": "l1-hola-es"
+     },
+     "video": "l1-hola-vid.mp4"
     },
     {
-      "id": "l3",
-      "lang": "es",
-      "name": "Colores",
-      "type": "vocab",
-      "ready": false,
-      "what": "Primary colours plus a few",
-      "anchor": "EYFS Communication & Language: Speaking; Listening, Attention and Understanding",
-      "cards": [
-        {
-          "es": "rojo",
-          "en": "red",
-          "art": "🔴",
-          "p": "ROH-hoh",
-          "pron": "j = breathy h, like 'hot'",
-          "t": "adj",
-          "audio": {
-            "en": "l3-rojo-en",
-            "es": "l3-rojo-es"
-          }
-        },
-        {
-          "es": "azul",
-          "en": "blue",
-          "art": "🔵",
-          "p": "ah-THOOL",
-          "pron": "th as in 'thin'",
-          "t": "adj",
-          "audio": {
-            "en": "l3-azul-en",
-            "es": "l3-azul-es"
-          }
-        },
-        {
-          "es": "verde",
-          "en": "green",
-          "art": "🟢",
-          "p": "VEHR-deh",
-          "pron": "v sounds close to b",
-          "t": "adj",
-          "audio": {
-            "en": "l3-verde-en",
-            "es": "l3-verde-es"
-          }
-        },
-        {
-          "es": "amarillo",
-          "en": "yellow",
-          "art": "🟡",
-          "p": "ah-mah-REE-yoh",
-          "pron": "ll sounds like y",
-          "t": "adj",
-          "audio": {
-            "en": "l3-amarillo-en",
-            "es": "l3-amarillo-es"
-          }
-        },
-        {
-          "es": "rosa",
-          "en": "pink",
-          "art": "🩷",
-          "p": "ROH-sah",
-          "pron": "",
-          "t": "adj",
-          "audio": {
-            "en": "l3-rosa-en",
-            "es": "l3-rosa-es"
-          }
-        },
-        {
-          "es": "naranja",
-          "en": "orange",
-          "art": "🟠",
-          "p": "nah-RAHN-hah",
-          "pron": "j = breathy h",
-          "t": "adj",
-          "audio": {
-            "en": "l3-naranja-en",
-            "es": "l3-naranja-es"
-          }
-        }
-      ]
+     "es": "adiós",
+     "en": "goodbye",
+     "art": "🚌👋",
+     "p": "ah-DYOHSS",
+     "pron": "stress the end",
+     "t": "greeting",
+     "audio": {
+      "en": "l1-adios-en",
+      "es": "l1-adios-es"
+     },
+     "video": "l1-adios-vid.mp4"
     },
     {
-      "id": "l7",
-      "lang": "es",
-      "name": "Números 1 a 10",
-      "type": "vocab",
-      "ready": false,
-      "what": "Counting one to ten, linked to Number Wizards",
-      "anchor": "EYFS Communication & Language: Speaking; Mathematics: Number [Verify]",
-      "cards": [
-        {
-          "es": "uno",
-          "en": "one",
-          "art": "⭐",
-          "p": "OO-noh",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-uno-en",
-            "es": "l7-uno-es"
-          }
-        },
-        {
-          "es": "dos",
-          "en": "two",
-          "art": "⭐⭐",
-          "p": "DOHSS",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-dos-en",
-            "es": "l7-dos-es"
-          }
-        },
-        {
-          "es": "tres",
-          "en": "three",
-          "art": "⭐⭐⭐",
-          "p": "TRESS",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-tres-en",
-            "es": "l7-tres-es"
-          }
-        },
-        {
-          "es": "cuatro",
-          "en": "four",
-          "art": "⭐⭐⭐⭐",
-          "p": "KWAH-troh",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-cuatro-en",
-            "es": "l7-cuatro-es"
-          }
-        },
-        {
-          "es": "cinco",
-          "en": "five",
-          "art": "⭐⭐⭐⭐⭐",
-          "p": "THEEN-koh",
-          "pron": "th as in 'thin'",
-          "t": "number",
-          "audio": {
-            "en": "l7-cinco-en",
-            "es": "l7-cinco-es"
-          }
-        },
-        {
-          "es": "seis",
-          "en": "six",
-          "art": "⭐⭐⭐⭐⭐⭐",
-          "p": "SAYSS",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-seis-en",
-            "es": "l7-seis-es"
-          }
-        },
-        {
-          "es": "siete",
-          "en": "seven",
-          "art": "⭐⭐⭐⭐⭐⭐⭐",
-          "p": "SYEH-teh",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-siete-en",
-            "es": "l7-siete-es"
-          }
-        },
-        {
-          "es": "ocho",
-          "en": "eight",
-          "art": "⭐⭐⭐⭐⭐⭐⭐⭐",
-          "p": "OH-choh",
-          "pron": "ch as in 'chip'",
-          "t": "number",
-          "audio": {
-            "en": "l7-ocho-en",
-            "es": "l7-ocho-es"
-          }
-        },
-        {
-          "es": "nueve",
-          "en": "nine",
-          "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐",
-          "p": "NWEH-veh",
-          "pron": "",
-          "t": "number",
-          "audio": {
-            "en": "l7-nueve-en",
-            "es": "l7-nueve-es"
-          }
-        },
-        {
-          "es": "diez",
-          "en": "ten",
-          "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐",
-          "p": "DYETH",
-          "pron": "th as in 'thin'",
-          "t": "number",
-          "audio": {
-            "en": "l7-diez-en",
-            "es": "l7-diez-es"
-          }
-        }
-      ]
+     "es": "sí",
+     "en": "yes",
+     "art": "👍",
+     "p": "SEE",
+     "pron": "accent mark = just 'see'",
+     "t": "word",
+     "audio": {
+      "en": "l1-si-en",
+      "es": "l1-si-es"
+     },
+     "video": "l1-si-vid.mp4"
     },
     {
-      "id": "l8",
-      "lang": "es",
-      "name": "Frases cortas",
-      "type": "phrase",
-      "ready": false,
-      "what": "Short everyday phrases",
-      "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
-      "cards": [
-        {
-          "es": "buenos días",
-          "en": "good morning",
-          "art": "🌞",
-          "p": "BWEH-nohss DEE-ahss",
-          "pron": "",
-          "t": "phrase",
-          "audio": {
-            "en": "l8-buenos-dias-en",
-            "es": "l8-buenos-dias-es"
-          },
-          "video": "l8-buenos-dias-vid.mp4"
-        },
-        {
-          "es": "buenas noches",
-          "en": "good night",
-          "art": "🌙",
-          "p": "BWEH-nahss NOH-chehss",
-          "pron": "",
-          "t": "phrase",
-          "audio": {
-            "en": "l8-buenas-noches-en",
-            "es": "l8-buenas-noches-es"
-          },
-          "video": "l8-buenas-noches-vid.mp4"
-        },
-        {
-          "es": "por favor",
-          "en": "please",
-          "art": "🙏",
-          "p": "por fah-VOR",
-          "pron": "art needs testing",
-          "t": "phrase",
-          "audio": {
-            "en": "l8-por-favor-en",
-            "es": "l8-por-favor-es"
-          },
-          "video": "l8-por-favor-vid.mp4"
-        },
-        {
-          "es": "¿cómo estás?",
-          "en": "how are you?",
-          "art": "😊",
-          "p": "KOH-moh ehs-TAHSS",
-          "pron": "rising tone at the end",
-          "t": "phrase",
-          "audio": {
-            "en": "l8-como-estas-en",
-            "es": "l8-como-estas-es"
-          },
-          "video": "l8-como-estas-vid.mp4"
-        },
-        {
-          "es": "me llamo…",
-          "en": "my name is…",
-          "art": "🧒",
-          "p": "meh YAH-moh",
-          "pron": "ll sounds like y",
-          "t": "phrase",
-          "audio": {
-            "en": "l8-me-llamo-en",
-            "es": "l8-me-llamo-es"
-          },
-          "video": "l8-me-llamo-vid.mp4"
-        }
-      ]
+     "es": "no",
+     "en": "no",
+     "art": "🙅",
+     "p": "NOH",
+     "pron": "same as English, longer o",
+     "t": "word",
+     "audio": {
+      "en": "l1-no-en",
+      "es": "l1-no-es"
+     },
+     "video": "l1-no-vid.mp4"
+    },
+    {
+     "es": "gracias",
+     "en": "thank you",
+     "art": "🎁",
+     "p": "GRAH-thyahss",
+     "pron": "th as in 'thin'",
+     "t": "phrase",
+     "audio": {
+      "en": "l1-gracias-en",
+      "es": "l1-gracias-es"
+     },
+     "video": "l1-gracias-vid.mp4"
     }
-  ],
-  "audioIds": [
-    "l1-hola-en",
-    "l1-hola-es",
-    "l1-adios-en",
-    "l1-adios-es",
-    "l1-si-en",
-    "l1-si-es",
-    "l1-no-en",
-    "l1-no-es",
-    "l1-gracias-en",
-    "l1-gracias-es",
-    "l3-rojo-en",
-    "l3-rojo-es",
-    "l3-azul-en",
-    "l3-azul-es",
-    "l3-verde-en",
-    "l3-verde-es",
-    "l3-amarillo-en",
-    "l3-amarillo-es",
-    "l3-rosa-en",
-    "l3-rosa-es",
-    "l3-naranja-en",
-    "l3-naranja-es",
-    "l7-uno-en",
-    "l7-uno-es",
-    "l7-dos-en",
-    "l7-dos-es",
-    "l7-tres-en",
-    "l7-tres-es",
-    "l7-cuatro-en",
-    "l7-cuatro-es",
-    "l7-cinco-en",
-    "l7-cinco-es",
-    "l7-seis-en",
-    "l7-seis-es",
-    "l7-siete-en",
-    "l7-siete-es",
-    "l7-ocho-en",
-    "l7-ocho-es",
-    "l7-nueve-en",
-    "l7-nueve-es",
-    "l7-diez-en",
-    "l7-diez-es",
-    "l8-buenos-dias-en",
-    "l8-buenos-dias-es",
-    "l8-buenas-noches-en",
-    "l8-buenas-noches-es",
-    "l8-por-favor-en",
-    "l8-por-favor-es",
-    "l8-como-estas-en",
-    "l8-como-estas-es",
-    "l8-me-llamo-en",
-    "l8-me-llamo-es"
-  ],
-  "media": {
-    "video": {
-      "dir": "media/video",
-      "autoplay": false,
-      "muted": true,
-      "controls": true,
-      "note": "Originals 1080x1080 (16.3 MB total) in dir. Web copies 540x540, silent, in webDir for the single-file build. All clips 5.2 s, H.264, no audio track. Parent presses play.",
-      "webDir": "media/video-web"
-    }
+   ]
   },
-  "status": {
-    "nativeCheck": null,
-    "appDesignerCritique": "pending",
-    "ready": false
+  {
+   "id": "l3",
+   "lang": "es",
+   "name": "Colores",
+   "type": "vocab",
+   "ready": false,
+   "what": "Primary colours plus a few",
+   "anchor": "EYFS Communication & Language: Speaking; Listening, Attention and Understanding",
+   "cards": [
+    {
+     "es": "rojo",
+     "en": "red",
+     "art": "🔴",
+     "p": "ROH-hoh",
+     "pron": "j = breathy h, like 'hot'",
+     "t": "adj",
+     "audio": {
+      "en": "l3-rojo-en",
+      "es": "l3-rojo-es"
+     }
+    },
+    {
+     "es": "azul",
+     "en": "blue",
+     "art": "🔵",
+     "p": "ah-THOOL",
+     "pron": "th as in 'thin'",
+     "t": "adj",
+     "audio": {
+      "en": "l3-azul-en",
+      "es": "l3-azul-es"
+     }
+    },
+    {
+     "es": "verde",
+     "en": "green",
+     "art": "🟢",
+     "p": "VEHR-deh",
+     "pron": "v sounds close to b",
+     "t": "adj",
+     "audio": {
+      "en": "l3-verde-en",
+      "es": "l3-verde-es"
+     }
+    },
+    {
+     "es": "amarillo",
+     "en": "yellow",
+     "art": "🟡",
+     "p": "ah-mah-REE-yoh",
+     "pron": "ll sounds like y",
+     "t": "adj",
+     "audio": {
+      "en": "l3-amarillo-en",
+      "es": "l3-amarillo-es"
+     }
+    },
+    {
+     "es": "rosa",
+     "en": "pink",
+     "art": "🩷",
+     "p": "ROH-sah",
+     "pron": "",
+     "t": "adj",
+     "audio": {
+      "en": "l3-rosa-en",
+      "es": "l3-rosa-es"
+     }
+    },
+    {
+     "es": "naranja",
+     "en": "orange",
+     "art": "🟠",
+     "p": "nah-RAHN-hah",
+     "pron": "j = breathy h",
+     "t": "adj",
+     "audio": {
+      "en": "l3-naranja-en",
+      "es": "l3-naranja-es"
+     }
+    }
+   ]
+  },
+  {
+   "id": "l7",
+   "lang": "es",
+   "name": "Números 1 a 10",
+   "type": "vocab",
+   "ready": false,
+   "what": "Counting one to ten, linked to Number Wizards",
+   "anchor": "EYFS Communication & Language: Speaking; Mathematics: Number [Verify]",
+   "cards": [
+    {
+     "es": "uno",
+     "en": "one",
+     "art": "⭐",
+     "p": "OO-noh",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-uno-en",
+      "es": "l7-uno-es"
+     }
+    },
+    {
+     "es": "dos",
+     "en": "two",
+     "art": "⭐⭐",
+     "p": "DOHSS",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-dos-en",
+      "es": "l7-dos-es"
+     }
+    },
+    {
+     "es": "tres",
+     "en": "three",
+     "art": "⭐⭐⭐",
+     "p": "TRESS",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-tres-en",
+      "es": "l7-tres-es"
+     }
+    },
+    {
+     "es": "cuatro",
+     "en": "four",
+     "art": "⭐⭐⭐⭐",
+     "p": "KWAH-troh",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-cuatro-en",
+      "es": "l7-cuatro-es"
+     }
+    },
+    {
+     "es": "cinco",
+     "en": "five",
+     "art": "⭐⭐⭐⭐⭐",
+     "p": "THEEN-koh",
+     "pron": "th as in 'thin'",
+     "t": "number",
+     "audio": {
+      "en": "l7-cinco-en",
+      "es": "l7-cinco-es"
+     }
+    },
+    {
+     "es": "seis",
+     "en": "six",
+     "art": "⭐⭐⭐⭐⭐⭐",
+     "p": "SAYSS",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-seis-en",
+      "es": "l7-seis-es"
+     }
+    },
+    {
+     "es": "siete",
+     "en": "seven",
+     "art": "⭐⭐⭐⭐⭐⭐⭐",
+     "p": "SYEH-teh",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-siete-en",
+      "es": "l7-siete-es"
+     }
+    },
+    {
+     "es": "ocho",
+     "en": "eight",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "OH-choh",
+     "pron": "ch as in 'chip'",
+     "t": "number",
+     "audio": {
+      "en": "l7-ocho-en",
+      "es": "l7-ocho-es"
+     }
+    },
+    {
+     "es": "nueve",
+     "en": "nine",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "NWEH-veh",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-nueve-en",
+      "es": "l7-nueve-es"
+     }
+    },
+    {
+     "es": "diez",
+     "en": "ten",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "DYETH",
+     "pron": "th as in 'thin'",
+     "t": "number",
+     "audio": {
+      "en": "l7-diez-en",
+      "es": "l7-diez-es"
+     }
+    }
+   ]
+  },
+  {
+   "id": "l8",
+   "lang": "es",
+   "name": "Frases cortas",
+   "type": "phrase",
+   "ready": false,
+   "what": "Short everyday phrases",
+   "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
+   "cards": [
+    {
+     "es": "buenos días",
+     "en": "good morning",
+     "art": "🌞",
+     "p": "BWEH-nohss DEE-ahss",
+     "pron": "",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-buenos-dias-en",
+      "es": "l8-buenos-dias-es"
+     },
+     "video": "l8-buenos-dias-vid.mp4"
+    },
+    {
+     "es": "buenas tardes",
+     "en": "good afternoon",
+     "art": "🌤️",
+     "p": "BWEH-nahss TAR-dehss",
+     "pron": "",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-good-afternoon-en",
+      "es": "l8-buenas-tardes-es"
+     },
+     "video": "l8-good-afternoon-vid.mp4"
+    },
+    {
+     "es": "buenas noches",
+     "en": "good night",
+     "art": "🌙",
+     "p": "BWEH-nahss NOH-chehss",
+     "pron": "",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-buenas-noches-en",
+      "es": "l8-buenas-noches-es"
+     },
+     "video": "l8-buenas-noches-vid.mp4"
+    },
+    {
+     "es": "por favor",
+     "en": "please",
+     "art": "🙏",
+     "p": "por fah-VOR",
+     "pron": "art needs testing",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-por-favor-en",
+      "es": "l8-por-favor-es"
+     },
+     "video": "l8-por-favor-vid.mp4"
+    },
+    {
+     "es": "¿cómo estás?",
+     "en": "how are you?",
+     "art": "😊",
+     "p": "KOH-moh ehs-TAHSS",
+     "pron": "rising tone at the end",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-como-estas-en",
+      "es": "l8-como-estas-es"
+     },
+     "video": "l8-como-estas-vid.mp4"
+    },
+    {
+     "es": "me llamo…",
+     "en": "my name is…",
+     "art": "🧒",
+     "p": "meh YAH-moh",
+     "pron": "ll sounds like y",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-me-llamo-en",
+      "es": "l8-me-llamo-es"
+     },
+     "video": "l8-me-llamo-vid.mp4"
+    }
+   ]
   }
+ ],
+ "audioIds": [
+  "l1-hola-en",
+  "l1-hola-es",
+  "l1-adios-en",
+  "l1-adios-es",
+  "l1-si-en",
+  "l1-si-es",
+  "l1-no-en",
+  "l1-no-es",
+  "l1-gracias-en",
+  "l1-gracias-es",
+  "l3-rojo-en",
+  "l3-rojo-es",
+  "l3-azul-en",
+  "l3-azul-es",
+  "l3-verde-en",
+  "l3-verde-es",
+  "l3-amarillo-en",
+  "l3-amarillo-es",
+  "l3-rosa-en",
+  "l3-rosa-es",
+  "l3-naranja-en",
+  "l3-naranja-es",
+  "l7-uno-en",
+  "l7-uno-es",
+  "l7-dos-en",
+  "l7-dos-es",
+  "l7-tres-en",
+  "l7-tres-es",
+  "l7-cuatro-en",
+  "l7-cuatro-es",
+  "l7-cinco-en",
+  "l7-cinco-es",
+  "l7-seis-en",
+  "l7-seis-es",
+  "l7-siete-en",
+  "l7-siete-es",
+  "l7-ocho-en",
+  "l7-ocho-es",
+  "l7-nueve-en",
+  "l7-nueve-es",
+  "l7-diez-en",
+  "l7-diez-es",
+  "l8-buenos-dias-en",
+  "l8-buenos-dias-es",
+  "l8-buenas-noches-en",
+  "l8-buenas-noches-es",
+  "l8-por-favor-en",
+  "l8-por-favor-es",
+  "l8-como-estas-en",
+  "l8-como-estas-es",
+  "l8-me-llamo-en",
+  "l8-me-llamo-es",
+  "l8-good-afternoon-en",
+  "l8-buenas-tardes-es"
+ ],
+ "media": {
+  "video": {
+   "dir": "media/video",
+   "autoplay": false,
+   "muted": true,
+   "controls": true,
+   "note": "Originals 1080x1080 (16.3 MB total) in dir. Web copies 540x540, silent, in webDir for the single-file build. All clips 5.2 s, H.264, no audio track. Parent presses play.",
+   "webDir": "media/video-web"
+  }
+ },
+ "status": {
+  "nativeCheck": null,
+  "appDesignerCritique": "pending",
+  "ready": false
+ }
 }

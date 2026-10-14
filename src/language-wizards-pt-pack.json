@@ -322,6 +322,19 @@
      "video": "l8-buenos-dias-vid.mp4"
     },
     {
+     "pt": "boa tarde",
+     "en": "good afternoon",
+     "art": "🌤️",
+     "p": "BOH-ah TAHRD",
+     "pron": "the last e is almost silent",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-good-afternoon-en",
+      "pt": "l8-boa-tarde-pt"
+     },
+     "video": "l8-good-afternoon-vid.mp4"
+    },
+    {
      "pt": "boa noite",
      "en": "good night",
      "art": "🌙",
@@ -428,7 +441,9 @@
   "l8-como-estas-en",
   "l8-como-estas-pt",
   "l8-me-llamo-en",
-  "l8-chamo-me-pt"
+  "l8-chamo-me-pt",
+  "l8-good-afternoon-en",
+  "l8-boa-tarde-pt"
  ],
  "newEnglishPieces": [
   "q-open-06-pt",

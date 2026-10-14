@@ -196,6 +196,28 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .fing { width: min(100%, 300px); height: auto; }
 .pic.rows { white-space: pre-line; font-size: clamp(2.4rem, 13vw, 3.6rem); line-height: 1.15; }
 
+/* Menu animations (switched off for reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes dg-rise { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes dg-pop { 0% { opacity: 0; transform: scale(0.8) rotate(-4deg); } 60% { opacity: 1; transform: scale(1.06) rotate(2deg); } 100% { transform: none; } }
+  @keyframes dg-fade { from { opacity: 0; } to { opacity: 1; } }
+  #cover:not([hidden]), #home:not([hidden]), #zone:not([hidden]) { animation: dg-fade 0.3s ease both; }
+  #wizlist .tile, #tiles .tile, .zgrid .ztile, .ztog .zt-b { animation: dg-rise 0.45s cubic-bezier(.2,.8,.3,1) both; }
+  #wizlist .tile:nth-child(2), #tiles .tile:nth-child(2), .zgrid .ztile:nth-child(2) { animation-delay: 0.07s; }
+  #wizlist .tile:nth-child(3), #tiles .tile:nth-child(3), .zgrid .ztile:nth-child(3) { animation-delay: 0.14s; }
+  #wizlist .tile:nth-child(4), #tiles .tile:nth-child(4), .zgrid .ztile:nth-child(4) { animation-delay: 0.21s; }
+  #wizlist .tile:nth-child(5), #tiles .tile:nth-child(5), .zgrid .ztile:nth-child(5) { animation-delay: 0.28s; }
+  #wizlist .tile:nth-child(n+6), #tiles .tile:nth-child(n+6), .zgrid .ztile:nth-child(n+6) { animation-delay: 0.35s; }
+  .coverlogo { animation: dg-pop 0.7s cubic-bezier(.2,.8,.3,1) both; }
+  .logo img { transition: transform 0.25s; } .logo:hover img { transform: rotate(-6deg) scale(1.08); }
+  @media (hover: hover) {
+    #wizlist .tile:not(:disabled), #tiles .tile:not(:disabled), .ztile { transition: transform 0.18s; }
+    #wizlist .tile:not(:disabled):hover, #tiles .tile:not(:disabled):hover, .ztile:hover { transform: translateY(-3px); }
+    #wizlist .tile:hover .glyph { transform: scale(1.08) rotate(-3deg); }
+  }
+  #wizlist .tile .glyph { transition: transform 0.2s; display: inline-block; }
+  #wizlist .tile:active, #tiles .tile:active, .ztile:active, .zrow:active { transform: translateY(2px) scale(0.99); }
+}
 /* Language Wizards */
 .swatch { width: min(62%, 220px); aspect-ratio: 1; border-radius: 28px; border: 3px solid var(--outline); }
 .vwrap { width: min(86%, 300px); aspect-ratio: 1; border-radius: 22px; overflow: hidden; border: 3px solid var(--outline); background: #000; }
@@ -218,6 +240,12 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .zrow .zt { display: flex; flex-direction: column; min-width: 0; }
 .zrow b { font-family: var(--font-card); font-size: 1.7rem; line-height: 1.15; overflow-wrap: anywhere; }
 .zrow small { font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink-soft); }
+.ztog { display: flex; gap: 8px; }
+.zt-b { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 64px; padding: 8px 6px; border: 2px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); font: 600 0.95rem var(--font-ui); cursor: pointer; box-shadow: 0 3px 0 var(--line); }
+.zt-b[aria-pressed="true"] { background: var(--sky); color: #fff; border-color: var(--sky-lip); box-shadow: 0 3px 0 var(--sky-lip); }
+.flag { width: 30px; height: 20px; flex: none; } .zt-b .flag + .flag { margin-left: 4px; }
+.zt-b[data-zlang="both"] { flex-direction: column; }
+.zrow .flag { margin-left: auto; width: 36px; height: 24px; }
 .zbar { display: flex; gap: 10px; justify-content: space-between; }
 .zbar .btn { flex: 1; }
 .big.lw { font-size: clamp(3rem, 15vw, 5rem); }
@@ -489,11 +517,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var HOLD = { s: "sssssssss", n: "nnnnnnnnn", m: "mmmmmmmmm", f: "fffffffff", l: "lllllllll", r: "rrrrrrrrr", v: "vvvvvvvvv", z: "zzzzzzzzz", sh: "shhhhhhhhh", ff: "fffffffff", ll: "lllllllll", ss: "sssssssss" };
   var synth = window.speechSynthesis || null;
   var voices = [], seqToken = 0;
-  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", theme: "light" };
+  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", theme: "light", zl: "es" };
   function isReady(d) { return !!d.ready || prefs.preview; }
   try {
     var sp = JSON.parse(localStorage.getItem(PKEY) || "{}");
-    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.theme = sp.theme || "light"; }
+    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.theme = sp.theme || "light"; prefs.zl = sp.zl || "es"; }
   } catch (e) {}
   function applyTheme() { var r = document.documentElement; if (prefs.theme === "light" || prefs.theme === "dark") r.setAttribute("data-theme", prefs.theme); else r.removeAttribute("data-theme"); }
   applyTheme();
@@ -1048,8 +1076,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       if (d.lg !== "es") return;
       var pt = DECKS.filter(function (x) { return x.id === "pt-" + d.id; })[0];
       if (!pt) return;
-      d.cards.forEach(function (c, k) {
-        var q = pt.cards[k];
+      d.cards.forEach(function (c) {
+        var q = pt.cards.filter(function (y) { return y.en === c.en; })[0];
+        if (!q) return;
         ZWORDS.push({ set: d.id, c: c, en: c.en, es: c.tl, pt: q.tl, esP: c.p, ptP: q.p, aen: c.audio.en, aes: c.audio.tl, apt: q.audio.tl });
       });
     });
@@ -1062,10 +1091,22 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     return '<span class="za">' + c.art + "</span>";
   }
   var SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>';
+  var FLAG = {
+    es: '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" rx="3" fill="#C60B1E"/><rect y="5" width="30" height="10" fill="#FFC400"/><rect width="30" height="20" rx="3" fill="none" stroke="#272650" stroke-opacity=".35"/></svg>',
+    pt: '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" rx="3" fill="#D52B1E"/><path d="M3 0H12V20H3A3 3 0 0 1 0 17V3A3 3 0 0 1 3 0Z" fill="#006600"/><circle cx="12" cy="10" r="4.2" fill="#FFCC00" stroke="#272650" stroke-width=".8"/><rect width="30" height="20" rx="3" fill="none" stroke="#272650" stroke-opacity=".35"/></svg>'
+  };
+  function zoneToggle() {
+    var o = [["es", "Español"], ["pt", "Português"], ["both", "Both"]], h = '<div class="ztog" role="group" aria-label="Which language to hear with English">';
+    o.forEach(function (x) {
+      h += '<button type="button" class="zt-b" data-zlang="' + x[0] + '" aria-pressed="' + (prefs.zl === x[0]) + '">' +
+        (x[0] === "both" ? FLAG.es + FLAG.pt : FLAG[x[0]]) + "<span>" + x[1] + "</span></button>";
+    });
+    return h + "</div>";
+  }
   function renderZone() {
     var ws = zoneWords(), h = "";
     if (zoneIdx < 0) {
-      h += '<h1 class="pagetitle">Language Zone</h1><p class="lead">Tap a picture to hear the word in English, Spanish and Portuguese.</p>';
+      h += '<h1 class="pagetitle">Language Zone</h1><p class="lead">Choose a language, then tap a picture to hear the word in English and that language.</p>' + zoneToggle();
       var last = "";
       ws.forEach(function (w, i) {
         if (w.set !== last) { if (last) h += "</div>"; last = w.set; h += '<h2 class="zh">' + esc(ZSETS[w.set]) + '</h2><div class="zgrid">'; }
@@ -1074,21 +1115,22 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       h += "</div>";
     } else {
       var w = ws[zoneIdx], n = ws.length;
-      h += '<div class="zbar"><button type="button" class="btn sky" id="zBack">All words</button></div>';
+      h += '<div class="zbar"><button type="button" class="btn sky" id="zBack">All words</button></div>' + zoneToggle();
       h += '<div class="zart">' + langArt(Object.assign({}, w.c, { poster: w.c.poster, video: w.c.video })) + "</div>";
       h += '<button type="button" class="zrow z1" data-zl="en"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.en) + '</b><small>English</small></span></button>';
-      h += '<button type="button" class="zrow z2" data-zl="es"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.es) + '</b><small>Español · say it like ' + esc(w.esP) + '</small></span></button>';
-      h += '<button type="button" class="zrow z3" data-zl="pt"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.pt) + '</b><small>Português · say it like ' + esc(w.ptP) + '</small></span></button>';
+      if (prefs.zl !== "pt") h += '<button type="button" class="zrow z2" data-zl="es"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.es) + '</b><small>Español · say it like ' + esc(w.esP) + '</small></span>' + FLAG.es + '</button>';
+      if (prefs.zl !== "es") h += '<button type="button" class="zrow z3" data-zl="pt"><span class="zi">' + SPK + '</span><span class="zt"><b>' + esc(w.pt) + '</b><small>Português · say it like ' + esc(w.ptP) + '</small></span>' + FLAG.pt + '</button>';
       h += '<div class="zbar"><button type="button" class="btn warn" id="zPrev"' + (zoneIdx === 0 ? " disabled" : "") + '>Back</button><button type="button" class="btn good" id="zAll">Play all</button><button type="button" class="btn warn" id="zNext"' + (zoneIdx === n - 1 ? " disabled" : "") + '>Next</button></div>';
     }
     $("zone").innerHTML = h;
     window.scrollTo(0, 0);
   }
-  function zoneAll() { var w = zoneWords()[zoneIdx], u = []; [w.aen, w.aes, w.apt].forEach(function (id) { var x = lc(id); if (x) u.push(x); }); if (u.length) playSeq(u, 450); }
+  function zoneAll() { var w = zoneWords()[zoneIdx], u = []; [w.aen].concat(prefs.zl !== "pt" ? [w.aes] : [], prefs.zl !== "es" ? [w.apt] : []).forEach(function (id) { var x = lc(id); if (x) u.push(x); }); if (u.length) playSeq(u, 450); }
   function zoneOne(l) { var w = zoneWords()[zoneIdx], x = lc(l === "en" ? w.aen : l === "es" ? w.aes : w.apt); if (x) playSeq([x]); }
   $("zone").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
-    if (b.dataset.z !== undefined) { zoneIdx = parseInt(b.dataset.z, 10); renderZone(); setTimeout(zoneAll, 250); }
+    if (b.dataset.zlang) { prefs.zl = b.dataset.zlang; savePrefs(); var keep = zoneIdx; renderZone(); if (keep >= 0) setTimeout(zoneAll, 200); var nb = $("zone").querySelector('[data-zlang="' + prefs.zl + '"]'); if (nb) nb.focus({ preventScroll: true }); }
+    else if (b.dataset.z !== undefined) { zoneIdx = parseInt(b.dataset.z, 10); renderZone(); setTimeout(zoneAll, 250); }
     else if (b.dataset.zl) zoneOne(b.dataset.zl);
     else if (b.id === "zBack") { var k = zoneIdx; zoneIdx = -1; if (clipEl) clipEl.pause(); clipTok++; renderZone(); var t = $("zone").querySelector('[data-z="' + k + '"]'); if (t) t.focus({ preventScroll: true }); }
     else if (b.id === "zAll") zoneAll();
