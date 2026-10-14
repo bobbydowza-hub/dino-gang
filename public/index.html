@@ -110,6 +110,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .tile { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; text-align: left; border: 0; border-radius: 22px; padding: 16px 14px 14px; min-height: 148px; color: var(--ink); font-family: var(--font-ui); cursor: pointer; background: var(--c); box-shadow: 0 6px 0 var(--l); }
 .tile:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--l); }
 .tile:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 120px; }
+.tile .glyph.long { font-size: 1.15rem; top: 16px; letter-spacing: 0.04em; }
+.tile:has(.glyph.long) .name { padding-right: 96px; }
 .tile .name { font-size: 1.3rem; font-weight: 700; line-height: 1.15; padding-right: 36px; }
 .tile .what { font-size: 0.85rem; color: var(--tile-soft); line-height: 1.3; padding-right: 20px; }
 .tile .fluff { position: absolute; top: 10px; right: 8px; width: 40px; height: 40px; }
@@ -1166,7 +1168,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", img: "word", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", img: "number", tint: 2, ready: true },
     { id: "language", name: "Spanish Wizards", what: "First Spanish words, with a grown\u2011up.", glyph: "¡Hola!", img: "language", tint: 3, ready: true },
-    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown\u2011up.", glyph: "Olá!", tint: 4, ready: true },
+    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown\u2011up.", glyph: "Olá!", img: "language", tint: 4, ready: true },
     { id: "zone", name: "Language Zone", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
   ];
   function wizReady(w) { return !!w.ready || false; }
@@ -1176,7 +1178,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       w = Object.assign({}, w, { ready: wizReady(w) });
       var st = ' style="--c:var(--t' + w.tint + ');--l:var(--t' + w.tint + 'l)"';
       h += '<button type="button" class="tile' + (w.ready ? "" : " soon") + (w.img ? " hasdino" : "") + '"' + (w.ready ? "" : " disabled") + ' data-w="' + w.id + '" aria-label="' + esc(w.name) + (w.ready ? "" : ", coming soon") + '"' + st + ">" +
-        (w.img ? '<img class="wdino" src="icons/dino-' + w.img + '.webp" alt="" width="86" height="110">' : '<span class="glyph" aria-hidden="true">' + esc(w.glyph) + "</span>") +
+        (w.img ? '<img class="wdino" src="icons/dino-' + w.img + '.webp" alt="" width="86" height="110">' : '<span class="glyph' + (w.glyph.length > 5 ? " long" : "") + '" aria-hidden="true">' + esc(w.glyph) + "</span>") +
         '<span class="name">' + esc(w.name) + "</span>" +
         '<span class="what">' + esc(w.what) + "</span>" +
         '<span class="meter"><span class="n">' + (w.ready ? "Ready to play" : "Coming soon") + "</span></span></button>";
