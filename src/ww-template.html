@@ -52,7 +52,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .pagetitle { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; text-wrap: balance; }
 .logo { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 0; font: 700 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; border-radius: 12px; min-height: 44px; }
 .logo img { width: 36px; height: 36px; flex: none; border-radius: 10px; }
-.coverlogo { display: block; margin: 0 auto; width: min(38vw, 150px); height: auto; }
+.coverlogo { display: block; margin: 0 auto; width: min(50vw, 200px); height: auto; filter: drop-shadow(0 6px 5px rgba(39,38,80,.22)); }
+.wdino { position: absolute; right: 10px; bottom: 6px; height: calc(100% - 22px); max-height: 110px; width: auto; filter: drop-shadow(0 3px 3px rgba(39,38,80,.22)); pointer-events: none; }
+.tile.hasdino .name, .tile.hasdino .what { padding-right: 92px; }
+.sumdino { height: 120px; width: auto; filter: drop-shadow(0 4px 4px rgba(39,38,80,.2)); }
 .logo:disabled { cursor: default; }
 .menu { position: absolute; top: 52px; right: 0; z-index: 25; min-width: 240px; display: flex; flex-direction: column; gap: 2px; padding: 8px; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; box-shadow: 0 6px 0 var(--line); }
 .menu button { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; padding: 8px 12px; border: 0; border-radius: 12px; background: none; text-align: left; font: 600 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; }
@@ -271,7 +274,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   </header>
 
   <section id="cover" class="cover" style="display:flex;flex-direction:column;gap:18px">
-    <img class="coverlogo" src="icons/logo.png" alt="Dino Gang: a friendly green dinosaur waving" width="220" height="256">
+    <img class="coverlogo" src="icons/dino-number.webp" alt="Dino Gang: a friendly green dinosaur in a wizard hat, waving" width="272" height="360">
     <h1 class="pagetitle">Pick a wizard</h1>
     <div class="wizlist" id="wizlist"></div>
   </section>
@@ -1034,7 +1037,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var d = deck(), n = queue.length, h = "";
     var title = got === n ? "Perfect round!" : (got >= n / 2 ? "Great practice!" : "Good try!");
     var line = "You earned " + n + (n === 1 ? " pompom" : " pompoms") + " on " + d.name + ".";
-    h += '<h2>' + esc(title) + '</h2><p>' + esc(line) + '</p>';
+    var sd = { word: "word", number: "number", language: "language", portuguese: "language" }[wizOf(d)] || "word";
+    h += '<img class="sumdino" src="icons/dino-' + sd + '.webp" alt="" width="90" height="120"><h2>' + esc(title) + '</h2><p>' + esc(line) + '</p>';
     h += '<div class="heap">'; for (var i = 0; i < n; i++) h += pompomSVG(pomColor(pompoms - n + i), i); h += "</div>";
     h += '<p>' + got + " of " + n + " cards known. " + learned(d) + " of " + d.cards.length + " learned in this set.</p>";
     h += '<div class="actions"><button class="btn good" id="again" type="button">Practise again</button><button class="btn sky" id="sets" type="button">Choose another set</button></div>';
@@ -1129,10 +1133,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     else if (b.id === "zNext" && zoneIdx < zoneWords().length - 1) { zoneIdx++; renderZone(); setTimeout(zoneAll, 250); }
   });
   var WIZARDS = [
-    { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
-    { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
-    { id: "language", name: "Spanish Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
-    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: true },
+    { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", img: "word", tint: 1, ready: true },
+    { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", img: "number", tint: 2, ready: true },
+    { id: "language", name: "Spanish Wizards", what: "First Spanish words, with a grown\u2011up.", glyph: "¡Hola!", img: "language", tint: 3, ready: true },
+    { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown\u2011up.", glyph: "Olá!", tint: 4, ready: true },
     { id: "zone", name: "Language Zone", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
   ];
   function wizReady(w) { return !!w.ready || false; }
@@ -1141,8 +1145,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     WIZARDS.forEach(function (w, i) {
       w = Object.assign({}, w, { ready: wizReady(w) });
       var st = ' style="--c:var(--t' + w.tint + ');--l:var(--t' + w.tint + 'l)"';
-      h += '<button type="button" class="tile' + (w.ready ? "" : " soon") + '"' + (w.ready ? "" : " disabled") + ' data-w="' + w.id + '" aria-label="' + esc(w.name) + (w.ready ? "" : ", coming soon") + '"' + st + ">" +
-        '<span class="glyph" aria-hidden="true">' + esc(w.glyph) + "</span>" +
+      h += '<button type="button" class="tile' + (w.ready ? "" : " soon") + (w.img ? " hasdino" : "") + '"' + (w.ready ? "" : " disabled") + ' data-w="' + w.id + '" aria-label="' + esc(w.name) + (w.ready ? "" : ", coming soon") + '"' + st + ">" +
+        (w.img ? '<img class="wdino" src="icons/dino-' + w.img + '.webp" alt="" width="86" height="110">' : '<span class="glyph" aria-hidden="true">' + esc(w.glyph) + "</span>") +
         '<span class="name">' + esc(w.name) + "</span>" +
         '<span class="what">' + esc(w.what) + "</span>" +
         '<span class="meter"><span class="n">' + (w.ready ? "Ready to play" : "Coming soon") + "</span></span></button>";
