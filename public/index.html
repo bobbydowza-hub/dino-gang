@@ -781,7 +781,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function renderHome() {
     var h = "";
     var isNum = curWiz === "number", isLang = curWiz === "language" || curWiz === "portuguese", lname = curWiz === "portuguese" ? "Portuguese" : "Spanish";
-    $("title").textContent = isLang ? (curWiz === "portuguese" ? "Portuguese Wizards" : "Language Wizards") : (isNum ? "Number Wizards" : "Word Wizards");
+    $("title").textContent = isLang ? (curWiz === "portuguese" ? "Portuguese Wizards" : "Spanish Wizards") : (isNum ? "Number Wizards" : "Word Wizards");
     $("tip").innerHTML = isLang
       ? "<b>First " + lname + ":</b> a grown-up is beside the child. The question plays by itself; press the sound button to hear it again. Then tap the card to turn it over. Younger children listen and point. Older children say the " + lname + " word back. Progress and pompoms are saved on this device."
       : isNum
@@ -1171,7 +1171,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var WIZARDS = [
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", tint: 2, ready: true },
-    { id: "language", name: "Language Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
+    { id: "language", name: "Spanish Wizards", what: "First Spanish words, with a grown-up.", glyph: "¡Hola!", tint: 3, ready: true },
     { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown-up.", glyph: "Olá!", tint: 4, ready: true },
     { id: "zone", name: "Language Zone", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
   ];
