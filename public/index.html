@@ -22,10 +22,10 @@
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
-@font-face{font-family:'Fredoka';font-weight:400;font-display:swap;src:url('fonts/fredoka-latin-400-normal.woff2') format('woff2')}
-@font-face{font-family:'Fredoka';font-weight:500;font-display:swap;src:url('fonts/fredoka-latin-500-normal.woff2') format('woff2')}
-@font-face{font-family:'Fredoka';font-weight:600;font-display:swap;src:url('fonts/fredoka-latin-600-normal.woff2') format('woff2')}
-@font-face{font-family:'Fredoka';font-weight:700;font-display:swap;src:url('fonts/fredoka-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:400;font-display:swap;src:url('fonts/figtree-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:500;font-display:swap;src:url('fonts/figtree-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:600;font-display:swap;src:url('fonts/figtree-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:700;font-display:swap;src:url('fonts/figtree-latin-700-normal.woff2') format('woff2')}
 @font-face{font-family:'Andika';font-weight:400;font-display:swap;src:url('fonts/andika-latin-400-normal.woff2') format('woff2')}
 @font-face{font-family:'Andika';font-weight:700;font-display:swap;src:url('fonts/andika-latin-700-normal.woff2') format('woff2')}
 </style>
@@ -50,8 +50,8 @@
   --t3: #b4f1ec; --t3l: #7fd2cb;
   --t4: #d8ccff; --t4l: #a998ee;
   --t5: #ffd6b4; --t5l: #eba878;
-  --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
-  --font-card: "Andika", "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-ui: "Figtree", "Trebuchet MS", system-ui, sans-serif;
+  --font-card: "Andika", "Figtree", "Trebuchet MS", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -248,9 +248,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 }
 /* Language Wizards */
 .swatch { width: min(62%, 220px); aspect-ratio: 1; border-radius: 28px; border: 3px solid var(--outline); }
-.vwrap { width: min(86%, 300px); aspect-ratio: 1; border-radius: 22px; overflow: hidden; border: 3px solid var(--outline); background: #000; }
+.vwrap { flex: 1 1 0; min-height: 0; width: auto; max-width: 86%; max-height: 300px; aspect-ratio: 1; border-radius: 22px; overflow: hidden; border: 3px solid var(--outline); background: #000; }
 .lvid, .lpic { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lpic { width: min(86%, 300px); height: auto; aspect-ratio: 1; border-radius: 22px; border: 3px solid var(--outline); }
+.lq ~ .tapnote { position: static; margin-top: 2px; }
 .lq { font-family: var(--font-card); font-weight: 600; font-size: 1.3rem; text-align: center; text-wrap: balance; max-width: 90%; }
 .zh { font-size: 1.15rem; margin: 6px 0 0; }
 .zgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }

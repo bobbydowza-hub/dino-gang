@@ -46,7 +46,7 @@ frag = re.sub(r'<link rel="preconnect"[^>]*>\s*<link rel="stylesheet"[^>]*>\s*',
 
 faces = ""
 for w in (400, 500, 600, 700):
-    faces += "@font-face{font-family:'Fredoka';font-weight:%d;font-display:swap;src:url('fonts/fredoka-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
+    faces += "@font-face{font-family:'Figtree';font-weight:%d;font-display:swap;src:url('fonts/figtree-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
 for w in (400, 700):
     faces += "@font-face{font-family:'Andika';font-weight:%d;font-display:swap;src:url('fonts/andika-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
 head = ('<!doctype html>\n<html lang="en-GB">\n<head>\n<meta charset="utf-8">\n'
