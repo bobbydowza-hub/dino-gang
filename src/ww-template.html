@@ -261,7 +261,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     </button>
     <span class="grow"></span>
     <div class="pp" id="ppTotal" role="status" aria-label="Pompoms collected"><span id="ppIcon"></span><span id="ppNum">0</span></div>
-    <button class="icon" id="gear" type="button" aria-label="Voice and speed">
+    <button class="icon" id="gear" type="button" aria-label="Settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h0a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h0a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v0a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
     </button>
     <button class="icon" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
@@ -312,14 +312,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 
   <div class="sheet" id="sheet" hidden>
     <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-      <h2 id="sheetTitle">Voice and speed</h2>
-      <div class="vrow"><label for="voice">Voice</label><select id="voice"></select></div>
-      <div class="vrow"><label for="rate">Speed</label><input id="rate" type="range" min="0.5" max="1.1" step="0.05" value="0.75"><output id="ratev" for="rate"></output></div>
+      <h2 id="sheetTitle">Settings</h2>
       <div class="vrow"><label for="theme">Colours</label><select id="theme"><option value="light">Light</option><option value="auto">Match this device</option><option value="dark">Dark</option></select></div>
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Language questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
-      <p class="vnote" id="vnote"></p>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
       <button class="btn sky" id="sheetDone" type="button">Done</button>
     </div>
@@ -690,14 +687,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       var ga = /en[-_]GB/i.test(a.lang) ? 0 : 1, gb = /en[-_]GB/i.test(b.lang) ? 0 : 1;
       return ga !== gb ? ga - gb : a.name.localeCompare(b.name);
     });
-    $("voice").innerHTML = voices.map(function (v) { return "<option>" + esc(v.name) + " (" + esc(v.lang) + ")</option>"; }).join("");
-    var idx = -1;
-    voices.forEach(function (v, i) { if (v.name === prefs.voice) idx = i; });
-    if (idx < 0 && voices.length) { idx = 0; prefs.voice = voices[0].name; }
-    if (idx >= 0) $("voice").selectedIndex = idx;
-    $("vnote").textContent = voices.length
-      ? "Sounds and words with a recording play from that recording. For the rest, the long sounds (s, n, m and similar) are made by the app itself and the others use this voice."
-      : "No English voices were found on this device. Recorded sounds will still play.";
+    if (voices.length && !voices.some(function (v) { return v.name === prefs.voice; })) prefs.voice = voices[0].name;
   }
 
   // ---- Progress ----
@@ -1220,7 +1210,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       if (!held) { var n = document.createElement("span"); n.className = "tipnote"; n.textContent = "Grown-ups: press and hold"; g.parentNode.appendChild(n); setTimeout(function () { n.remove(); }, 2200); }
       held = false;
     });
-    g.setAttribute("aria-label", "Voice and speed. Grown-ups: press and hold, or activate with a keyboard.");
+    g.setAttribute("aria-label", "Settings. Grown-ups: press and hold, or activate with a keyboard.");
   })();
   $("sheetDone").addEventListener("click", closeSheet);
   $("sheet").addEventListener("click", function (e) { if (e.target === $("sheet")) closeSheet(); });
@@ -1232,20 +1222,14 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
-  $("voice").addEventListener("change", function () {
-    var v = voices[$("voice").selectedIndex]; if (v) { prefs.voice = v.name; savePrefs(); speak("Hello, let's learn some sounds."); }
-  });
-  $("rate").addEventListener("input", function () { prefs.rate = parseFloat($("rate").value); $("ratev").textContent = prefs.rate.toFixed(2) + "×"; savePrefs(); });
-  $("rate").addEventListener("change", function () { speak("Hello, let's learn some sounds."); });
   $("auto").addEventListener("change", function () { prefs.auto = $("auto").checked; savePrefs(); });
   $("lq").addEventListener("change", function () { prefs.lq = $("lq").value; savePrefs(); });
   $("lq").value = prefs.lq;
   $("theme").value = prefs.theme;
   $("theme").addEventListener("change", function () { prefs.theme = $("theme").value; applyTheme(); savePrefs(); });
   $("prev").addEventListener("change", function () { prefs.preview = $("prev").checked; savePrefs(); renderCover(); renderHome(); });
-  $("rate").value = prefs.rate; $("ratev").textContent = prefs.rate.toFixed(2) + "×"; $("auto").checked = prefs.auto; $("prev").checked = prefs.preview;
+  $("auto").checked = prefs.auto; $("prev").checked = prefs.preview;
   if (synth) { loadVoices(); try { synth.onvoiceschanged = loadVoices; } catch (e) {} }
-  else { $("voice").disabled = true; $("rate").disabled = true; $("vnote").textContent = "This browser has no built-in voice. Recorded sounds will still play."; }
 
   $("ppIcon").innerHTML = pompomSVG(POM[0], 3);
   $("ppIcon").style.display = "inline-flex";
