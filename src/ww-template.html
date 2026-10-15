@@ -726,7 +726,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var s = CLIPS[keyOf(c)], w = wordUri(), u = [];
     if (END_SOUNDS[c.g]) { if (w) u.push(w); if (s) u.push(s); }
     else { if (s) u.push(s); if (w) u.push(w); }
-    if (u.length) playSeq(u, 220);
+    if (u.length) playSeq(u, 650);
   }
   function playWord(d, c) {
     if (d.type === "sound" && curW && curW.w !== c.w && wordUri() && playClip(wordUri())) return;
@@ -972,7 +972,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (d.type === "sound" && curPic) {
       h += '<div class="big">' + esc(c.g) + "</div>";
       h += '<div class="pic smallpic" aria-hidden="true">' + curW.p + "</div>";
-      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) : esc(c.g) + "\u2026 " + esc(curW.w) + "!") + "</div>";
+      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) : esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) + "\u2026 " + esc(curW.w) + "!") + "</div>";
       h += '<div class="tipline">' + esc(c.t) + "</div>";
     } else if (d.type === "sound") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
