@@ -346,7 +346,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
       <h2 id="sheetTitle">Settings</h2>
       <div class="vrow"><label for="theme">Colours</label><select id="theme"><option value="light">Light</option><option value="auto">Match this device</option><option value="dark">Dark</option></select></div>
-      <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
+      <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud automatically (sounds, and the word on picture cards)</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Language questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
@@ -1034,7 +1034,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("hearWord").hidden = d.type === "alt" || isNum || isLang || curPic;
     renderDock();
     if (isLang) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c) playLang(c); }, 450);
-    if (curPic) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c && wordUri()) playClip(wordUri()); }, 450);
+    if (curPic && prefs.auto) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c && wordUri()) playClip(wordUri()); }, 450);
     if (document.activeElement === document.body || !document.activeElement) $("card").focus({ preventScroll: true });
   }
 

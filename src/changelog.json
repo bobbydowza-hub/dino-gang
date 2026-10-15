@@ -1,8 +1,34 @@
 [
-  {"id":"2026-10-15","date":"15 October","title":"Word-first sound cards",
-   "items":["Word Wizards can now show a picture first and ask what sound it starts with. Turn it over to hear the sound and the word.","New toggle on the Word Wizards screen: Letter first or Word first.","Number Wizards now shows single socks, so counting adds up."]},
-  {"id":"2026-10-14","date":"14 October","title":"A fresher look",
-   "items":["New dinosaur pictures on the menu and finished screens.","Clearer title font.","Language Wizards is now Spanish Wizards.","The Voice and speed settings have gone. The app uses the recorded voices everywhere."]},
-  {"id":"2026-10-early","date":"Earlier in October","title":"The first release",
-   "items":["Word Wizards, Number Wizards, Spanish Wizards and Portuguese Wizards.","The Language Zone: English, Spanish and Portuguese words to listen to.","Light and dark colours, and it works offline."]}
+  {
+    "id": "2026-10-15",
+    "date": "15 October",
+    "title": "Word-first sound cards",
+    "items": [
+      "Word Wizards can now show a picture first and ask what sound it starts with. Turn it over to hear the sound and the word.",
+      "New toggle on the Word Wizards screen: Letter first or Word first.",
+      "Picture cards stay quiet until you turn them over, so your child gets to name the picture first. A \"Hear the word\" button is there if you need it.",
+      "Number Wizards now shows single socks, so counting adds up."
+    ]
+  },
+  {
+    "id": "2026-10-14",
+    "date": "14 October",
+    "title": "A fresher look",
+    "items": [
+      "New dinosaur pictures on the menu and finished screens.",
+      "Clearer title font.",
+      "Language Wizards is now Spanish Wizards.",
+      "The Voice and speed settings have gone. The app uses the recorded voices everywhere."
+    ]
+  },
+  {
+    "id": "2026-10-early",
+    "date": "Earlier in October",
+    "title": "The first release",
+    "items": [
+      "Word Wizards, Number Wizards, Spanish Wizards and Portuguese Wizards.",
+      "The Language Zone: English, Spanish and Portuguese words to listen to.",
+      "Light and dark colours, and it works offline."
+    ]
+  }
 ]
