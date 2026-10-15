@@ -53,6 +53,8 @@ for lg in ("es", "pt"):
 
 assert "var CLIPS = {};" in tpl and "var LANGDECKS = [];" in tpl
 frag = tpl.replace("var CLIPS = {};", "var CLIPS = " + json.dumps(clips, separators=(",", ":")) + ";", 1)
+cl = json.load(open(os.path.join(R, "src/changelog.json"), encoding="utf-8"))
+frag = frag.replace("var CHANGELOG = [];", "var CHANGELOG = " + json.dumps(cl, ensure_ascii=False, separators=(",", ":")) + ";", 1)
 frag = frag.replace("var WORDX = {};", "var WORDX = " + json.dumps(wordx, ensure_ascii=False, separators=(",", ":")) + ";", 1)
 frag = frag.replace("var LANGDECKS = [];", "var LANGDECKS = " + json.dumps(decks, ensure_ascii=False, separators=(",", ":")) + ";", 1)
 frag = re.sub(r'<title>.*?</title>\s*', '', frag, count=1)
