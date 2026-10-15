@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ff5c93">
+<title>About Dino Gang</title>
+<meta name="description" content="A quick guide for grown-ups: what is in Dino Gang, how a session works, and how to add it to your Home Screen.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dino Gang">
+<meta property="og:title" content="About Dino Gang: a quick guide for grown-ups">
+<meta property="og:description" content="What is in Dino Gang, how a session works, and how to add it to your Home Screen.">
+<meta property="og:url" content="https://dinogang.netlify.app/about">
+<meta property="og:image" content="https://dinogang.netlify.app/og-image-v3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dinogang.netlify.app/og-image-v3.png">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+@font-face{font-family:'Figtree';font-weight:400;font-display:swap;src:url('/fonts/figtree-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:500;font-display:swap;src:url('/fonts/figtree-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:600;font-display:swap;src:url('/fonts/figtree-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:700;font-display:swap;src:url('/fonts/figtree-latin-700-normal.woff2') format('woff2')}
+:root {
+  --bg: #f4f5fb; --surface: #ffffff; --ink: #272650; --ink-soft: #55587f; --line: #e0e2f0;
+  --sky: #2fa8f0; --sky-lip: #1b7fc2; --pink: #ff5c93; --focus: #0b6aa8; --on-accent: #272650;
+  --t1: #ffd0e1; --t2: #ffeaa0; --t3: #b4f1ec; --t4: #d8ccff; --t5: #ffd6b4;
+  --link: #0b6aa8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #15162e; --surface: #1f2142; --ink: #f0f0ff; --ink-soft: #aab0d6; --line: #343867; --sky: #3cb6ff; --sky-lip: #1e82c9; --focus: #3cb6ff; --link: #7fcbff; --on-accent: #15162e;
+    --t1: #6e2f4c; --t2: #6d5a14; --t3: #1b5753; --t4: #4a3f8a; --t5: #70401c; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Figtree", "Trebuchet MS", system-ui, sans-serif; font-size: 1.05rem; line-height: 1.55;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+main { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+a { color: var(--link); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.top a.back { font-weight: 700; text-decoration: none; padding: 10px 4px; }
+.hero { text-align: center; padding: 6px 0 4px; }
+.hero img { width: 150px; height: auto; display: block; margin: 0 auto 6px; }
+h1 { font-size: 2.1rem; line-height: 1.1; margin: 0 0 6px; font-weight: 700; }
+.lead { color: var(--ink-soft); margin: 0 auto; max-width: 30em; }
+.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border-radius: 16px; font-weight: 700; font-size: 1.05rem; text-decoration: none;
+  background: var(--sky); color: var(--on-accent); border: 2px solid var(--ink); box-shadow: 0 4px 0 var(--sky-lip); }
+.btn.alt { background: var(--surface); box-shadow: 0 4px 0 var(--line); }
+h2 { font-size: 1.35rem; margin: 18px 0 2px; font-weight: 700; }
+h3 { font-size: 1.1rem; margin: 0 0 2px; font-weight: 700; }
+p { margin: 0; }
+.sub { color: var(--ink-soft); }
+.card { background: var(--surface); border: 2px solid var(--line); border-radius: 20px; padding: 14px 16px; }
+.card.t1 { background: var(--t1); border-color: transparent; } .card.t2 { background: var(--t2); border-color: transparent; }
+.card.t3 { background: var(--t3); border-color: transparent; } .card.t4 { background: var(--t4); border-color: transparent; }
+.card.t5 { background: var(--t5); border-color: transparent; }
+.card.t1, .card.t2, .card.t3, .card.t4, .card.t5 { color: var(--ink); }
+.wiz { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; }
+.wiz img { width: 64px; height: 64px; object-fit: contain; }
+.wiz .emoji { width: 64px; height: 64px; font-size: 2.4rem; display: grid; place-items: center; }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.steps li::before { content: counter(s); width: 36px; height: 36px; border-radius: 50%; background: var(--sky); color: var(--on-accent); font-weight: 700; display: grid; place-items: center; }
+.steps b { display: block; }
+ul.dots { margin: 6px 0 0; padding-left: 1.2em; }
+ul.dots li { margin: 4px 0; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.pair > div { background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 12px; text-align: center; }
+.pair .big { font-size: 2.2rem; line-height: 1.1; }
+.pair small { display: block; color: var(--ink-soft); margin-top: 4px; font-size: 0.9rem; line-height: 1.35; }
+.fine { color: var(--ink-soft); font-size: 0.92rem; text-align: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><a class="back" href="/">&larr; Open Dino Gang</a></div>
+
+  <header class="hero">
+    <img src="/icons/logo.png" alt="Dino Gang: a friendly green dinosaur waving" width="150" height="175">
+    <h1>Dino Gang</h1>
+    <p class="lead">Little learning games for ages 3 to 6, played with a grown-up. Free, no accounts, no ads. Works on a phone, tablet or computer, and offline after the first visit.</p>
+    <div class="cta">
+      <a class="btn" href="/">Open Dino Gang</a>
+      <a class="btn alt" href="/Dino-Gang-Quick-Guide-A5.pdf">Printable guide (PDF)</a>
+    </div>
+  </header>
+
+  <h2>What's inside</h2>
+  <p class="sub">Five places to play. Each wizard has its own pompom jar.</p>
+  <section class="card t1 wiz"><img src="/icons/dino-word.webp" alt="" width="64" height="64"><div><h3>Word Wizards</h3><p>Phonics sound cards. Autumn 1 (20 sounds) and Autumn 2 (15 sounds) are ready, with Spring 1, other spellings and tricky words to come. Press Sound to hear the pure sound ("sss", not "suh"), then the word.</p></div></section>
+  <section class="card t2 wiz"><img src="/icons/dino-number.webp" alt="" width="64" height="64"><div><h3>Number Wizards</h3><p>Counting to 5 and to 10, spotting each number as a coloured block pattern, and number bonds to 5 and 10. Point to each object once and count out loud.</p></div></section>
+  <section class="card t3 wiz"><img src="/icons/dino-language.webp" alt="" width="64" height="64"><div><h3>Spanish Wizards</h3><p>First Spanish (Spain): greetings, colours, numbers 1 to 10 and short phrases. A picture or a short clip, a question you hear, then the answer.</p></div></section>
+  <section class="card t4 wiz"><img src="/icons/dino-language.webp" alt="" width="64" height="64"><div><h3>Portuguese Wizards</h3><p>The same four sets in European Portuguese (Portugal).</p></div></section>
+  <section class="card t5 wiz"><div class="emoji" aria-hidden="true">🌍</div><div><h3>Language Zone</h3><p>Just listening, no scores. Tap a picture to hear the English word, then Spanish, Portuguese or both. Choose with the flags at the top.</p></div></section>
+
+  <h2>Playing a card</h2>
+  <p class="sub">One short session is ten cards.</p>
+  <ol class="steps">
+    <li><div><b>Pick a set</b>Tap a tile on the home screen.</div></li>
+    <li><div><b>Listen</b>Press the sound button. Language cards play the question on their own.</div></li>
+    <li><div><b>Turn over</b>Tap the card or the blue Turn over button. The answer shows, and Language cards say it.</div></li>
+    <li><div><b>Got it or Not yet</b>Be honest. Both earn a pompom.</div></li>
+  </ol>
+
+  <section class="card">
+    <h3>Letter first or Word first</h3>
+    <p>On the Word Wizards screen you can choose how the sound cards start. Your choice is remembered.</p>
+    <div class="pair">
+      <div><div class="big" aria-hidden="true">Aa</div><b>Letter first</b><small>See the letter, say its sound, then turn over for the word.</small></div>
+      <div><div class="big" aria-hidden="true">🐍</div><b>Word first</b><small>See a picture and name it. Which sound does it start with? Turn over to hear the sound, then the word.</small></div>
+    </div>
+    <p class="sub" style="margin-top:10px">With Word first, the same sound shows different pictures: a sun, a seal, a snake. Picture cards stay quiet until you turn them over, so your child can name the picture first. Tap "Hear the word" if you need it.</p>
+  </section>
+
+  <section class="card t1">
+    <h3>Pompoms</h3>
+    <p>Every card finished earns a pompom, so effort is rewarded, not just right answers. Each wizard has its own pompom total at the top of the screen, and the jars on the home screen fill as cards are learned. There are no streaks, hearts or leaderboards.</p>
+  </section>
+
+  <h2>How it fits school</h2>
+  <section class="card"><h3>Phonics</h3><p>Word Wizards follows the <b>Little Wandle Letters and Sounds</b> order for Reception: Autumn 1, then Autumn 2. Sounds are said in the clipped way schools teach them, with a picture word to go with each.</p></section>
+  <section class="card"><h3>Early maths</h3><p>Number Wizards covers the Reception <b>Number</b> ideas: counting objects one to one, knowing that the last number says how many, recognising numerals, and seeing a number as two parts. It is not tied to one maths scheme.</p></section>
+  <section class="card"><h3>Languages</h3><p>Foreign languages are only required from Key Stage 2, so Spanish and Portuguese here are <b>early listening and fun</b>: hear a word, say it back, link it to a picture. Spain Spanish and Portugal Portuguese.</p></section>
+  <section class="card"><h3>How cards are learned</h3><p>A card counts as <b>learned</b> after three "Got it" taps in a row. "Not yet" brings the card back soon. There are no wrong answers and no timers.</p></section>
+  <p class="sub"><b>Ages:</b> 3 to 4, listen and point. 5 to 6, say it. A grown-up beside the child works best.</p>
+
+  <h2>Menus and settings</h2>
+  <section class="card">
+    <ul class="dots" style="margin-top:0">
+      <li><b>Logo, top left:</b> back to the list of wizards.</li>
+      <li><b>Menu, top right:</b> switch between Word, Number, Spanish and Portuguese Wizards and the Language Zone.</li>
+      <li><b>Cog, top right:</b> for grown-ups, so <b>press and hold for one second</b>. It opens the settings.</li>
+    </ul>
+    <p style="margin-top:10px"><b>In the settings:</b></p>
+    <ul class="dots">
+      <li><b>Colours:</b> Light (the standard), Dark, or match the device.</li>
+      <li><b>Say it aloud automatically:</b> plays the sound when a card turns over, and the word when a picture card appears.</li>
+      <li><b>Language questions:</b> a mix, "what does it mean?" (listening), or "how do you say it?" (speaking).</li>
+      <li><b>Clear progress:</b> tap twice. This wipes pompoms and learned cards on this device.</li>
+    </ul>
+  </section>
+
+  <h2>Good to know</h2>
+  <section class="card t3">
+    <ul class="dots" style="margin-top:0">
+      <li><b>Add to Home Screen:</b> on iPhone, open it in Safari, tap Share, then Add to Home Screen. On Android, open the Chrome menu, then Install app.</li>
+      <li><b>Offline:</b> open it once online, then it works without internet.</li>
+      <li><b>Updates:</b> new versions download quietly in the background. Close the app and open it again to see them. The "What's new" note on the home screen says what changed.</li>
+      <li><b>Private:</b> no accounts or tracking. Progress stays on the device, so it does not move between devices.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h3>Questions, ideas, or spotted a mistake?</h3>
+    <p>Email <a href="mailto:bobbydowza@gmail.com?subject=Dino%20Gang">bobbydowza@gmail.com</a>. Dino Gang is a small home project and every bit of feedback helps.</p>
+  </section>
+
+  <div class="cta"><a class="btn" href="/">Open Dino Gang</a></div>
+  <p class="fine">Dino Gang is an independent home project. It is not made by, or endorsed by, Little Wandle or any publisher.</p>
+</main>
+</body>
+</html>

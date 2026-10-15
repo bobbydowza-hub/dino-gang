@@ -82,6 +82,8 @@ sw_reg = ("<script>if('serviceWorker' in navigator&&location.protocol!=='file:')
 doc = head + frag.replace("</style>", "</style>\n</head>\n<body>", 1) + "\n" + sw_reg + "</body>\n</html>\n"
 open(os.path.join(P, "index.html"), "w", encoding="utf-8").write(doc)
 
+open(os.path.join(P, "about.html"), "w", encoding="utf-8").write(open(os.path.join(R, "src/about.html"), encoding="utf-8").read())
+
 # Service worker: precache everything, versioned by content hash
 files = []
 for root, _, fns in os.walk(P):

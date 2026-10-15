@@ -176,6 +176,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 @keyframes fall { to { transform: translateY(115vh) rotate(300deg); } }
 
 .whatsnew { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 18px; padding: 12px 14px; font-family: var(--font-ui); font-size: 0.95rem; cursor: pointer; }
+.aboutlink { display: block; text-align: center; color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 12px 8px; min-height: 48px; }
+.aboutlink span { display: block; font-weight: 400; color: var(--ink-soft); font-size: 0.85rem; text-decoration: none; }
 .whatsnew b { font-weight: 700; }
 .whatsnew .wnsub { color: var(--ink-soft); display: block; font-size: 0.85rem; }
 .whatsnew .wndot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: #ff5c93; }
@@ -297,6 +299,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     <h1 class="pagetitle">Pick a wizard</h1>
     <div class="wizlist" id="wizlist"></div>
     <button class="whatsnew" id="wn" type="button"></button>
+    <a class="aboutlink" href="about">About Dino Gang <span>A guide for grown-ups</span></a>
   </section>
 
   <section id="home" class="home" style="display:flex;flex-direction:column;gap:18px" hidden>
