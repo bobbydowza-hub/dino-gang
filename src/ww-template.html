@@ -1064,7 +1064,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (curPic) { $("hearSound").lastChild.textContent = flipped ? "Sound" : "Hear the word"; $("hearWord").hidden = !flipped; }
     if (flipped) say($("card").getAttribute("aria-label"));
     lockFor(650);
-    if (flipped && curPic) { playPicBack(curCard()); } else if (flipped && isLangD(deck())) { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (isLangD(d)) playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
+    if (flipped && curPic) { if (prefs.auto) playPicBack(curCard()); } else if (flipped && isLangD(deck())) { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (isLangD(d)) playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
   }
 
   function flyPompom() {
