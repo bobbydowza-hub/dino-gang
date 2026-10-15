@@ -1,5 +1,8 @@
 [build]
   publish = "public"
+  # Only the main branch is ever built and published. Any other branch (e.g. dev) is skipped,
+  # so work-in-progress pushes cost no deploy credits.
+  ignore = "[ \"$BRANCH\" != \"main\" ]"
 
 [[headers]]
   for = "/sw.js"
