@@ -752,6 +752,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (d.pf && CLIPS[curW.k]) curPic = prefs.wm === "pic";
   }
   function wordUri() { return curW && CLIPS[curW.k]; }
+  // How many times each recorded sound clip says the sound, and how it is written when said (from the recording script)
+  var REPS = { s: 2, n: 2, m: 2, f: 2, l: 2, ff: 2, ll: 2, ss: 2, z: 2, th: 2, sh: 2 }, SAYT = { x: "cs", nk: "ngk" };
+  function soundSaid(c) { var n = REPS[c.g] || 3, w = SAYT[c.g] || c.g, a = []; while (n--) a.push(w); return a.join(", "); }
   function playPicBack(c) {
     var s = CLIPS[keyOf(c)], w = wordUri(), u = [];
     if (END_SOUNDS[c.g]) { if (w) u.push(w); if (s) u.push(s); }
@@ -1002,7 +1005,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (d.type === "sound" && curPic) {
       h += '<div class="big">' + esc(c.g) + "</div>";
       h += '<div class="pic smallpic" aria-hidden="true">' + curW.p + "</div>";
-      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) : esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) + "\u2026 " + esc(curW.w) + "!") + "</div>";
+      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(soundSaid(c)) : esc(soundSaid(c)) + "\u2026 " + esc(curW.w) + "!") + "</div>";
       h += '<div class="tipline">' + esc(c.t) + "</div>";
     } else if (d.type === "sound") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
