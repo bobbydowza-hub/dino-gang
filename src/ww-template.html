@@ -114,6 +114,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .big .mark { color: #ff5c4d; font-weight: 700; }
 .hint { font-family: var(--font-ui); font-size: 1rem; color: var(--ink-soft); }
 .tapnote { position: absolute; bottom: 16px; font-family: var(--font-ui); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); }
+.pic.bigpic { font-size: clamp(4rem, 26vw, 6.6rem); margin-bottom: 8px; }
+.pic.smallpic { font-size: clamp(2.4rem, 12vw, 3.4rem); }
 .sock1 { display: inline-block; width: 1.6em; height: 1.6em; vertical-align: -0.3em; }
 .pic { font-size: clamp(3rem, 16vw, 4.6rem); line-height: 1; }
 .mn { font-weight: 600; font-size: 1.55rem; text-wrap: balance; }
@@ -323,6 +325,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Language questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
+      <div class="vrow"><label for="wm">Word cards</label><select id="wm"><option value="mix">Mix of both</option><option value="letter">Letter first</option><option value="pic">Picture first</option></select></div>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
       <button class="btn sky" id="sheetDone" type="button">Done</button>
     </div>
@@ -335,7 +338,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 (function () {
   // ---- Card data, from the Little Wandle Reception and Year 1 parent sheets ----
   var DECKS = [
-    { id: "a1", name: "Autumn 1", type: "sound", tint: 1, ready: true,
+    { id: "a1", name: "Autumn 1", type: "sound", tint: 1, ready: true, pf: true,
       what: "The first 20 sounds in Reception.",
       info: "The first 20 sounds taught in Reception, Autumn 1.",
       cards: [
@@ -360,7 +363,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
         { g: "f", w: "flamingo", p: "🦩", t: "Top teeth on bottom lip, push the air out." },
         { g: "l", w: "lollipop", p: "🍭", t: "Tongue up behind the teeth and press." }
       ] },
-    { id: "a2", name: "Autumn 2", type: "sound", tint: 2, ready: true,
+    { id: "a2", name: "Autumn 2", type: "sound", tint: 2, ready: true, pf: true,
       what: "15 more sounds, with the two-letter ones.",
       info: "The 15 sounds taught in Reception, Autumn 2, including the two-letter sounds.",
       cards: [
@@ -468,6 +471,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var SESSION_SIZE = 10, MASTER = 3;
   var NUMDECKS = [{"id":"n1","name":"Counting to 5","type":"quantity","ready":true,"what":"Count objects one by one and say how many. See the block shape for each number to 5.","anchor":["EYFS Number ELG (numbers to 10; subitise to 5)","Development Matters Reception: count, cardinality (secondary source, not opened directly)"],"level":"to-5","ageBand":"4-5","cards":[{"kind":"see","n":1,"word":"one","p":"","blocks":[1],"col":"#E53935","t":"Point to each block. Say the number.","say":"One. One block.","id":"n1-01","key":"n1_01"},{"kind":"see","n":2,"word":"two","p":"","blocks":[2],"col":"#FB8C00","t":"Point to each block. Say the number.","say":"Two. Two blocks.","id":"n1-02","key":"n1_02"},{"kind":"see","n":3,"word":"three","p":"","blocks":[3],"col":"#FDD835","t":"Point to each block. Say the number.","say":"Three. Three blocks.","id":"n1-03","key":"n1_03"},{"kind":"count","n":1,"word":"one","p":"🦕","blocks":[1],"col":"#E53935","t":"Point to each one once. The last number says how many.","say":"One. One dinosaur.","id":"n1-04","key":"n1_04"},{"kind":"count","n":2,"word":"two","p":"🥚🥚","blocks":[2],"col":"#FB8C00","t":"Point to each one once. The last number says how many.","say":"One, two. Two eggs.","id":"n1-05","key":"n1_05"},{"kind":"count","n":3,"word":"three","p":"🍎🍎🍎","blocks":[3],"col":"#FDD835","t":"Point to each one once. The last number says how many.","say":"One, two, three. Three apples.","id":"n1-06","key":"n1_06"},{"kind":"see","n":4,"word":"four","p":"","blocks":[4],"col":"#43A047","t":"Point to each block. Say the number.","say":"Four. Four blocks.","id":"n1-07","key":"n1_07"},{"kind":"see","n":5,"word":"five","p":"","blocks":[5],"col":"#1E88E5","t":"Point to each block. Say the number.","say":"Five. Five blocks.","id":"n1-08","key":"n1_08"},{"kind":"count","n":4,"word":"four","p":"🐞🐞🐞🐞","blocks":[4],"col":"#43A047","t":"Point to each one once. The last number says how many.","say":"One, two, three, four. Four ladybirds.","id":"n1-09","key":"n1_09"},{"kind":"count","n":5,"word":"five","p":"⭐⭐⭐⭐⭐","blocks":[5],"col":"#1E88E5","t":"Point to each one once. The last number says how many.","say":"One, two, three, four, five. Five stars.","id":"n1-10","key":"n1_10"},{"kind":"howmany","n":4,"word":"four","p":"🍓🍓🍓🍓","blocks":[4],"col":"#43A047","t":"Ask 'How many?' Let them count, then answer.","say":"Four. There are four strawberries.","id":"n1-11","key":"n1_11"},{"kind":"howmany","n":2,"word":"two","p":"🧦🧦","blocks":[2],"col":"#FB8C00","t":"Ask 'How many?' Let them count, then answer.","say":"Two. There are two socks.","id":"n1-12","key":"n1_12"},{"kind":"howmany","n":5,"word":"five","p":"🥚🥚🥚🥚🥚","blocks":[5],"col":"#1E88E5","t":"Ask 'How many?' Let them count, then answer.","say":"Five. There are five eggs.","id":"n1-13","key":"n1_13"},{"kind":"howmany","n":1,"word":"one","p":"🍎","blocks":[1],"col":"#E53935","t":"Ask 'How many?' Let them count, then answer.","say":"One. There is one apple.","id":"n1-14","key":"n1_14"},{"kind":"howmany","n":3,"word":"three","p":"🐞🐞🐞","blocks":[3],"col":"#FDD835","t":"Ask 'How many?' Let them count, then answer.","say":"Three. There are three ladybirds.","id":"n1-15","key":"n1_15"}],"wiz":"number","tint":1},{"id":"n2","name":"Counting to 10","type":"quantity","ready":true,"what":"Count to 10, see each number's block shape, and match numerals to quantities.","anchor":["EYFS Number ELG: deep understanding of numbers to 10","Year 1 PoS: read and write numbers 1 to 20 in numerals (first steps)"],"level":"to-10","ageBand":"4.5-5.5","cards":[{"kind":"numeral","n":1,"word":"one","numeral":"1","p":"🥚","blocks":[1],"col":"#E53935","t":"Say the number. Hold up that many fingers.","say":"One. Show one finger.","id":"n2-01","key":"n2_01"},{"kind":"numeral","n":2,"word":"two","numeral":"2","p":"🍎🍎","blocks":[2],"col":"#FB8C00","t":"Say the number. Hold up that many fingers.","say":"Two. Show two fingers.","id":"n2-02","key":"n2_02"},{"kind":"numeral","n":3,"word":"three","numeral":"3","p":"🐞🐞🐞","blocks":[3],"col":"#FDD835","t":"Say the number. Hold up that many fingers.","say":"Three. Show three fingers.","id":"n2-03","key":"n2_03"},{"kind":"numeral","n":4,"word":"four","numeral":"4","p":"⭐⭐⭐⭐","blocks":[4],"col":"#43A047","t":"Say the number. Hold up that many fingers.","say":"Four. Show four fingers.","id":"n2-04","key":"n2_04"},{"kind":"numeral","n":5,"word":"five","numeral":"5","p":"🦕🦕🦕🦕🦕","blocks":[5],"col":"#1E88E5","t":"Say the number. Hold up that many fingers.","say":"Five. Show five fingers.","id":"n2-05","key":"n2_05"},{"kind":"see","n":6,"word":"six","numeral":"6","p":"","blocks":[5,1],"col":"#3949AB","t":"Look first. Then point to each block to check.","say":"Six. Five and one more.","id":"n2-06","key":"n2_06"},{"kind":"count","n":6,"word":"six","p":"🥚🥚🥚🥚🥚\n🥚","blocks":[5,1],"col":"#3949AB","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six. Six eggs.","id":"n2-07","key":"n2_07"},{"kind":"numeral","n":6,"word":"six","numeral":"6","p":"🍓🍓🍓🍓🍓\n🍓","blocks":[5,1],"col":"#3949AB","t":"Say the number. Hold up that many fingers.","say":"Six. Show six fingers.","id":"n2-08","key":"n2_08"},{"kind":"see","n":7,"word":"seven","numeral":"7","p":"","blocks":[5,2],"col":"rainbow","t":"Look first. Then point to each block to check.","say":"Seven. Five and two more.","id":"n2-09","key":"n2_09"},{"kind":"count","n":7,"word":"seven","p":"🍎🍎🍎🍎🍎\n🍎🍎","blocks":[5,2],"col":"rainbow","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven. Seven apples.","id":"n2-10","key":"n2_10"},{"kind":"numeral","n":7,"word":"seven","numeral":"7","p":"🧦🧦🧦🧦🧦\n🧦🧦","blocks":[5,2],"col":"rainbow","t":"Say the number. Hold up that many fingers.","say":"Seven. Show seven fingers.","id":"n2-11","key":"n2_11"},{"kind":"see","n":8,"word":"eight","numeral":"8","p":"","blocks":[5,3],"col":"#EC407A","t":"Look first. Then point to each block to check.","say":"Eight. Five and three more.","id":"n2-12","key":"n2_12"},{"kind":"count","n":8,"word":"eight","p":"🐞🐞🐞🐞🐞\n🐞🐞🐞","blocks":[5,3],"col":"#EC407A","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight. Eight ladybirds.","id":"n2-13","key":"n2_13"},{"kind":"numeral","n":8,"word":"eight","numeral":"8","p":"🐟🐟🐟🐟🐟\n🐟🐟🐟","blocks":[5,3],"col":"#EC407A","t":"Say the number. Hold up that many fingers.","say":"Eight. Show eight fingers.","id":"n2-14","key":"n2_14"},{"kind":"see","n":9,"word":"nine","numeral":"9","p":"","blocks":[3,3,3],"col":"greys","t":"Look first. Then point to each block to check.","say":"Nine. Three rows of three.","id":"n2-15","key":"n2_15"},{"kind":"count","n":9,"word":"nine","p":"⭐⭐⭐\n⭐⭐⭐\n⭐⭐⭐","blocks":[3,3,3],"col":"greys","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight, nine. Nine stars.","id":"n2-16","key":"n2_16"},{"kind":"numeral","n":9,"word":"nine","numeral":"9","p":"🌳🌳🌳\n🌳🌳🌳\n🌳🌳🌳","blocks":[3,3,3],"col":"greys","t":"Say the number. Hold up that many fingers.","say":"Nine. Show nine fingers.","id":"n2-17","key":"n2_17"},{"kind":"see","n":10,"word":"ten","numeral":"10","p":"","blocks":[5,5],"col":"white-red-edge","t":"Look first. Then point to each block to check.","say":"Ten. Two rows of five.","id":"n2-18","key":"n2_18"},{"kind":"count","n":10,"word":"ten","p":"🍓🍓🍓🍓🍓\n🍓🍓🍓🍓🍓","blocks":[5,5],"col":"white-red-edge","t":"Point to each one once. Count out loud.","say":"One, two, three, four, five, six, seven, eight, nine, ten. Ten strawberries.","id":"n2-19","key":"n2_19"},{"kind":"numeral","n":10,"word":"ten","numeral":"10","p":"🍄🍄🍄🍄🍄\n🍄🍄🍄🍄🍄","blocks":[5,5],"col":"white-red-edge","t":"Say the number. Hold up that many fingers.","say":"Ten. Show ten fingers.","id":"n2-20","key":"n2_20"}],"wiz":"number","tint":2},{"id":"n3","name":"Number bonds to 5 and 10","type":"partwhole","ready":true,"what":"See that a number is made of two parts. Split numbers to 5, then make 10.","anchor":["EYFS Number ELG: composition of numbers to 10; bonds to 5; some bonds to 10","Year 1 PoS: represent and use number bonds within 20; read and interpret + and = statements; missing-number problems"],"level":"to-5 then to-10","ageBand":"5-6","cards":[{"kind":"split","whole":2,"parts":[1,1],"eq":"2 = 1 + 1","p":"🥚 🥚","wholeBlocks":[2],"wholeCol":"#FB8C00","partCols":[{"n":1,"col":"#E53935"},{"n":1,"col":"#E53935"}],"t":"Look at the two parts. Say them.","say":"Two is one and one.","id":"n3-01","key":"n3_01"},{"kind":"split","whole":3,"parts":[1,2],"eq":"3 = 1 + 2","p":"🥚 🥚🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":1,"col":"#E53935"},{"n":2,"col":"#FB8C00"}],"t":"Look at the two parts. Say them.","say":"Three is one and two.","id":"n3-02","key":"n3_02"},{"kind":"split","whole":4,"parts":[1,3],"eq":"4 = 1 + 3","p":"🥚 🥚🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":1,"col":"#E53935"},{"n":3,"col":"#FDD835"}],"t":"Look at the two parts. Say them.","say":"Four is one and three.","id":"n3-03","key":"n3_03"},{"kind":"split","whole":4,"parts":[2,2],"eq":"4 = 2 + 2","p":"🥚🥚 🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":2,"col":"#FB8C00"},{"n":2,"col":"#FB8C00"}],"t":"Look at the two parts. Say them.","say":"Four is two and two.","id":"n3-04","key":"n3_04"},{"kind":"split","whole":5,"parts":[1,4],"eq":"5 = 1 + 4","p":"🥚 🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":1,"col":"#E53935"},{"n":4,"col":"#43A047"}],"t":"Look at the two parts. Say them.","say":"Five is one and four.","id":"n3-05","key":"n3_05"},{"kind":"split","whole":5,"parts":[2,3],"eq":"5 = 2 + 3","p":"🥚🥚 🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":2,"col":"#FB8C00"},{"n":3,"col":"#FDD835"}],"t":"Look at the two parts. Say them.","say":"Five is two and three.","id":"n3-06","key":"n3_06"},{"kind":"zero","whole":3,"parts":[3,0],"eq":"3 = 3 + 0","p":"🥚🥚🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":3,"col":"#FDD835"},{"n":0,"col":"none"}],"t":"Zero means none. The number stays the same.","say":"Three and zero make three.","id":"n3-07","key":"n3_07"},{"kind":"zero","whole":5,"parts":[0,5],"eq":"0 + 5 = 5","p":"🥚🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":0,"col":"none"},{"n":5,"col":"#1E88E5"}],"t":"Zero means none. The number stays the same.","say":"Zero and five make five.","id":"n3-08","key":"n3_08"},{"kind":"missing","whole":3,"parts":[2,1],"eq":"3 = 2 + ?","hide":1,"p":"🥚🥚 🥚","wholeBlocks":[3],"wholeCol":"#FDD835","partCols":[{"n":2,"col":"#FB8C00"},{"n":1,"col":"#E53935"}],"t":"What is hiding? Say the missing part.","say":"The missing part is one. Three is two and one.","id":"n3-09","key":"n3_09"},{"kind":"missing","whole":4,"parts":[3,1],"eq":"? + 1 = 4","hide":0,"p":"🥚🥚🥚 🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":3,"col":"#FDD835"},{"n":1,"col":"#E53935"}],"t":"What is hiding? Say the missing part.","say":"The missing part is three. Four is three and one.","id":"n3-10","key":"n3_10"},{"kind":"missing","whole":5,"parts":[1,4],"eq":"5 = ? + 4","hide":0,"p":"🥚 🥚🥚🥚🥚","wholeBlocks":[5],"wholeCol":"#1E88E5","partCols":[{"n":1,"col":"#E53935"},{"n":4,"col":"#43A047"}],"t":"What is hiding? Say the missing part.","say":"The missing part is one. Five is one and four.","id":"n3-11","key":"n3_11"},{"kind":"missing","whole":4,"parts":[2,2],"eq":"2 + ? = 4","hide":1,"p":"🥚🥚 🥚🥚","wholeBlocks":[4],"wholeCol":"#43A047","partCols":[{"n":2,"col":"#FB8C00"},{"n":2,"col":"#FB8C00"}],"t":"What is hiding? Say the missing part.","say":"The missing part is two. Four is two and two.","id":"n3-12","key":"n3_12"},{"kind":"tens","whole":10,"parts":[5,5],"eq":"10 = 5 + 5","p":"🥚🥚🥚🥚🥚 🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":5,"col":"#1E88E5"},{"n":5,"col":"#1E88E5"}],"t":"See the two parts that make ten. Say them.","say":"Ten is five and five.","id":"n3-13","key":"n3_13"},{"kind":"tens","whole":10,"parts":[6,4],"eq":"10 = 6 + 4","p":"🥚🥚🥚🥚🥚🥚 🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":6,"col":"#3949AB"},{"n":4,"col":"#43A047"}],"t":"See the two parts that make ten. Say them.","say":"Ten is six and four.","id":"n3-14","key":"n3_14"},{"kind":"tens","whole":10,"parts":[7,3],"eq":"10 = 7 + 3","p":"🥚🥚🥚🥚🥚🥚🥚 🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":7,"col":"rainbow"},{"n":3,"col":"#FDD835"}],"t":"See the two parts that make ten. Say them.","say":"Ten is seven and three.","id":"n3-15","key":"n3_15"},{"kind":"tens","whole":10,"parts":[8,2],"eq":"10 = 8 + 2","p":"🥚🥚🥚🥚🥚🥚🥚🥚 🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":8,"col":"#EC407A"},{"n":2,"col":"#FB8C00"}],"t":"See the two parts that make ten. Say them.","say":"Ten is eight and two.","id":"n3-16","key":"n3_16"},{"kind":"tens","whole":10,"parts":[9,1],"eq":"10 = 9 + 1","p":"🥚🥚🥚🥚🥚🥚🥚🥚🥚 🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":9,"col":"greys"},{"n":1,"col":"#E53935"}],"t":"See the two parts that make ten. Say them.","say":"Ten is nine and one.","id":"n3-17","key":"n3_17"},{"kind":"tensmissing","whole":10,"parts":[7,3],"eq":"10 = 7 + ?","hide":1,"p":"🥚🥚🥚🥚🥚🥚🥚 🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":7,"col":"rainbow"},{"n":3,"col":"#FDD835"}],"t":"What is hiding? Say the missing part.","say":"The missing part is three. Ten is seven and three.","id":"n3-18","key":"n3_18"},{"kind":"tensmissing","whole":10,"parts":[4,6],"eq":"? + 6 = 10","hide":0,"p":"🥚🥚🥚🥚 🥚🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":4,"col":"#43A047"},{"n":6,"col":"#3949AB"}],"t":"What is hiding? Say the missing part.","say":"The missing part is four. Ten is four and six.","id":"n3-19","key":"n3_19"},{"kind":"tensmissing","whole":10,"parts":[2,8],"eq":"2 + ? = 10","hide":1,"p":"🥚🥚 🥚🥚🥚🥚🥚🥚🥚🥚","wholeBlocks":[5,5],"wholeCol":"white-red-edge","partCols":[{"n":2,"col":"#FB8C00"},{"n":8,"col":"#EC407A"}],"t":"What is hiding? Say the missing part.","say":"The missing part is eight. Ten is two and eight.","id":"n3-20","key":"n3_20"}],"wiz":"number","tint":3}];
   var LANGDECKS = [];
+  var WORDX = {};
   DECKS = DECKS.concat(NUMDECKS).concat(LANGDECKS);
   var POM = ["#ff5c93", "#ffc83d", "#2fd0c4", "#8c6bff", "#ff8f4d", "#6bd44a"];
   var KEY = "soundcards-progress-v1", PKEY = "soundcards-voice-v1";
@@ -521,11 +525,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var HOLD = { s: "sssssssss", n: "nnnnnnnnn", m: "mmmmmmmmm", f: "fffffffff", l: "lllllllll", r: "rrrrrrrrr", v: "vvvvvvvvv", z: "zzzzzzzzz", sh: "shhhhhhhhh", ff: "fffffffff", ll: "lllllllll", ss: "sssssssss" };
   var synth = window.speechSynthesis || null;
   var voices = [], seqToken = 0;
-  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", theme: "light", zl: "es" };
+  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", wm: "mix", theme: "light", zl: "es" };
   function isReady(d) { return !!d.ready || prefs.preview; }
   try {
     var sp = JSON.parse(localStorage.getItem(PKEY) || "{}");
-    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.theme = sp.theme || "light"; prefs.zl = sp.zl || "es"; }
+    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.wm = sp.wm || "mix"; prefs.theme = sp.theme || "light"; prefs.zl = sp.zl || "es"; }
   } catch (e) {}
   function applyTheme() { var r = document.documentElement; if (prefs.theme === "light" || prefs.theme === "dark") r.setAttribute("data-theme", prefs.theme); else r.removeAttribute("data-theme"); }
   applyTheme();
@@ -681,7 +685,30 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     }
     if (u.length) playSeq(u);
   }
+  // ---- Word cards: letter first or picture first, and extra picture words ----
+  var END_SOUNDS = { ck: 1, ff: 1, ll: 1, ss: 1, x: 1, ng: 1, nk: 1 };
+  var curW = null, curPic = false, lastWord = {};
+  function wordOptions(c) {
+    var o = [{ w: c.w, p: c.p, k: CLIPS["w:" + keyOf(c)] ? "w:" + keyOf(c) : "" }];
+    (WORDX[c.g] || []).forEach(function (x) { if (CLIPS[x.k]) o.push(x); });
+    return o;
+  }
+  function pickWord(d, c) {
+    var o = wordOptions(c), cand = o.filter(function (x) { return x.w !== lastWord[c.g]; });
+    curW = cand[Math.floor(Math.random() * cand.length)] || o[0];
+    lastWord[c.g] = curW.w;
+    curPic = false;
+    if (d.pf && CLIPS[curW.k]) curPic = prefs.wm === "pic" || (prefs.wm === "mix" && Math.random() < 0.5);
+  }
+  function wordUri() { return curW && CLIPS[curW.k]; }
+  function playPicBack(c) {
+    var s = CLIPS[keyOf(c)], w = wordUri(), u = [];
+    if (END_SOUNDS[c.g]) { if (w) u.push(w); if (s) u.push(s, s); }
+    else { if (s) u.push(s, s, s); if (w) u.push(w); }
+    if (u.length) playSeq(u, 220);
+  }
   function playWord(d, c) {
+    if (d.type === "sound" && curW && curW.w !== c.w && wordUri() && playClip(wordUri())) return;
     var clip = d.type === "sound" ? CLIPS["w:" + keyOf(c)] : null;
     if (clip && playClip(clip)) return;
     speak(d.type === "tricky" ? c.g : (d.type === "sound" ? c.w : ""));
@@ -911,6 +938,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function frontHtml(d, c) {
     if (wizOf(d) === "number") return numFront(d, c);
     if (isLangD(d)) return langFront(d, c);
+    if (d.type === "sound" && curPic) return '<div class="pic bigpic" aria-hidden="true">' + curW.p + '</div><div class="lq">' + (END_SOUNDS[c.g] ? "What sound do you hear at the end?" : "What sound does it start with?") + '</div><span class="tapnote">Tap to turn over</span>';
     var h = '<div class="big' + (d.type === "tricky" ? " word" : "") + '">' + esc(c.g) + "</div>";
     if (c.hint) h += '<div class="hint">' + esc(c.hint) + "</div>";
     if (d.type === "alt") h += '<div class="hint">How else can we write this sound?</div>';
@@ -920,10 +948,15 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (wizOf(d) === "number") return numBack(d, c);
     if (isLangD(d)) return langBack(d, c);
     var h = "";
-    if (d.type === "sound") {
+    if (d.type === "sound" && curPic) {
+      h += '<div class="big">' + esc(c.g) + "</div>";
+      h += '<div class="pic smallpic" aria-hidden="true">' + curW.p + "</div>";
+      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) + ", " + esc(c.g) : esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) + ", " + esc(curW.w) + "!") + "</div>";
+      h += '<div class="tipline">' + esc(c.t) + "</div>";
+    } else if (d.type === "sound") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
-      h += '<div class="pic" aria-hidden="true">' + c.p + "</div>";
-      h += '<div class="mn">' + esc(c.w) + "</div>";
+      h += '<div class="pic" aria-hidden="true">' + (curW ? curW.p : c.p) + "</div>";
+      h += '<div class="mn">' + esc(curW ? curW.w : c.w) + "</div>";
       if (c.cp) h += '<div class="mn cp">' + esc(c.cp) + "</div>";
       h += '<div class="tipline">' + esc(c.t) + "</div>";
     } else if (d.type === "alt") {
@@ -950,6 +983,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var d = deck(), c = curCard();
     flipped = false; answered = false;
     if (isLangD(d)) pickPat();
+    if (d.type === "sound") pickWord(d, c); else { curW = null; curPic = false; }
     $("card").classList.remove("flipped");
     $("front").innerHTML = frontHtml(d, c);
     $("backface").innerHTML = backHtml(d, c);
@@ -960,16 +994,18 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("prog").setAttribute("aria-valuenow", pct);
     var isNum = wizOf(d) === "number", isLang = isLangD(d);
     $("hearSound").hidden = d.type === "tricky";
-    $("hearSound").lastChild.textContent = isLang ? "Hear the question again" : (isNum ? "Listen to the answer" : "Sound");
+    $("hearSound").lastChild.textContent = isLang ? "Hear the question again" : (isNum ? "Listen to the answer" : (curPic ? "Hear the word" : "Sound"));
     $("hearSound").style.visibility = isNum ? "hidden" : "";
-    $("hearWord").hidden = d.type === "alt" || isNum || isLang;
+    $("hearWord").hidden = d.type === "alt" || isNum || isLang || curPic;
     renderDock();
     if (isLang) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c) playLang(c); }, 450);
+    if (curPic) setTimeout(function () { if (!flipped && !answered && deck() === d && curCard() === c && wordUri()) playClip(wordUri()); }, 450);
     if (document.activeElement === document.body || !document.activeElement) $("card").focus({ preventScroll: true });
   }
 
   function cardLabel(d, c) {
     if (flipped) return [].filter.call($("backface").children, function (e) { return e.getAttribute("aria-hidden") !== "true" && e.textContent.trim(); }).map(function (e) { return e.textContent.trim().replace(/[.!?]$/, ""); }).join(". ") + ". Tap to turn back.";
+ if (curPic && !flipped && deck().type === "sound") return "Picture card, " + curW.w + ". Tap to turn over.";
     if (!c.g) return (c.tl ? "Language card" : "Number card") + ". Tap to turn over.";
     return "Card " + c.g + (c.hint ? " (" + c.hint + ")" : "") + ". Tap to turn over.";
   }
@@ -987,9 +1023,10 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     renderDock(); keepFocus(was); setFaces();
     if (wizOf(deck()) === "number") $("hearSound").style.visibility = flipped ? "" : "hidden";
     if (isLangD(deck())) $("hearSound").lastChild.textContent = flipped ? "Listen to the answer" : "Hear the question again";
+    if (curPic) { $("hearSound").lastChild.textContent = flipped ? "Sound" : "Hear the word"; $("hearWord").hidden = !flipped; }
     if (flipped) say($("card").getAttribute("aria-label"));
     lockFor(650);
-    if (flipped && isLangD(deck())) { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (isLangD(d)) playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
+    if (flipped && curPic) { playPicBack(curCard()); } else if (flipped && isLangD(deck())) { playLang(curCard()); } else if (flipped && prefs.auto) { var d = deck(), c = curCard(); if (isLangD(d)) playLang(c); else if (d.type === "tricky") speak(c.g); else playSound(c); }
   }
 
   function flyPompom() {
@@ -1192,7 +1229,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("menu").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b && !b.disabled) { closeMenu(); openWizard(b.getAttribute("data-w")); } });
   document.addEventListener("click", function (e) { if (!$("menu").hidden && !e.target.closest("#menu, #menuBtn")) closeMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("menu").hidden) { closeMenu(); $("menuBtn").focus({ preventScroll: true }); } });
-  $("hearSound").addEventListener("click", function () { if (isLangD(deck())) playLang(curCard()); else playSound(curCard()); });
+  $("hearSound").addEventListener("click", function () { if (isLangD(deck())) playLang(curCard()); else if (curPic && !flipped) { if (wordUri()) playClip(wordUri()); } else if (curPic) playPicBack(curCard()); else playSound(curCard()); });
   $("front").addEventListener("click", function (e) { if (e.target.closest(".vwrap")) e.stopPropagation(); });
   $("hearWord").addEventListener("click", function () { playWord(deck(), curCard()); });
   document.addEventListener("keydown", function (e) {
@@ -1233,6 +1270,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("auto").addEventListener("change", function () { prefs.auto = $("auto").checked; savePrefs(); });
   $("lq").addEventListener("change", function () { prefs.lq = $("lq").value; savePrefs(); });
   $("lq").value = prefs.lq;
+  $("wm").addEventListener("change", function () { prefs.wm = $("wm").value; savePrefs(); });
+  $("wm").value = prefs.wm;
   $("theme").value = prefs.theme;
   $("theme").addEventListener("change", function () { prefs.theme = $("theme").value; applyTheme(); savePrefs(); });
   $("prev").addEventListener("change", function () { prefs.preview = $("prev").checked; savePrefs(); renderCover(); renderHome(); });

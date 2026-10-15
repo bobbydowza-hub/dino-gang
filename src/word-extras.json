@@ -1,0 +1,23 @@
+{
+  "_note": "Extra picture words per sound (Autumn 1). Each needs a recording at public/audio/words/<id>.mp3 where id is <grapheme>-<word>; words without a recording are left out of the build.",
+  "s": [["sun","☀️"],["seal","🦭"]],
+  "a": [["apple","🍎"],["ant","🐜"]],
+  "t": [["tent","⛺"],["tomato","🍅"]],
+  "p": [["pig","🐷"],["pizza","🍕"]],
+  "i": [["insect","🐛"],["ink","🖋️"]],
+  "n": [["nose","👃"],["nest","🪺"]],
+  "m": [["moon","🌙"],["monkey","🐒"]],
+  "d": [["dog","🐶"],["dinosaur","🦕"]],
+  "g": [["gorilla","🦍"],["guitar","🎸"]],
+  "o": [["orange","🍊"],["otter","🦦"]],
+  "c": [["cow","🐄"],["car","🚗"]],
+  "k": [["key","🔑"],["koala","🐨"]],
+  "ck": [["truck","🚚"],["clock","🕒"]],
+  "e": [["egg","🥚"],["envelope","✉️"]],
+  "u": [["up","⬆️"]],
+  "r": [["rabbit","🐰"],["robot","🤖"]],
+  "h": [["horse","🐴"],["house","🏠"]],
+  "b": [["ball","⚽"],["banana","🍌"]],
+  "f": [["fish","🐟"],["fox","🦊"]],
+  "l": [["leaf","🍃"],["lion","🦁"]]
+}

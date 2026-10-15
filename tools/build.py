@@ -13,6 +13,19 @@ for lg in ("en", "es", "pt"):
         for fn in sorted(os.listdir(d)):
             if fn.endswith(".mp3"): clips["l:" + fn[:-4]] = "audio/lang/%s/%s" % (lg, fn)
 
+# Extra picture words: audio/words/<grapheme>-<word>.mp3 becomes clip "x:<grapheme>-<word>"; a word is used only if its clip exists
+wd = os.path.join(P, "audio/words")
+if os.path.isdir(wd):
+    for fn in sorted(os.listdir(wd)):
+        if fn.endswith(".mp3"): clips["x:" + fn[:-4]] = "audio/words/" + fn
+wx = json.load(open(os.path.join(R, "src/word-extras.json"), encoding="utf-8"))
+wordx = {}
+for g, lst in wx.items():
+    if g.startswith("_"): continue
+    ok = [{"w": w, "p": e, "k": "x:%s-%s" % (g, w)} for w, e in lst if ("x:%s-%s" % (g, w)) in clips]
+    if ok: wordx[g] = ok
+print("Extra picture words in use:", sum(len(v) for v in wordx.values()), "of", sum(len(v) for k, v in wx.items() if not k.startswith("_")))
+
 decks = []
 WIZ = {"es": ("language", True), "pt": ("portuguese", True)}
 for lg in ("es", "pt"):
@@ -40,6 +53,7 @@ for lg in ("es", "pt"):
 
 assert "var CLIPS = {};" in tpl and "var LANGDECKS = [];" in tpl
 frag = tpl.replace("var CLIPS = {};", "var CLIPS = " + json.dumps(clips, separators=(",", ":")) + ";", 1)
+frag = frag.replace("var WORDX = {};", "var WORDX = " + json.dumps(wordx, ensure_ascii=False, separators=(",", ":")) + ";", 1)
 frag = frag.replace("var LANGDECKS = [];", "var LANGDECKS = " + json.dumps(decks, ensure_ascii=False, separators=(",", ":")) + ";", 1)
 frag = re.sub(r'<title>.*?</title>\s*', '', frag, count=1)
 frag = re.sub(r'<link rel="preconnect"[^>]*>\s*<link rel="stylesheet"[^>]*>\s*', '', frag, count=1)
