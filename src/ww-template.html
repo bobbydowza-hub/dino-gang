@@ -1268,7 +1268,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("menu").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b && !b.disabled) { closeMenu(); openWizard(b.getAttribute("data-w")); } });
   document.addEventListener("click", function (e) { if (!$("menu").hidden && !e.target.closest("#menu, #menuBtn")) closeMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("menu").hidden) { closeMenu(); $("menuBtn").focus({ preventScroll: true }); } });
-  $("hearSound").addEventListener("click", function () { if (isLangD(deck())) playLang(curCard()); else if (curPic && !flipped) { if (wordUri()) playClip(wordUri()); } else if (curPic) playPicBack(curCard()); else playSound(curCard()); });
+  $("hearSound").addEventListener("click", function () { if (isLangD(deck())) playLang(curCard()); else if (curPic && !flipped) { if (wordUri()) playClip(wordUri()); } else if (curPic) playSound(curCard()); else playSound(curCard()); });
   $("front").addEventListener("click", function (e) { if (e.target.closest(".vwrap")) e.stopPropagation(); });
   $("hearWord").addEventListener("click", function () { playWord(deck(), curCard()); });
   document.addEventListener("keydown", function (e) {
