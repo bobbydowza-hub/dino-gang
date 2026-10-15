@@ -345,7 +345,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <label class="chk" for="auto"><input type="checkbox" id="auto"><span>Say it aloud when a card turns over</span></label>
       <label class="chk" for="prev"><input type="checkbox" id="prev"><span>Show sets still being recorded (preview)</span></label>
       <div class="vrow"><label for="lq">Language questions</label><select id="lq"><option value="mix">Mix of both</option><option value="hear">What does it mean? (listening)</option><option value="say">How do you say it? (speaking)</option></select></div>
-      <div class="vrow"><label for="wm">Word cards</label><select id="wm"><option value="mix">Mix of both</option><option value="letter">Letter first</option><option value="pic">Picture first</option></select></div>
+      <div class="vrow"><label for="wm">Word cards</label><select id="wm"><option value="letter">Letter first</option><option value="pic">Word first</option></select></div>
       <button class="link" id="clear" type="button">Clear all progress and pompoms</button>
       <button class="btn sky" id="sheetDone" type="button">Done</button>
     </div>
@@ -546,11 +546,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var HOLD = { s: "sssssssss", n: "nnnnnnnnn", m: "mmmmmmmmm", f: "fffffffff", l: "lllllllll", r: "rrrrrrrrr", v: "vvvvvvvvv", z: "zzzzzzzzz", sh: "shhhhhhhhh", ff: "fffffffff", ll: "lllllllll", ss: "sssssssss" };
   var synth = window.speechSynthesis || null;
   var voices = [], seqToken = 0;
-  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", wm: "mix", theme: "light", zl: "es" };
+  var prefs = { voice: "", rate: 0.75, auto: false, preview: false, lq: "mix", wm: "letter", theme: "light", zl: "es" };
   function isReady(d) { return !!d.ready || prefs.preview; }
   try {
     var sp = JSON.parse(localStorage.getItem(PKEY) || "{}");
-    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.wm = sp.wm || "mix"; prefs.theme = sp.theme || "light"; prefs.zl = sp.zl || "es"; }
+    if (sp) { prefs.voice = sp.voice || ""; prefs.rate = sp.rate || 0.75; prefs.auto = !!sp.auto; prefs.preview = !!sp.preview; prefs.lq = sp.lq || "mix"; prefs.wm = sp.wm === "pic" ? "pic" : "letter"; prefs.theme = sp.theme || "light"; prefs.zl = sp.zl || "es"; }
   } catch (e) {}
   function applyTheme() { var r = document.documentElement; if (prefs.theme === "light" || prefs.theme === "dark") r.setAttribute("data-theme", prefs.theme); else r.removeAttribute("data-theme"); }
   applyTheme();
@@ -719,13 +719,13 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     curW = cand[Math.floor(Math.random() * cand.length)] || o[0];
     lastWord[c.g] = curW.w;
     curPic = false;
-    if (d.pf && CLIPS[curW.k]) curPic = prefs.wm === "pic" || (prefs.wm === "mix" && Math.random() < 0.5);
+    if (d.pf && CLIPS[curW.k]) curPic = prefs.wm === "pic";
   }
   function wordUri() { return curW && CLIPS[curW.k]; }
   function playPicBack(c) {
     var s = CLIPS[keyOf(c)], w = wordUri(), u = [];
-    if (END_SOUNDS[c.g]) { if (w) u.push(w); if (s) u.push(s, s); }
-    else { if (s) u.push(s, s, s); if (w) u.push(w); }
+    if (END_SOUNDS[c.g]) { if (w) u.push(w); if (s) u.push(s); }
+    else { if (s) u.push(s); if (w) u.push(w); }
     if (u.length) playSeq(u, 220);
   }
   function playWord(d, c) {
@@ -972,7 +972,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (d.type === "sound" && curPic) {
       h += '<div class="big">' + esc(c.g) + "</div>";
       h += '<div class="pic smallpic" aria-hidden="true">' + curW.p + "</div>";
-      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) + ", " + esc(c.g) : esc(c.g) + ", " + esc(c.g) + ", " + esc(c.g) + ", " + esc(curW.w) + "!") + "</div>";
+      h += '<div class="mn">' + (END_SOUNDS[c.g] ? esc(curW.w) + "\u2026 " + esc(c.g) : esc(c.g) + "\u2026 " + esc(curW.w) + "!") + "</div>";
       h += '<div class="tipline">' + esc(c.t) + "</div>";
     } else if (d.type === "sound") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
