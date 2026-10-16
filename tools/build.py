@@ -24,6 +24,16 @@ for g, lst in wx.items():
     if g.startswith("_"): continue
     ok = [{"w": w, "p": e, "k": "x:%s-%s" % (g, w)} for w, e in lst if ("x:%s-%s" % (g, w)) in clips]
     if ok: wordx[g] = ok
+core, was = wx.get("_core", {}), wx.get("_was", {})
+for g, word in core.items():
+    xk = "x:%s-%s" % (g, word)
+    if xk not in clips: print("CORE WORD HAS NO RECORDING:", g, word); continue
+    old = clips.get("w:" + g)
+    clips["w:" + g] = clips[xk]
+    wordx[g] = [e for e in wordx.get(g, []) if e["w"] != word]
+    if g in was and old:
+        clips["w:was:" + g] = old
+        wordx[g].append({"w": was[g][0], "p": was[g][1], "k": "w:was:" + g})
 print("Extra picture words in use:", sum(len(v) for v in wordx.values()), "of", sum(len(v) for k, v in wx.items() if not k.startswith("_")))
 
 decks = []

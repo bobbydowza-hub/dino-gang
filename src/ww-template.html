@@ -363,71 +363,71 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 
 <script>
 (function () {
-  // ---- Card data, from the Little Wandle Reception and Year 1 parent sheets ----
+  // ---- Card data: our own picture words and cues. Sound order is based on the DfE Letters and Sounds (2007) framework ----
   var DECKS = [
     { id: "a1", name: "Autumn 1", type: "sound", tint: 1, ready: true, pf: true,
       what: "The first 20 sounds in Reception.",
       info: "The first 20 sounds taught in Reception, Autumn 1.",
       cards: [
-        { g: "s", w: "snake", p: "🐍", t: "Show your teeth and let the hiss out." },
-        { g: "a", w: "astronaut", p: "🧑‍🚀", t: "Mouth wide open, sound from the back." },
-        { g: "t", w: "tiger", p: "🐯", t: "Tongue tip behind the teeth, a quick tap." },
-        { g: "p", w: "penguin", p: "🐧", t: "Lips together, then pop them open." },
-        { g: "i", w: "iguana", p: "🦎", t: "Lips pulled back, short sound at the back." },
-        { g: "n", w: "net", p: "🥅", t: "Tongue behind the teeth, hum the sound." },
-        { g: "m", w: "mouse", p: "🐭", t: "Lips together, hum the sound." },
-        { g: "d", w: "duck", p: "🦆", t: "Tongue at the top front, a quick sound." },
-        { g: "g", w: "goat", p: "🐐", t: "Back of the tongue up, then push it down." },
-        { g: "o", w: "octopus", p: "🐙", t: "Make your mouth round." },
-        { g: "c", w: "cat", p: "🐱", t: "A little smile, tongue flat and up." },
-        { g: "k", w: "kite", p: "🪁", t: "Same sound as c." },
-        { g: "ck", w: "sock", p: "🧦", t: "Same sound as c and k. Two letters, one sound." },
-        { g: "e", w: "elephant", p: "🐘", t: "Open your mouth wide." },
-        { g: "u", w: "umbrella", p: "☂️", t: "Open your mouth wide, short sound." },
-        { g: "r", w: "rainbow", p: "🌈", t: "Show your teeth and growl a little." },
-        { g: "h", w: "helicopter", p: "🚁", t: "Breathe out sharply." },
-        { g: "b", w: "bear", p: "🐻", t: "Lips together, pop them open with the sound." },
-        { g: "f", w: "flamingo", p: "🦩", t: "Top teeth on bottom lip, push the air out." },
-        { g: "l", w: "lollipop", p: "🍭", t: "Tongue up behind the teeth and press." }
+        { g: "s", w: "sun", p: "☀️", t: "A long, quiet hiss, teeth close together." },
+        { g: "a", w: "apple", p: "🍎", t: "Mouth open, jaw dropped, a short sound." },
+        { g: "t", w: "tent", p: "⛺", t: "Tongue tip taps behind the top teeth. A tiny puff, no voice." },
+        { g: "p", w: "pig", p: "🐷", t: "Lips pressed together, then pop apart with a puff of air." },
+        { g: "i", w: "insect", p: "🐛", t: "Mouth barely open, a short sound at the front, like the start of itch." },
+        { g: "n", w: "nose", p: "👃", t: "Tongue tip behind the top teeth, voice humming through your nose." },
+        { g: "m", w: "moon", p: "🌙", t: "Lips closed, voice humming through your nose." },
+        { g: "d", w: "dog", p: "🐶", t: "Tongue tip taps behind the top teeth, with your voice on." },
+        { g: "g", w: "gorilla", p: "🦍", t: "Back of the tongue lifts, then drops, with your voice on." },
+        { g: "o", w: "orange", p: "🍊", t: "Lips round, jaw dropped, a short sound." },
+        { g: "c", w: "cow", p: "🐄", t: "Back of the tongue lifts and drops, no voice, a small puff." },
+        { g: "k", w: "key", p: "🔑", t: "Same sound as c." },
+        { g: "ck", w: "clock", p: "🕒", t: "Same sound as c and k. Two letters, one sound." },
+        { g: "e", w: "egg", p: "🥚", t: "Mouth half open, tongue forward, a short sound." },
+        { g: "u", w: "up", p: "⬆️", t: "Mouth relaxed, a short sound from the middle." },
+        { g: "r", w: "rabbit", p: "🐰", t: "Lips a little round, tongue curled back but not touching, voice on." },
+        { g: "h", w: "horse", p: "🐴", t: "Just breathe out through an open mouth, like fogging a mirror." },
+        { g: "b", w: "ball", p: "⚽", t: "Lips together, then pop them apart with your voice on." },
+        { g: "f", w: "fish", p: "🐟", t: "Top teeth on bottom lip, blow the air out, no voice." },
+        { g: "l", w: "leaf", p: "🍃", t: "Tongue tip up behind the top teeth, voice on, keep it going." }
       ] },
     { id: "a2", name: "Autumn 2", type: "sound", tint: 2, ready: true, pf: true,
       what: "15 more sounds, with the two-letter ones.",
       info: "The 15 sounds taught in Reception, Autumn 2, including the two-letter sounds.",
       cards: [
-        { g: "ff", w: "puff", p: "💨", t: "Teeth on your bottom lip, push the air out. Two letters, one sound." },
-        { g: "ll", w: "bell", p: "🔔", t: "Tongue up behind your teeth and press. Two letters, one sound." },
-        { g: "ss", w: "dress", p: "👗", t: "Show your teeth and let the s hiss out. Two letters, one sound." },
-        { g: "j", w: "jellyfish", p: "🪼", t: "Pucker your lips and show your teeth." },
-        { g: "v", w: "volcano", p: "🌋", t: "Top teeth on bottom lip, make it buzz." },
-        { g: "w", w: "wave", p: "🌊", t: "Small, puckered lips." },
+        { g: "ff", w: "puff", p: "💨", t: "Two letters, one sound: top teeth on bottom lip, blow out." },
+        { g: "ll", w: "bell", p: "🔔", t: "Two letters, one sound: tongue tip up behind the top teeth, voice on." },
+        { g: "ss", w: "dress", p: "👗", t: "Two letters, one sound: a long quiet hiss." },
+        { g: "j", w: "jellyfish", p: "🪼", t: "Lips a little round, a quick burst with your voice on." },
+        { g: "v", w: "volcano", p: "🌋", t: "Top teeth on bottom lip, voice on: feel it buzz." },
+        { g: "w", w: "wave", p: "🌊", t: "Lips small and round, then open into the next sound." },
         { g: "x", w: "box", p: "📦", t: "Says \"cs\", as at the end of box." },
-        { g: "y", w: "yoyo", p: "🪀", t: "Smile, tongue up, keep your mouth nearly closed." },
-        { g: "z", w: "zebra", p: "🦓", t: "Show your teeth and buzz." },
-        { g: "qu", w: "queen", p: "👑", t: "Pucker up, then open. Says \"kw\".", cp: "Quick, it's the queen!" },
-        { g: "th", w: "thumb", p: "👍", t: "Tongue on the teeth. Breathy, or buzzy as in this.", cp: "Thumbs up, we're having fun." },
-        { g: "sh", w: "shell", p: "🐚", t: "Push the air out, long and soft.", cp: "Share the shells." },
-        { g: "ch", w: "cherry", p: "🍒", t: "Pucker your lips, tongue does the work.", cp: "Chew the cherries, children." },
-        { g: "nk", w: "pink", p: "<span style='display:inline-block;width:.85em;height:.85em;border-radius:.18em;background:#ff8cbf;box-shadow:inset 0 -.08em 0 rgba(0,0,0,.18)'></span>", t: "Says \"ngk\", as at the end of pink.", cp: "I think I am pink." },
-        { g: "ng", w: "ring", p: "💍", t: "Back of the tongue, as at the end of ring.", cp: "Bling on a ring." }
+        { g: "y", w: "yoyo", p: "🪀", t: "Tongue lifts high at the front, voice on, then slides into the next sound." },
+        { g: "z", w: "zebra", p: "🦓", t: "Like s, but turn your voice on and feel the buzz." },
+        { g: "qu", w: "queen", p: "👑", t: "Lips round, then open. Says \"kw\".", cp: "A quick quilt for the queen." },
+        { g: "th", w: "thumb", p: "👍", t: "Tongue tip against the teeth. Blow for thumb, add voice for this.", cp: "Three thumbs, thank you." },
+        { g: "sh", w: "shell", p: "🐚", t: "Lips pushed forward, teeth close, a long soft whoosh.", cp: "Shh, the ship is sailing." },
+        { g: "ch", w: "cherry", p: "🍒", t: "Like t then sh, run together in one quick burst.", cp: "Cheeky chimps chat." },
+        { g: "nk", w: "pink", p: "<span style='display:inline-block;width:.85em;height:.85em;border-radius:.18em;background:#ff8cbf;box-shadow:inset 0 -.08em 0 rgba(0,0,0,.18)'></span>", t: "Says \"ngk\", as at the end of pink.", cp: "Think of a pink skunk." },
+        { g: "ng", w: "ring", p: "💍", t: "Back of the tongue, as at the end of ring.", cp: "Sing a song, king." }
       ] },
     { id: "s1", name: "Spring 1", type: "sound", tint: 3,
       what: "Sounds made of two or three letters.",
       info: "Phase 3 sounds, mostly made of two or three letters.",
       cards: [
-        { g: "ai", w: "tail in the rain", p: "🌧️", t: "Open your mouth wide." },
-        { g: "ee", w: "sheep in a jeep", p: "🚙", t: "Smile with your lips apart." },
-        { g: "igh", w: "a light in the night", p: "💡", t: "Relaxed open mouth." },
-        { g: "oa", w: "soap that goat", p: "🐐", t: "Make an o shape with your mouth." },
-        { g: "oo", hint: "long sound", w: "zoom to the moon", p: "🚀", t: "Lips small, tummy pulled in." },
-        { g: "oo", hint: "short sound", w: "hook a book", p: "📖", t: "Lips small and short." },
-        { g: "ar", w: "march in the dark", p: "🔦", t: "Open wide, tongue down." },
-        { g: "or", w: "born with a horn", p: "🦄", t: "Round mouth, tongue down." },
-        { g: "ur", w: "curl the fur", p: "🐕", t: "Relaxed mouth, tongue down." },
-        { g: "ow", w: "wow owl", p: "🦉", t: "Open wide, then bring the lips together." },
-        { g: "oi", w: "boing boing", p: "🐰", t: "Round mouth, then lips move out." },
-        { g: "ear", w: "get near to hear", p: "👂", t: "Smile, tongue to the teeth." },
-        { g: "air", w: "chair in the air", p: "🎈", t: "Open wide, tongue down." },
-        { g: "er", w: "a bigger digger", p: "🚜", t: "Says the same sound as ur, at the end of words." }
+        { g: "ai", w: "snail on a trail", p: "🐌", t: "Jaw drops, then glides up towards a smile." },
+        { g: "ee", w: "bee in the tree", p: "🐝", t: "Lips spread in a smile, tongue high and forward." },
+        { g: "igh", w: "high flight at night", p: "✈️", t: "Jaw drops, then glides up, like saying eye." },
+        { g: "oa", w: "boat on the coast", p: "⛵", t: "Lips round, closing a little, like saying oh." },
+        { g: "oo", hint: "long sound", w: "boot in the pool", p: "🥾", t: "Lips small and round, tongue pulled back. Hold it long." },
+        { g: "oo", hint: "short sound", w: "cook and look", p: "🧑‍🍳", t: "Lips round but relaxed. A short sound." },
+        { g: "ar", w: "star in the car", p: "⭐", t: "Jaw wide open, tongue low. A long ah." },
+        { g: "or", w: "fork and corn", p: "🌽", t: "Lips round, jaw half open. A long sound." },
+        { g: "ur", w: "purple turtle", p: "🐢", t: "Lips relaxed, tongue in the middle. A long sound." },
+        { g: "ow", w: "brown cow in town", p: "🐄", t: "Jaw drops, then lips round towards oo." },
+        { g: "oi", w: "coin in the soil", p: "🪙", t: "Lips round, then spread towards ee." },
+        { g: "ear", w: "deer, so near", p: "🦌", t: "Starts like ee, slides into a relaxed ending." },
+        { g: "air", w: "fairy in the air", p: "🧚", t: "Mouth open, tongue forward and low. A long sound." },
+        { g: "er", w: "a better letter", p: "✉️", t: "Sounds like ur. Usually at the end of a word." }
       ] },
     { id: "p5", name: "Other spellings", type: "alt", tint: 4,
       what: "Year 1. Other ways to write the same sound.",
@@ -467,8 +467,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
         { g: "zh", alt: ["su", "si"] }
       ] },
     { id: "tw", name: "Tricky words", type: "tricky", tint: 5,
-      what: "Reception Autumn words. Red letters are the tricky part.",
-      info: "Reception Autumn tricky words. The red letters are the tricky part.",
+      what: "Common words with a tricky part. The red letters are the tricky part.",
+      info: "Common words with a tricky part. The red letters are the tricky part.",
       cards: [
         { g: "is", part: "s", t: "The s says z. Children first learn s as in sat." },
         { g: "as", part: "s", t: "The s says z." },
@@ -808,7 +808,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var o = [["letter", "Letter first", "Aa"], ["pic", "Word first", "\uD83D\uDC0D"]], h = '<p class="wmq">How should the cards start?</p><div class="ztog" role="group" aria-label="How should the cards start?">';
     o.forEach(function (x) { h += '<button type="button" class="zt-b" data-wm="' + x[0] + '" aria-pressed="' + (prefs.wm === x[0]) + '"><span class="wmi" aria-hidden="true">' + x[2] + "</span><span>" + x[1] + "</span></button>"; });
     h += '</div><p class="wmq wmq2">Which picture words?</p><div class="ztog" role="group" aria-label="Which picture words?">';
-    [[false, "Little Wandle words only", "\uD83D\uDCD6"], [true, "Add extra picture words", "\u2795"]].forEach(function (x) { h += '<button type="button" class="zt-b" data-xw="' + x[0] + '" aria-pressed="' + (prefs.xw === x[0]) + '"><span class="wmi" aria-hidden="true">' + x[2] + "</span><span>" + x[1] + "</span></button>"; });
+    [[false, "One picture word per sound", "\uD83D\uDCD6"], [true, "More picture words", "\u2795"]].forEach(function (x) { h += '<button type="button" class="zt-b" data-xw="' + x[0] + '" aria-pressed="' + (prefs.xw === x[0]) + '"><span class="wmi" aria-hidden="true">' + x[2] + "</span><span>" + x[1] + "</span></button>"; });
     el.innerHTML = h + "</div>"; el.hidden = false;
   }
   function renderHome() {
