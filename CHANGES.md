@@ -14,6 +14,8 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 
 ## Pending
 (none)
+- [ ] 2026-10-16 Number Wizards fingers: centre the single hand for 1 to 4. Tom: "make sure that on the single hand, the hand diagram for 1 to 4 is centred (I think it's off centre because it's compensating for the thumb on hand 5)."
+  - Note (not blocking): Tom is right. In `fingersSVG` the one-hand viewBox is "4 8 124 130" for every n from 1 to 5, which is centred on the 5-hand including its thumb (content about x 14 to 120). For 1 to 4 there is no thumb, so the palm (x 34 to 120, centre 77) sits about 11 units right of centre. Fix: for 1 to 4 use a viewBox centred on x = 77 (for example "15 8 124 130"); leave 5 as it is. For 6 to 10, centre the pair on its real content bounds too (when the second hand has no thumb the pair sits slightly left of centre). Check the result in a screenshot for 1, 3, 4, 5, 7 and 10, light and dark.
 
 ## Done
 - 2026-10-16 Extras toggle: Word Wizards now has "Little Wandle words only / Add extra picture words" beside Letter first / Word first, saved in prefs as `xw`, OFF by default. Off: Word first uses each card's original keyword only (checked: no extra picture appeared in 25 starts; extras appear when on). About page and changelog updated.
