@@ -1,5 +1,5 @@
 {
- "_note": "Picture words per sound. _core is the first word shown for each sound (its clip is audio/words/<grapheme>-<word>.mp3). _was is the earlier first word, still recorded at audio/w-<grapheme>.mp3, offered as an extra. The other entries are extras. A word is used only if its recording exists.",
+ "_note": "Extra picture words per sound (Autumn 1). Each needs a recording at public/audio/words/<id>.mp3 where id is <grapheme>-<word>; words without a recording are left out of the build.",
  "s": [
   [
    "sun",
@@ -195,109 +195,5 @@
    "lion",
    "🦁"
   ]
- ],
- "_core": {
-  "s": "sun",
-  "a": "apple",
-  "t": "tent",
-  "p": "pig",
-  "i": "insect",
-  "n": "nose",
-  "m": "moon",
-  "d": "dog",
-  "g": "gorilla",
-  "o": "orange",
-  "c": "cow",
-  "k": "key",
-  "ck": "clock",
-  "e": "egg",
-  "u": "up",
-  "r": "rabbit",
-  "h": "horse",
-  "b": "ball",
-  "f": "fish",
-  "l": "leaf"
- },
- "_was": {
-  "s": [
-   "snake",
-   "🐍"
-  ],
-  "a": [
-   "astronaut",
-   "🧑‍🚀"
-  ],
-  "t": [
-   "tiger",
-   "🐯"
-  ],
-  "p": [
-   "penguin",
-   "🐧"
-  ],
-  "i": [
-   "iguana",
-   "🦎"
-  ],
-  "n": [
-   "net",
-   "🥅"
-  ],
-  "m": [
-   "mouse",
-   "🐭"
-  ],
-  "d": [
-   "duck",
-   "🦆"
-  ],
-  "g": [
-   "goat",
-   "🐐"
-  ],
-  "o": [
-   "octopus",
-   "🐙"
-  ],
-  "c": [
-   "cat",
-   "🐱"
-  ],
-  "k": [
-   "kite",
-   "🪁"
-  ],
-  "ck": [
-   "sock",
-   "🧦"
-  ],
-  "e": [
-   "elephant",
-   "🐘"
-  ],
-  "u": [
-   "umbrella",
-   "☂️"
-  ],
-  "r": [
-   "rainbow",
-   "🌈"
-  ],
-  "h": [
-   "helicopter",
-   "🚁"
-  ],
-  "b": [
-   "bear",
-   "🐻"
-  ],
-  "f": [
-   "flamingo",
-   "🦩"
-  ],
-  "l": [
-   "lollipop",
-   "🍭"
-  ]
- }
+ ]
 }
