@@ -12,12 +12,12 @@
 <meta property="og:title" content="Dino Gang">
 <meta property="og:description" content="Little learning games for ages 3 to 6: phonics, numbers and first Spanish and Portuguese, played with a grown-up.">
 <meta property="og:url" content="https://dinogang.netlify.app/">
-<meta property="og:image" content="https://dinogang.netlify.app/og-image-v3.png">
+<meta property="og:image" content="https://dinogang.netlify.app/og-image-v4.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Dino Gang: a friendly green dinosaur waving">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://dinogang.netlify.app/og-image-v3.png">
+<meta name="twitter:image" content="https://dinogang.netlify.app/og-image-v4.jpg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -948,8 +948,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   }
   function fingersSVG(n) {
     var two = n > 5, lbl = n === 1 ? "1 finger up" : n + " fingers up", out, vb, w;
-    if (!two) { out = handSVG(n, NUMCOL[n]); vb = "4 8 124 130"; w = 124; }
-    else { out = handSVG(5, NUMCOL[5]) + '<g transform="translate(264,0) scale(-1,1)">' + handSVG(n - 5, n === 10 ? NUMCOL[5] : NUMCOL[n - 5]) + "</g>"; vb = "4 8 256 130"; w = 256; }
+    if (!two) { out = handSVG(n, NUMCOL[n]); vb = (n === 5 ? "3" : "15") + " 8 124 130"; w = 124; }
+    else { out = handSVG(5, NUMCOL[5]) + '<g transform="translate(264,0) scale(-1,1)">' + handSVG(n - 5, n === 10 ? NUMCOL[5] : NUMCOL[n - 5]) + "</g>"; vb = (n === 10 ? "4" : "-8") + " 8 256 130"; w = 256; }
     return '<svg class="fing" viewBox="' + vb + '" style="width:min(100%,' + Math.round(w * 1.6) + 'px)" role="img" aria-label="' + lbl + '">' + out + "</svg>";
   }
   var SWATCH = { red: "#E53935", blue: "#1E88E5", green: "#43A047", yellow: "#FDD835", pink: "#EC407A", orange: "#FB8C00" };
