@@ -9,12 +9,12 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 4. Move each finished item to **Done** with the date and a one-line result. If an item is unclear, risky, or would make something worse, leave it in Pending, mark it `NEEDS TOM` and say why. Do not guess.
 5. If there are no Pending items, change nothing and finish quickly.
 6. Do not edit audio, the Spanish or Portuguese wording, or the A5 PDF unless the item says to.
-7. Push `dev` (free) and finish with a short summary: what changed, what needs Tom's decision. The summary is for Tom to read; keep it brief.
+7. All wording in the app, About page, changelog and guide must be UK English (colour, maths, recognise, centre). Note that "practise" is the verb and "practice" is the noun in UK English; both are used correctly today. Do not swap them.
+8. Push `dev` (free) and finish with a short summary: what changed, what needs Tom's decision. The summary is for Tom to read; keep it brief.
 
 ## Pending
-- [ ] 2026-10-15 UK English spelling. Tom's words: "practise" needs to change to "practice".
-  - NEEDS TOM: in UK English "practise" is the verb and "practice" is the noun. The app currently says "practise ten cards" and "Practise again", which are both correct UK English. Changing them to "practice" would make them US-style. Check Tom's meaning before changing. Meanwhile, a full scan for genuine US spellings (color, favorite, center, etc.) is safe to run and report.
 - [ ] 2026-10-16 We need a mechanism to toggle the additional words we have added. Little Wandle wall charts and course material only focus on the original A1 and A2 words and sounds. Our additions (the 39 extra picture words) were to build out bulk, but are not explicitly used by the school or Little Wandle.
   - Tom confirmed 2026-10-16: extras OFF by default. Details: so the app matches Little Wandle out of the box, with a "Little Wandle words only / Add extra picture words" toggle on the Word Wizards screen beside Letter first / Word first, saved in prefs. With extras off, Word first still works using each card's original keyword. Also mention it on the About page and in the changelog.
 
 ## Done
+- 2026-10-16 UK English check (Tom: "ensure the app is UK English"). Scanned all visible text in the app, About page, changelog and word lists. Already UK English throughout (colours, coloured, recognising, maths, practise as a verb, practice as a noun). No changes needed. One thing noted for Tom: the "truck" picture word for ck is American; UK children often say "lorry" (a recording would be needed).
