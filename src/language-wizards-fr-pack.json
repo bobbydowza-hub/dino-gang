@@ -1,0 +1,461 @@
+{
+ "lang": "fr",
+ "name": "Français",
+ "icon": "💬",
+ "variant": {
+  "decided": true,
+  "value": "fr-FR",
+  "assumed": true,
+  "audioRoute": "text-to-speech (fr-FR) and Tom's voice for the English",
+  "nativeCheck": null
+ },
+ "media": {
+  "video": {
+   "shared": true,
+   "sharedWith": "es",
+   "note": "Silent clips shared with the Spanish pack. Reference the same files, do not duplicate. All eleven clips exist."
+  }
+ },
+ "sets": [
+  {
+   "id": "l1",
+   "lang": "fr",
+   "name": "Bonjour et au revoir",
+   "type": "vocab",
+   "ready": false,
+   "what": "Greetings, yes, no, thank you",
+   "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
+   "cards": [
+    {
+     "fr": "bonjour",
+     "en": "hello",
+     "art": "😀👋",
+     "p": "bohn-ZHOOR",
+     "pron": "bohn is nasal, n barely said",
+     "t": "greeting",
+     "audio": {
+      "en": "l1-hola-en",
+      "fr": "l1-bonjour-fr"
+     },
+     "video": "l1-hola-vid.mp4"
+    },
+    {
+     "fr": "au revoir",
+     "en": "goodbye",
+     "art": "🚌👋",
+     "p": "oh ruh-VWAHR",
+     "pron": "",
+     "t": "greeting",
+     "audio": {
+      "en": "l1-adios-en",
+      "fr": "l1-au-revoir-fr"
+     },
+     "video": "l1-adios-vid.mp4"
+    },
+    {
+     "fr": "oui",
+     "en": "yes",
+     "art": "👍",
+     "p": "WEE",
+     "pron": "",
+     "t": "word",
+     "audio": {
+      "en": "l1-si-en",
+      "fr": "l1-oui-fr"
+     },
+     "video": "l1-si-vid.mp4"
+    },
+    {
+     "fr": "non",
+     "en": "no",
+     "art": "🙅",
+     "p": "NOHN",
+     "pron": "nasal, n barely said",
+     "t": "word",
+     "audio": {
+      "en": "l1-no-en",
+      "fr": "l1-non-fr"
+     },
+     "video": "l1-no-vid.mp4"
+    },
+    {
+     "fr": "merci",
+     "en": "thank you",
+     "art": "🎁",
+     "p": "mehr-SEE",
+     "pron": "",
+     "t": "phrase",
+     "audio": {
+      "en": "l1-gracias-en",
+      "fr": "l1-merci-fr"
+     },
+     "video": "l1-gracias-vid.mp4"
+    }
+   ]
+  },
+  {
+   "id": "l3",
+   "lang": "fr",
+   "name": "Couleurs",
+   "type": "vocab",
+   "ready": false,
+   "what": "Primary colours plus a few",
+   "anchor": "EYFS Communication & Language: Speaking; Listening, Attention and Understanding",
+   "cards": [
+    {
+     "fr": "rouge",
+     "en": "red",
+     "art": "🔴",
+     "p": "ROOZH",
+     "pron": "",
+     "t": "adj",
+     "audio": {
+      "en": "l3-rojo-en",
+      "fr": "l3-rouge-fr"
+     }
+    },
+    {
+     "fr": "bleu",
+     "en": "blue",
+     "art": "🔵",
+     "p": "BLUH",
+     "pron": "round your lips",
+     "t": "adj",
+     "audio": {
+      "en": "l3-azul-en",
+      "fr": "l3-bleu-fr"
+     }
+    },
+    {
+     "fr": "vert",
+     "en": "green",
+     "art": "🟢",
+     "p": "VAIR",
+     "pron": "t is silent",
+     "t": "adj",
+     "audio": {
+      "en": "l3-verde-en",
+      "fr": "l3-vert-fr"
+     }
+    },
+    {
+     "fr": "jaune",
+     "en": "yellow",
+     "art": "🟡",
+     "p": "ZHOHN",
+     "pron": "",
+     "t": "adj",
+     "audio": {
+      "en": "l3-amarillo-en",
+      "fr": "l3-jaune-fr"
+     }
+    },
+    {
+     "fr": "rose",
+     "en": "pink",
+     "art": "🩷",
+     "p": "ROHZ",
+     "pron": "",
+     "t": "adj",
+     "audio": {
+      "en": "l3-rosa-en",
+      "fr": "l3-rose-fr"
+     }
+    },
+    {
+     "fr": "orange",
+     "en": "orange",
+     "art": "🟠",
+     "p": "oh-RAHNZH",
+     "pron": "nasal an",
+     "t": "adj",
+     "audio": {
+      "en": "l3-naranja-en",
+      "fr": "l3-orange-fr"
+     }
+    }
+   ]
+  },
+  {
+   "id": "l7",
+   "lang": "fr",
+   "name": "Les nombres de 1 à 10",
+   "type": "vocab",
+   "ready": false,
+   "what": "Counting one to ten, linked to Number Wizards",
+   "anchor": "EYFS Communication & Language: Speaking; Mathematics: Number [Verify]",
+   "cards": [
+    {
+     "fr": "un",
+     "en": "one",
+     "art": "⭐",
+     "p": "UH(N)",
+     "pron": "nasal, n barely said",
+     "t": "number",
+     "audio": {
+      "en": "l7-uno-en",
+      "fr": "l7-un-fr"
+     }
+    },
+    {
+     "fr": "deux",
+     "en": "two",
+     "art": "⭐⭐",
+     "p": "DUH",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-dos-en",
+      "fr": "l7-deux-fr"
+     }
+    },
+    {
+     "fr": "trois",
+     "en": "three",
+     "art": "⭐⭐⭐",
+     "p": "TRWAH",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-tres-en",
+      "fr": "l7-trois-fr"
+     }
+    },
+    {
+     "fr": "quatre",
+     "en": "four",
+     "art": "⭐⭐⭐⭐",
+     "p": "KAH-truh",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-cuatro-en",
+      "fr": "l7-quatre-fr"
+     }
+    },
+    {
+     "fr": "cinq",
+     "en": "five",
+     "art": "⭐⭐⭐⭐⭐",
+     "p": "SANK",
+     "pron": "nasal, k is said",
+     "t": "number",
+     "audio": {
+      "en": "l7-cinco-en",
+      "fr": "l7-cinq-fr"
+     }
+    },
+    {
+     "fr": "six",
+     "en": "six",
+     "art": "⭐⭐⭐⭐⭐⭐",
+     "p": "SEESS",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-seis-en",
+      "fr": "l7-six-fr"
+     }
+    },
+    {
+     "fr": "sept",
+     "en": "seven",
+     "art": "⭐⭐⭐⭐⭐⭐⭐",
+     "p": "SET",
+     "pron": "p is silent",
+     "t": "number",
+     "audio": {
+      "en": "l7-siete-en",
+      "fr": "l7-sept-fr"
+     }
+    },
+    {
+     "fr": "huit",
+     "en": "eight",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "WEET",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-ocho-en",
+      "fr": "l7-huit-fr"
+     }
+    },
+    {
+     "fr": "neuf",
+     "en": "nine",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "NUHF",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-nueve-en",
+      "fr": "l7-neuf-fr"
+     }
+    },
+    {
+     "fr": "dix",
+     "en": "ten",
+     "art": "⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐",
+     "p": "DEESS",
+     "pron": "",
+     "t": "number",
+     "audio": {
+      "en": "l7-diez-en",
+      "fr": "l7-dix-fr"
+     }
+    }
+   ]
+  },
+  {
+   "id": "l8",
+   "lang": "fr",
+   "name": "Petites phrases",
+   "type": "phrase",
+   "ready": false,
+   "what": "Short everyday phrases",
+   "anchor": "EYFS Communication & Language: Speaking; Understanding the World: People, Culture and Communities",
+   "cards": [
+    {
+     "fr": "bonne journée",
+     "en": "have a good day",
+     "art": "🌞",
+     "p": "bonn zhoor-NAY",
+     "pron": "n is said clearly here; wish for the day ahead",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-have-a-good-day-en",
+      "fr": "l8-bonne-journee-fr"
+     },
+     "video": "l8-buenos-dias-vid.mp4"
+    },
+    {
+     "fr": "bon après-midi",
+     "en": "good afternoon",
+     "art": "🌤️",
+     "p": "bohn ah-preh mee-DEE",
+     "pron": "nasal bohn; wish for the afternoon",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-good-afternoon-en",
+      "fr": "l8-bon-apres-midi-fr"
+     },
+     "video": "l8-good-afternoon-vid.mp4"
+    },
+    {
+     "fr": "bonne nuit",
+     "en": "good night",
+     "art": "🌙",
+     "p": "bonn NWEE",
+     "pron": "n is said clearly here",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-buenas-noches-en",
+      "fr": "l8-bonne-nuit-fr"
+     },
+     "video": "l8-buenas-noches-vid.mp4"
+    },
+    {
+     "fr": "s'il vous plaît",
+     "en": "please",
+     "art": "🙏",
+     "p": "seel voo PLEH",
+     "pron": "say s'il te plaît to a friend",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-por-favor-en",
+      "fr": "l8-s-il-vous-plait-fr"
+     },
+     "video": "l8-por-favor-vid.mp4"
+    },
+    {
+     "fr": "comment ça va ?",
+     "en": "how are you?",
+     "art": "😊",
+     "p": "koh-mahn sah VAH",
+     "pron": "voice goes up at the end",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-como-estas-en",
+      "fr": "l8-comment-ca-va-fr"
+     },
+     "video": "l8-como-estas-vid.mp4"
+    },
+    {
+     "fr": "je m'appelle…",
+     "en": "my name is…",
+     "art": "🧒",
+     "p": "zhuh mah-PEL",
+     "pron": "",
+     "t": "phrase",
+     "audio": {
+      "en": "l8-me-llamo-en",
+      "fr": "l8-je-m-appelle-fr"
+     },
+     "video": "l8-me-llamo-vid.mp4"
+    }
+   ]
+  }
+ ],
+ "audioIds": [
+  "l1-bonjour-en",
+  "l1-bonjour-fr",
+  "l1-au-revoir-en",
+  "l1-au-revoir-fr",
+  "l1-oui-en",
+  "l1-oui-fr",
+  "l1-non-en",
+  "l1-non-fr",
+  "l1-merci-en",
+  "l1-merci-fr",
+  "l3-rouge-en",
+  "l3-rouge-fr",
+  "l3-bleu-en",
+  "l3-bleu-fr",
+  "l3-vert-en",
+  "l3-vert-fr",
+  "l3-jaune-en",
+  "l3-jaune-fr",
+  "l3-rose-en",
+  "l3-rose-fr",
+  "l3-orange-en",
+  "l3-orange-fr",
+  "l7-un-en",
+  "l7-un-fr",
+  "l7-deux-en",
+  "l7-deux-fr",
+  "l7-trois-en",
+  "l7-trois-fr",
+  "l7-quatre-en",
+  "l7-quatre-fr",
+  "l7-cinq-en",
+  "l7-cinq-fr",
+  "l7-six-en",
+  "l7-six-fr",
+  "l7-sept-en",
+  "l7-sept-fr",
+  "l7-huit-en",
+  "l7-huit-fr",
+  "l7-neuf-en",
+  "l7-neuf-fr",
+  "l7-dix-en",
+  "l7-dix-fr",
+  "l8-bonne-journee-en",
+  "l8-bonne-journee-fr",
+  "l8-bon-apres-midi-en",
+  "l8-bon-apres-midi-fr",
+  "l8-bonne-nuit-en",
+  "l8-bonne-nuit-fr",
+  "l8-s-il-vous-plait-en",
+  "l8-s-il-vous-plait-fr",
+  "l8-comment-ca-va-en",
+  "l8-comment-ca-va-fr",
+  "l8-je-m-appelle-en",
+  "l8-je-m-appelle-fr"
+ ],
+ "status": {
+  "nativeCheck": null,
+  "appDesignerCritique": "pending",
+  "ready": false
+ }
+}

@@ -17,7 +17,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
   - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft stroke paths for all 26 letters are in `src/hw-paths.json` (not used by the build yet).
 
 - [ ] 2026-10-17 Handwriting module goes on its own page, `/writing`, NOT on the main menu while testing. Build Watch and Trace for the Autumn 1 letters first. NEEDS TOM: waiting on his recording and go-ahead; scheduled runs skip it.
-- [ ] 2026-10-17 French module (NEEDS TOM for the 3 English clips; scheduled runs skip it). The 27 French word clips are cut and in `public/audio/lang/fr/` (ids per the handoff, e.g. `l1-bonjour-fr.mp3`). Still to record (Tom): "have a good day" (`l8-have-a-good-day-en`), "What's the French for…" (`q-open-06-fr`), "…in French?" (`q-end-04-fr`). Then build the French pack (`src/language-wizards-fr-pack.json`, from the handoff zip), wire a French Wizards entry into Language Wizards and French into All words. Decisions: bonne journée, s'il vous plaît, France. Native-speaker check still not done.
+- [ ] 2026-10-17 French Wizards: built and on `dev` (27 word clips plus the 3 English clips). Native-speaker check still to do for ES, PT and FR before anything ships.
 
 ## Decisions (Tom, 2026-10-17)
 - French: "bonne journée" (not a second bonjour) and "s'il vous plaît".
@@ -25,6 +25,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-17: French Wizards added to Language Wizards and to All words (Español / Português / Français / All).
 - [x] 2026-10-17 Re-recorded the Word Wizards "y" sound: Tom's single take cleaned and repeated three times (`public/audio/y.mp3`). Not released.
 - [x] 2026-10-17 Language Wizards: one menu item (cover and top-right menu) opening Spanish Wizards, Portuguese Wizards and All words (was Language Zone). Tested. Not released.
 - [x] 2026-10-17 Top-left logo becomes a blue Home icon (label "Home") on every screen except the wizard list; tapping it still goes to the wizard list. Tested on cover, wizard home, session. Not released.

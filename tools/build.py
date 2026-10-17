@@ -37,8 +37,8 @@ for g, word in core.items():
 print("Extra picture words in use:", sum(len(v) for v in wordx.values()), "of", sum(len(v) for k, v in wx.items() if not k.startswith("_")))
 
 decks = []
-WIZ = {"es": ("language", True), "pt": ("portuguese", True)}
-for lg in ("es", "pt"):
+WIZ = {"es": ("language", True), "pt": ("portuguese", True), "fr": ("french", True)}
+for lg in ("es", "pt", "fr"):
     pk = json.load(open(os.path.join(R, "src/language-wizards-%s-pack.json" % lg), encoding="utf-8"))
     wiz, live = WIZ[lg]
     for s in pk["sets"]:
@@ -54,8 +54,8 @@ for lg in ("es", "pt"):
             if not all(("l:" + c["audio"][x]) in clips for x in ("en", "tl")):
                 print("SKIPPED (audio missing):", lg, s["id"], c["en"]); continue
             cards.append(c)
-        did = s["id"] if lg == "es" else "pt-" + s["id"]
-        decks.append({"id": did, "wiz": wiz, "lg": lg, "name": s["name"], "type": s["type"], "tint": 3 if lg == "es" else 4,
+        did = s["id"] if lg == "es" else lg + "-" + s["id"]
+        decks.append({"id": did, "wiz": wiz, "lg": lg, "name": s["name"], "type": s["type"], "tint": {"es": 3, "pt": 4, "fr": 1}[lg],
                       "ready": live, "what": s["what"], "info": s["what"], "cards": cards})
     if not live:
         miss = [i for i in pk["audioIds"] + pk.get("newEnglishPieces", []) if "l:" + i not in clips]
