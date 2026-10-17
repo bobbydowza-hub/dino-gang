@@ -21,6 +21,11 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - [ ] 2026-10-17 Handwriting module goes on its own page, `/writing`, NOT on the main menu while testing. Build Watch and Trace for the Autumn 1 letters first. NEEDS TOM: waiting on his recording and go-ahead; scheduled runs skip it.
 - [ ] 2026-10-17 French module (NEEDS TOM: waiting on his recordings; scheduled runs skip it). 27 French clips per the handoff audio list (bonne journée replaces a second bonjour; s'il vous plaît is the handoff default) plus 3 English clips: have a good day, q-open-06-fr, q-end-04-fr. Then build the pack (`src/language-wizards-fr-pack.json`, from the handoff zip) and add French to All words. Open with Tom: France or Canada, vous or te, native speaker or text-to-speech.
 
+## Decisions (Tom, 2026-10-17)
+- French: "bonne journée" (not a second bonjour) and "s'il vous plaît".
+- Portuguese handoff is stale: ignore it; the app's Portuguese pack is the source.
+- Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
+
 ## Done
 - [x] 2026-10-17 Language Wizards: one menu item (cover and top-right menu) opening Spanish Wizards, Portuguese Wizards and All words (was Language Zone). Tested. Not released.
 - [x] 2026-10-17 Top-left logo becomes a blue Home icon (label "Home") on every screen except the wizard list; tapping it still goes to the wizard list. Tested on cover, wizard home, session. Not released.
