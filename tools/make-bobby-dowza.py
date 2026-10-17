@@ -44,7 +44,7 @@ def build(weight):
     src = os.path.join(R, "public/fonts/andika-latin-%s-normal.woff2" % weight)
     f = TTFont(src); cm = f.getBestCmap(); glyf = f["glyf"]; sw = STROKE[weight]
     for ch in LETTERS:
-        gname = cm[ord(ch)]; old = glyf[gname]; lsb = max(old.xMin, 90); rsb = max(f['hmtx'][gname][0] - old.xMax, 90)
+        gname = cm[ord(ch)]; old = glyf[gname]; lsb = min(max(old.xMin, 70), 100); rsb = 70
         geom = outline(ch, sw)
         minx = geom.bounds[0]
         polys = [geom] if geom.geom_type == "Polygon" else list(geom.geoms)
