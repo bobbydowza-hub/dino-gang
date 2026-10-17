@@ -57,6 +57,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .tile.hasdino .name, .tile.hasdino .what { padding-right: 92px; }
 .sumdino { height: 120px; width: auto; filter: drop-shadow(0 4px 4px rgba(39,38,80,.2)); }
 .logo:disabled { cursor: default; }
+.logo .hm { display: none; width: 36px; height: 36px; flex: none; border-radius: 10px; background: var(--sky); color: #fff; place-items: center; box-shadow: 0 3px 0 var(--sky-lip); }
+.logo.ishome img { display: none; }
+.logo.ishome .hm { display: grid; }
 .menu { position: absolute; top: 52px; right: 0; z-index: 25; min-width: 240px; display: flex; flex-direction: column; gap: 2px; padding: 8px; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; box-shadow: 0 6px 0 var(--line); }
 .menu button { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; padding: 8px 12px; border: 0; border-radius: 12px; background: none; text-align: left; font: 600 1.05rem var(--font-ui); color: var(--ink); cursor: pointer; }
 .menu button:hover:not(:disabled) { background: var(--bg); }
@@ -66,7 +69,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .wizlist { display: flex; flex-direction: column; gap: 14px; }
 .wizlist .tile { min-height: 124px; }
 .tile .glyph { position: absolute; top: 12px; right: 16px; font-family: var(--font-card); font-weight: 700; font-size: 2.2rem; line-height: 1; opacity: 0.85; }
-@media (max-width: 359px) { .logo span { display: none; } }
+@media (max-width: 359px) { .logo #logotxt { display: none; } }
 .icon { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 2px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink-soft); cursor: pointer; box-shadow: 0 3px 0 var(--line); }
 .icon:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--line); }
 .icon svg { width: 22px; height: 22px; }
@@ -282,7 +285,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   <header class="top">
     <button class="logo" id="logo" type="button" aria-label="Dino Gang. Back to the wizards.">
       <img src="icons/logo-head.png" alt="" width="36" height="36">
-      <span>Dino Gang</span>
+      <span class="hm" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M6 10v9.5h4.5V14h3v5.5H18V10"/></svg></span>
+      <span id="logotxt">Dino Gang</span>
     </button>
     <span class="grow"></span>
     <div class="pp" id="ppTotal" role="status" aria-label="Pompoms collected"><span id="ppIcon"></span><span id="ppNum">0</span></div>
@@ -778,6 +782,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("ppTotal").hidden = which === "cover" || which === "zone";
     $("menuBtn").hidden = which === "session";
     $("logo").disabled = which === "session";
+    $("logo").classList.toggle("ishome", which !== "cover");
+    $("logotxt").textContent = which === "cover" ? "Dino Gang" : "Home";
+    $("logo").setAttribute("aria-label", which === "cover" ? "Dino Gang. Back to the wizards." : "Home. Back to the wizards.");
     closeMenu();
     window.scrollTo(0, 0);
   }
