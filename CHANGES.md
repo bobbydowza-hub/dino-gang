@@ -18,7 +18,11 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - [ ] 2026-10-17 Handwriting letters: custom font "Bobby Dowza" (Tom's name for it).
   - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft stroke paths for all 26 letters are in `src/hw-paths.json` (not used by the build yet).
 
+- [ ] 2026-10-17 Handwriting module goes on its own page, `/writing`, NOT on the main menu while testing. Build Watch and Trace for the Autumn 1 letters first. NEEDS TOM: waiting on his recording and go-ahead; scheduled runs skip it.
+- [ ] 2026-10-17 French module (NEEDS TOM: waiting on his recordings of the French words, list sent in chat). Mirror the Spanish and Portuguese packs (greetings, colours, numbers, short phrases), then add French to All words.
+
 ## Done
+- [x] 2026-10-17 Language Wizards: one menu item (cover and top-right menu) opening Spanish Wizards, Portuguese Wizards and All words (was Language Zone). Tested. Not released.
 - [x] 2026-10-17 Top-left logo becomes a blue Home icon (label "Home") on every screen except the wizard list; tapping it still goes to the wizard list. Tested on cover, wizard home, session. Not released.
 - 2026-10-17 Spring 1 phrases for ear and air changed ("Cheer for the deer", "A fairy on the stairs") because the earlier ones shared words with the Wandle phrases. Deck is not live. Handwriting module proposals are in the workbook sheets Catchphrases, Letter formation, Handwriting font and Handwriting layouts (waiting for Tom to agree before any build).
 - 2026-10-16 Centred the hands (done live on dev): 1 to 4 on the palm, 5 and the pairs on their real bounds, checked in light and dark. Also a new share image, public/og-image-v4.jpg (85 KB; the old PNG was 308 KB, just over WhatsApp's roughly 300 KB limit), tags updated on the home page and About page. Only visible after a release. WhatsApp caches old previews, so share dinogang.netlify.app/?v=2 to force a fresh one.

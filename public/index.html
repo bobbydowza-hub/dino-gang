@@ -253,22 +253,22 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   @keyframes dg-rise { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
   @keyframes dg-pop { 0% { opacity: 0; transform: scale(0.8) rotate(-4deg); } 60% { opacity: 1; transform: scale(1.06) rotate(2deg); } 100% { transform: none; } }
   @keyframes dg-fade { from { opacity: 0; } to { opacity: 1; } }
-  #cover:not([hidden]), #home:not([hidden]), #zone:not([hidden]) { animation: dg-fade 0.3s ease both; }
-  #wizlist .tile, #tiles .tile, .zgrid .ztile, .ztog .zt-b { animation: dg-rise 0.45s cubic-bezier(.2,.8,.3,1) both; }
-  #wizlist .tile:nth-child(2), #tiles .tile:nth-child(2), .zgrid .ztile:nth-child(2) { animation-delay: 0.07s; }
-  #wizlist .tile:nth-child(3), #tiles .tile:nth-child(3), .zgrid .ztile:nth-child(3) { animation-delay: 0.14s; }
-  #wizlist .tile:nth-child(4), #tiles .tile:nth-child(4), .zgrid .ztile:nth-child(4) { animation-delay: 0.21s; }
-  #wizlist .tile:nth-child(5), #tiles .tile:nth-child(5), .zgrid .ztile:nth-child(5) { animation-delay: 0.28s; }
-  #wizlist .tile:nth-child(n+6), #tiles .tile:nth-child(n+6), .zgrid .ztile:nth-child(n+6) { animation-delay: 0.35s; }
+  #cover:not([hidden]), #home:not([hidden]), #zone:not([hidden]), #langs:not([hidden]) { animation: dg-fade 0.3s ease both; }
+  #wizlist .tile, #langlist .tile, #tiles .tile, .zgrid .ztile, .ztog .zt-b { animation: dg-rise 0.45s cubic-bezier(.2,.8,.3,1) both; }
+  #wizlist .tile:nth-child(2), #langlist .tile:nth-child(2), #tiles .tile:nth-child(2), .zgrid .ztile:nth-child(2) { animation-delay: 0.07s; }
+  #wizlist .tile:nth-child(3), #langlist .tile:nth-child(3), #tiles .tile:nth-child(3), .zgrid .ztile:nth-child(3) { animation-delay: 0.14s; }
+  #wizlist .tile:nth-child(4), #langlist .tile:nth-child(4), #tiles .tile:nth-child(4), .zgrid .ztile:nth-child(4) { animation-delay: 0.21s; }
+  #wizlist .tile:nth-child(5), #langlist .tile:nth-child(5), #tiles .tile:nth-child(5), .zgrid .ztile:nth-child(5) { animation-delay: 0.28s; }
+  #wizlist .tile:nth-child(n+6), #langlist .tile:nth-child(n+6), #tiles .tile:nth-child(n+6), .zgrid .ztile:nth-child(n+6) { animation-delay: 0.35s; }
   .coverlogo { animation: dg-pop 0.7s cubic-bezier(.2,.8,.3,1) both; }
   .logo img { transition: transform 0.25s; } .logo:hover img { transform: rotate(-6deg) scale(1.08); }
   @media (hover: hover) {
-    #wizlist .tile:not(:disabled), #tiles .tile:not(:disabled), .ztile { transition: transform 0.18s; }
-    #wizlist .tile:not(:disabled):hover, #tiles .tile:not(:disabled):hover, .ztile:hover { transform: translateY(-3px); }
-    #wizlist .tile:hover .glyph { transform: scale(1.08) rotate(-3deg); }
+    #wizlist .tile:not(:disabled), #langlist .tile:not(:disabled), #tiles .tile:not(:disabled), .ztile { transition: transform 0.18s; }
+    #wizlist .tile:not(:disabled):hover, #langlist .tile:not(:disabled):hover, #tiles .tile:not(:disabled):hover, .ztile:hover { transform: translateY(-3px); }
+    #wizlist .tile:hover .glyph, #langlist .tile:hover .glyph { transform: scale(1.08) rotate(-3deg); }
   }
-  #wizlist .tile .glyph { transition: transform 0.2s; display: inline-block; }
-  #wizlist .tile:active, #tiles .tile:active, .ztile:active, .zrow:active { transform: translateY(2px) scale(0.99); }
+  #wizlist .tile .glyph, #langlist .tile .glyph { transition: transform 0.2s; display: inline-block; }
+  #wizlist .tile:active, #langlist .tile:active, #tiles .tile:active, .ztile:active, .zrow:active { transform: translateY(2px) scale(0.99); }
 }
 /* Language Wizards */
 .swatch { width: min(62%, 220px); aspect-ratio: 1; border-radius: 28px; border: 3px solid var(--outline); }
@@ -366,6 +366,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       <button class="pill" id="hearWord" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>Word</button>
     </div>
     <div class="dock" id="dock"></div>
+  </section>
+
+  <section id="langs" hidden class="cover" style="display:flex;flex-direction:column;gap:18px">
+    <h1 class="pagetitle">Language Wizards</h1>
+    <div class="wizlist" id="langlist"></div>
   </section>
 
   <section id="zone" hidden class="zone" style="display:flex;flex-direction:column;gap:16px"></section>
@@ -809,7 +814,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("session").hidden = which !== "session";
     $("summary").hidden = which !== "summary";
     $("zone").hidden = which !== "zone";
-    $("ppTotal").hidden = which === "cover" || which === "zone";
+    $("langs").hidden = which !== "langs";
+    $("ppTotal").hidden = which === "cover" || which === "zone" || which === "langs";
     $("menuBtn").hidden = which === "session";
     $("logo").disabled = which === "session";
     $("logo").classList.toggle("ishome", which !== "cover");
@@ -1220,7 +1226,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function renderZone() {
     var ws = zoneWords(), h = "";
     if (zoneIdx < 0) {
-      h += '<h1 class="pagetitle">Language Zone</h1><p class="lead">Choose a language, then tap a picture to hear the word in English and that language.</p>' + zoneToggle();
+      h += '<h1 class="pagetitle">All words</h1><p class="lead">Choose a language, then tap a picture to hear the word in English and that language.</p>' + zoneToggle();
       var last = "";
       ws.forEach(function (w, i) {
         if (w.set !== last) { if (last) h += "</div>"; last = w.set; h += '<h2 class="zh">' + esc(ZSETS[w.set]) + '</h2><div class="zgrid">'; }
@@ -1254,14 +1260,17 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var WIZARDS = [
     { id: "word", name: "Word Wizards", what: "Sounds, spellings and tricky words.", glyph: "Aa", img: "word", tint: 1, ready: true },
     { id: "number", name: "Number Wizards", what: "Counting, seeing numbers and number bonds.", glyph: "123", img: "number", tint: 2, ready: true },
+    { id: "languages", name: "Language Wizards", what: "Spanish, Portuguese, or all the words together.", glyph: "¡Hola!", img: "language", tint: 3, ready: true }
+  ];
+  var LANGMENU = [
     { id: "language", name: "Spanish Wizards", what: "First Spanish words, with a grown\u2011up.", glyph: "¡Hola!", img: "language", tint: 3, ready: true },
     { id: "portuguese", name: "Portuguese Wizards", what: "First Portuguese words, with a grown\u2011up.", glyph: "Olá!", img: "language", tint: 4, ready: true },
-    { id: "zone", name: "Language Zone", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
+    { id: "zone", name: "All words", what: "Tap a picture to hear the word in English, Spanish and Portuguese.", glyph: "EN ES PT", tint: 5, ready: true }
   ];
   function wizReady(w) { return !!w.ready || false; }
-  function renderCover() {
+  function tilesHtml(list) {
     var h = "";
-    WIZARDS.forEach(function (w, i) {
+    list.forEach(function (w, i) {
       w = Object.assign({}, w, { ready: wizReady(w) });
       var st = ' style="--c:var(--t' + w.tint + ');--l:var(--t' + w.tint + 'l)"';
       h += '<button type="button" class="tile' + (w.ready ? "" : " soon") + (w.img ? " hasdino" : "") + '"' + (w.ready ? "" : " disabled") + ' data-w="' + w.id + '" aria-label="' + esc(w.name) + (w.ready ? "" : ", coming soon") + '"' + st + ">" +
@@ -1270,15 +1279,19 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
         '<span class="what">' + esc(w.what) + "</span>" +
         '<span class="meter"><span class="n">' + (w.ready ? "Ready to play" : "Coming soon") + "</span></span></button>";
     });
-    $("wizlist").innerHTML = h;
+    return h;
+  }
+  function renderLangs() { $("langlist").innerHTML = tilesHtml(LANGMENU); }
+  function renderCover() {
+    $("wizlist").innerHTML = tilesHtml(WIZARDS);
     var m = "";
     WIZARDS.forEach(function (w) {
       w = Object.assign({}, w, { ready: wizReady(w) });
-      m += '<button type="button" data-w="' + w.id + '"' + (w.ready ? "" : " disabled") + (w.id === curWiz ? ' aria-current="true"' : "") + "><span>" + esc(w.name) + "</span>" + (w.ready ? "" : "<small>Coming soon</small>") + "</button>";
+      m += '<button type="button" data-w="' + w.id + '"' + (w.ready ? "" : " disabled") + ((w.id === curWiz || (w.id === "languages" && (curWiz === "language" || curWiz === "portuguese"))) ? ' aria-current="true"' : "") + "><span>" + esc(w.name) + "</span>" + (w.ready ? "" : "<small>Coming soon</small>") + "</button>";
     });
     $("menu").innerHTML = m;
   }
-  function openWizard(id) { var w = WIZARDS.filter(function (x) { return x.id === id; })[0]; if (!w || !wizReady(w)) return; if (id === "zone") { zoneIdx = -1; renderZone(); show("zone"); return; } setWiz(id); renderCover(); goHome(); }
+  function openWizard(id) { var w = WIZARDS.concat(LANGMENU).filter(function (x) { return x.id === id; })[0]; if (!w || !wizReady(w)) return; if (id === "languages") { renderLangs(); show("langs"); return; } if (id === "zone") { zoneIdx = -1; renderZone(); show("zone"); return; } setWiz(id); renderCover(); goHome(); }
   function goCover() { clearTimeout(fbTimer); answered = false; show("cover"); }
   function closeMenu() { var mn = $("menu"); if (mn && !mn.hidden) { mn.hidden = true; $("menuBtn").setAttribute("aria-expanded", "false"); } }
   function goHome() { clearTimeout(fbTimer); answered = false; renderHome(); show("home"); }
@@ -1304,6 +1317,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   });
   $("closeBtn").addEventListener("click", goHome);
   $("logo").addEventListener("click", goCover);
+  $("langlist").addEventListener("click", function (e) { var b = e.target.closest(".tile"); if (b && !b.disabled) openWizard(b.getAttribute("data-w")); });
   $("wizlist").addEventListener("click", function (e) { var b = e.target.closest(".tile"); if (b && !b.disabled) openWizard(b.getAttribute("data-w")); });
   $("menuBtn").addEventListener("click", function () {
     var open = $("menu").hidden; $("menu").hidden = !open; $("menuBtn").setAttribute("aria-expanded", open ? "true" : "false");
