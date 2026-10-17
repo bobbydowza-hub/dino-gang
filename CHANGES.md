@@ -13,6 +13,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 8. Push `dev` (free) and finish with a short summary: what changed, what needs Tom's decision. The summary is for Tom to read; keep it brief.
 
 ## Pending
+- [ ] 2026-10-17 Handwriting letters: custom font "Bobby Dowza" (Tom's name for it).
   - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft stroke paths for all 26 letters are in `src/hw-paths.json` (not used by the build yet).
 
 - [ ] 2026-10-17 Handwriting module goes on its own page, `/writing`, NOT on the main menu while testing. Build Watch and Trace for the Autumn 1 letters first. NEEDS TOM: waiting on his recording and go-ahead; scheduled runs skip it.
