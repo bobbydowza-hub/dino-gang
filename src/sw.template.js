@@ -23,8 +23,9 @@ self.addEventListener("fetch", function (e) {
   var req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
   var aboutPage = req.mode === "navigate" && /\/about\/?$/.test(new URL(req.url).pathname);
+  var writingPage = req.mode === "navigate" && /\/writing\/?$/.test(new URL(req.url).pathname);
   e.respondWith(caches.open(CACHE).then(function (c) {
-    return c.match(aboutPage ? "about.html" : req, { ignoreSearch: true }).then(function (hit) {
+    return c.match(aboutPage ? "about.html" : writingPage ? "writing/index.html" : req, { ignoreSearch: true }).then(function (hit) {
       if (!hit && req.mode === "navigate") hit = null;
       var go = hit ? Promise.resolve(hit) : c.match("./").then(function (r) { return req.mode === "navigate" && r ? r : fetch(req); });
       return go.then(function (res) { return req.headers.get("range") && res && res.status === 200 ? ranged(req, res) : res; });

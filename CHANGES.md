@@ -13,10 +13,10 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 8. Push `dev` (free) and finish with a short summary: what changed, what needs Tom's decision. The summary is for Tom to read; keep it brief.
 
 ## Pending
-- [ ] 2026-10-17 Handwriting letters: custom font "Bobby Dowza" (Tom's name for it).
-  - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft stroke paths for all 26 letters are in `src/hw-paths.json` (not used by the build yet).
+- [x] 2026-10-17 Handwriting letters: custom font "Bobby Dowza" built from Andika (a e f i j m n u y redrawn; OFL licence kept in `public/fonts/LICENSE-BobbyDowza.txt`; script `tools/make-bobby-dowza.py`). Now the card font on every card. Tom to review screenshots.
+  - Remaining: stroke paths for the other letters (Tom reviewing the sheet; "l" keeps its kick).
 
-- [ ] 2026-10-17 Handwriting module goes on its own page, `/writing`, NOT on the main menu while testing. Build Watch and Trace for the Autumn 1 letters first. NEEDS TOM: waiting on his recording and go-ahead; scheduled runs skip it.
+- [ ] 2026-10-17 Handwriting module: unlisted test page `/writing/` for the letter "a" only (Watch, Trace, astronaut picture, word audio, description). Not linked from the app. Tom: combined release with French. Other letters wait for his stroke review.
 - [ ] 2026-10-17 French Wizards: built and on `dev` (27 word clips plus the 3 English clips). Native-speaker check still to do for ES, PT and FR before anything ships.
 
 ## Decisions (Tom, 2026-10-17)

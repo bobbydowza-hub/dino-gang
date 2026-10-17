@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ff5c93">
+<title>Writing test: a | Dino Gang</title>
+<link rel="icon" href="../icons/icon-192.png">
+<style>
+@font-face{font-family:'Figtree';font-weight:400;font-display:swap;src:url('../fonts/figtree-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Figtree';font-weight:700;font-display:swap;src:url('../fonts/figtree-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Bobby Dowza';font-weight:400;font-display:swap;src:url('../fonts/bobbydowza-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Bobby Dowza';font-weight:700;font-display:swap;src:url('../fonts/bobbydowza-latin-700-normal.woff2') format('woff2')}
+:root{--bg:#f3f4fb;--surface:#fff;--ink:#272650;--ink-soft:#5d5f8a;--line:#d9dbee;--sky:#2fa8f0;--sky-lip:#1b7fc2;--good:#34b56b;--good-lip:#228a4f;--warn:#ffb21f;--warn-lip:#d68a00;--warn-ink:#3a2700;--guide:#cfd1e6;--pink:#ff5c93;--font-ui:"Figtree","Trebuchet MS",system-ui,sans-serif;--font-card:"Bobby Dowza","Andika","Figtree",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#15162e;--surface:#1f2142;--ink:#f0f0ff;--ink-soft:#aab0d6;--line:#34376a;--guide:#4a4d86}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 var(--font-ui);-webkit-text-size-adjust:100%}
+main{max-width:520px;margin:0 auto;padding:16px 16px 40px;display:flex;flex-direction:column;gap:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top a{color:var(--ink);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.badge{font-size:.8rem;font-weight:700;background:var(--warn);color:var(--warn-ink);padding:4px 10px;border-radius:99px}
+h1{font-size:1.4rem;margin:0}
+.panel{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 4px 0 var(--line)}
+#pad{display:block;width:100%;height:auto;max-height:56vh;touch-action:none;user-select:none;-webkit-user-select:none;border-radius:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{flex:1;min-height:56px;min-width:120px;border:0;border-radius:18px;font:700 1.05rem var(--font-ui);color:#fff;background:var(--sky);box-shadow:0 4px 0 var(--sky-lip);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 14px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sky-lip)}
+.btn.good{background:var(--good);box-shadow:0 4px 0 var(--good-lip)}
+.btn.warn{background:var(--warn);color:var(--warn-ink);box-shadow:0 4px 0 var(--warn-lip)}
+.btn:focus-visible{outline:4px solid var(--ink);outline-offset:2px}
+.btn[aria-pressed="true"]{outline:4px solid var(--ink);outline-offset:2px}
+#msg{min-height:1.6em;text-align:center;font-weight:700;margin:0}
+.word{display:flex;align-items:center;gap:16px}
+.pic{font-size:4.6rem;line-height:1;flex:none;width:96px;text-align:center}
+.wt b{font:700 2rem/1.15 var(--font-card);display:block}
+.wt p{margin:4px 0 0;color:var(--ink-soft)}
+.pom{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.pom i{position:absolute;bottom:-30px;width:22px;height:22px;border-radius:50%;background:var(--pink);box-shadow:inset -4px -4px 0 rgba(0,0,0,.12);animation:up 1.6s ease-out forwards}
+@keyframes up{to{transform:translateY(-105vh) rotate(40deg);opacity:.9}}
+@media (prefers-reduced-motion:reduce){.pom i{animation:none;display:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><a href="../" aria-label="Back to Dino Gang">&larr; Dino Gang</a><span class="badge">Testing</span></div>
+  <h1>Write the letter <span style="font-family:var(--font-card);font-size:1.7rem">a</span></h1>
+  <div class="panel"><svg id="pad" viewBox="0 0 100 140" role="img" aria-label="Writing area for the letter a"></svg></div>
+  <p id="msg" role="status" aria-live="polite">Press Watch, then have a go yourself.</p>
+  <div class="row">
+    <button class="btn" id="watch" type="button">Watch</button>
+    <button class="btn good" id="trace" type="button" aria-pressed="false">Trace</button>
+  </div>
+  <div class="row">
+    <button class="btn warn" id="snd" type="button">Hear the sound</button>
+    <button class="btn warn" id="wd" type="button">Hear the word</button>
+  </div>
+  <div class="panel word">
+    <div class="pic" aria-hidden="true">🧑‍🚀</div>
+    <div class="wt"><b>astronaut</b><p>An astronaut is a person who travels up into space in a rocket.</p></div>
+  </div>
+</main>
+<div class="pom" id="pom" aria-hidden="true"></div>
+<script>
+var LETTER = __LETTER__;
+var SVGNS = "http://www.w3.org/2000/svg", pad = document.getElementById("pad"), msg = document.getElementById("msg");
+var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+var css = getComputedStyle(document.documentElement);
+function col(n) { return css.getPropertyValue(n).trim(); }
+function el(n, a, p) { var e = document.createElementNS(SVGNS, n); for (var k in a) e.setAttribute(k, a[k]); (p || pad).appendChild(e); return e; }
+// handwriting lines: top, x-height, baseline
+[[12, 1.2], [50, 1.2], [101, 2]].forEach(function (l, i) { el("line", { x1: 4, x2: 96, y1: l[0], y2: l[0], stroke: col("--guide"), "stroke-width": l[1], "stroke-dasharray": i === 1 ? "3 4" : "", "stroke-linecap": "round" }); });
+var strokes = LETTER.strokes.map(function (d) {
+  var guide = el("path", { d: d, fill: "none", stroke: col("--guide"), "stroke-width": 9, "stroke-linecap": "round", "stroke-linejoin": "round", opacity: .75 });
+  var ink = el("path", { d: d, fill: "none", stroke: col("--sky"), "stroke-width": 9, "stroke-linecap": "round", "stroke-linejoin": "round" });
+  var len = ink.getTotalLength(); ink.style.strokeDasharray = len + " " + (len + 2); ink.style.strokeDashoffset = len;
+  var pts = [], N = Math.max(60, Math.round(len * 1.2));
+  for (var i = 0; i <= N; i++) { var q = guide.getPointAtLength(len * i / N); pts.push([q.x, q.y]); }
+  return { d: d, ink: ink, len: len, pts: pts, n: N };
+});
+LETTER.dots.forEach(function (c) { el("circle", { cx: c[0], cy: c[1], r: 6.5, fill: col("--guide") }); });
+var starts = strokes.map(function (s, i) {
+  var g = el("g", {}); el("circle", { cx: s.pts[0][0], cy: s.pts[0][1], r: 7, fill: i === 0 ? col("--good") : col("--warn"), stroke: "#fff", "stroke-width": 1.5 }, g);
+  var t = el("text", { x: s.pts[0][0], y: s.pts[0][1] + 3.6, "text-anchor": "middle", "font-size": 10, "font-weight": 700, fill: i === 0 ? "#fff" : "#3a2700", "font-family": "Figtree,sans-serif" }, g); t.textContent = i + 1;
+  return g;
+});
+var ball = el("circle", { r: 8.5, fill: col("--pink"), stroke: "#fff", "stroke-width": 2 });
+var mode = "idle", si = 0, pi = 0, raf = 0, down = false;
+function setBall(s, i) { ball.style.display = ""; if (i === 0) starts[s].style.display = "none"; var p = strokes[s].pts[i]; ball.setAttribute("cx", p[0]); ball.setAttribute("cy", p[1]); }
+function paint(s, i) { var S = strokes[s]; S.ink.style.strokeDashoffset = S.len * (1 - i / S.n); }
+function clear() { cancelAnimationFrame(raf); strokes.forEach(function (S, k) { paint(k, 0); starts[k].style.display = ""; }); si = 0; pi = 0; ball.style.display = "none"; }
+function say(t) { msg.textContent = t; }
+function stopMode() { mode = "idle"; document.getElementById("trace").setAttribute("aria-pressed", "false"); }
+document.getElementById("watch").addEventListener("click", function () {
+  stopMode(); clear(); setBall(0, 0); say("Watch the ball.");
+  if (reduce) { strokes.forEach(function (S, k) { paint(k, S.n); }); say("That is how to write it. Now press Trace."); return; }
+  var k = 0, t0 = performance.now(), dur = function (S) { return Math.max(1200, S.len * 22); };
+  (function step(t) {
+    var S = strokes[k], f = Math.min(1, (t - t0) / dur(S)), i = Math.round(S.n * f);
+    paint(k, i); setBall(k, i);
+    if (f < 1) raf = requestAnimationFrame(step);
+    else if (k < strokes.length - 1) { k++; t0 = performance.now() + 500; setBall(k, 0); raf = requestAnimationFrame(function w(t2) { if (t2 < t0) raf = requestAnimationFrame(w); else raf = requestAnimationFrame(step); }); }
+    else say("Now press Trace and have a go.");
+  })(t0);
+});
+document.getElementById("trace").addEventListener("click", function () {
+  clear(); setBall(0, 0); mode = "trace"; this.setAttribute("aria-pressed", "true"); say("Put your finger on the ball and follow the path.");
+});
+function toSvg(e) { var r = pad.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 140]; }
+function dist(a, b) { var dx = a[0] - b[0], dy = a[1] - b[1]; return Math.sqrt(dx * dx + dy * dy); }
+var TOL = 17, WIN = 0.22;
+pad.addEventListener("pointerdown", function (e) {
+  if (mode !== "trace") return;
+  var p = toSvg(e), S = strokes[si];
+  if (dist(p, S.pts[pi]) < 24) { down = true; pad.setPointerCapture(e.pointerId); say("Keep going."); }
+});
+pad.addEventListener("pointermove", function (e) {
+  if (mode !== "trace" || !down) return;
+  var p = toSvg(e), S = strokes[si], hi = Math.min(S.n, pi + Math.ceil(S.n * WIN)), best = -1, bd = 1e9;
+  for (var j = pi; j <= hi; j++) { var d = dist(p, S.pts[j]); if (d < bd - 0.5) { bd = d; best = j; } }
+  if (best > pi && bd < TOL) { pi = best; paint(si, pi); setBall(si, pi); }
+  if (pi >= S.n - 1) finishStroke();
+});
+function end() { down = false; }
+pad.addEventListener("pointerup", end); pad.addEventListener("pointercancel", end);
+function finishStroke() {
+  paint(si, strokes[si].n); down = false;
+  if (si < strokes.length - 1) { si++; pi = 0; setBall(si, 0); say("Lift your pen. Start again at the orange dot."); return; }
+  stopMode(); say("Well done! You wrote it.");
+  var P = document.getElementById("pom"); if (!reduce) for (var i = 0; i < 14; i++) { var b = document.createElement("i"); b.style.left = (5 + Math.random() * 90) + "%"; b.style.animationDelay = (Math.random() * .5) + "s"; P.appendChild(b); }
+  setTimeout(function () { P.innerHTML = ""; }, 2600);
+}
+var audio = null;
+function play(src) { try { if (audio) audio.pause(); audio = new Audio(src); audio.play().catch(function () {}); } catch (e) {} }
+document.getElementById("snd").addEventListener("click", function () { play("../audio/a.mp3"); });
+document.getElementById("wd").addEventListener("click", function () { play("../audio/w-a.mp3"); });
+clear();
+</script>
+</body>
+</html>

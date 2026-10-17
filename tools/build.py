@@ -75,6 +75,8 @@ for w in (400, 500, 600, 700):
     faces += "@font-face{font-family:'Figtree';font-weight:%d;font-display:swap;src:url('fonts/figtree-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
 for w in (400, 700):
     faces += "@font-face{font-family:'Andika';font-weight:%d;font-display:swap;src:url('fonts/andika-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
+for w in (400, 700):
+    faces += "@font-face{font-family:'Bobby Dowza';font-weight:%d;font-display:swap;src:url('fonts/bobbydowza-latin-%d-normal.woff2') format('woff2')}\n" % (w, w)
 head = ('<!doctype html>\n<html lang="en-GB">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="color-scheme" content="light dark">\n<meta name="theme-color" content="#ff5c93">\n'
@@ -93,6 +95,13 @@ doc = head + frag.replace("</style>", "</style>\n</head>\n<body>", 1) + "\n" + s
 open(os.path.join(P, "index.html"), "w", encoding="utf-8").write(doc)
 
 open(os.path.join(P, "about.html"), "w", encoding="utf-8").write(open(os.path.join(R, "src/about.html"), encoding="utf-8").read())
+
+# Unlisted handwriting test page: /writing/ (not linked from the app; Tom has the URL). Letter "a" only for now.
+os.makedirs(os.path.join(P, "writing"), exist_ok=True)
+hw = json.load(open(os.path.join(R, "src/hw-paths.json"), encoding="utf-8"))
+ha = {"strokes": hw["a"]["strokes"], "dots": [list(d) for d in hw["a"].get("dots", [])]}
+open(os.path.join(P, "writing", "index.html"), "w", encoding="utf-8").write(
+    open(os.path.join(R, "src/writing.html"), encoding="utf-8").read().replace("__LETTER__", json.dumps(ha)))
 
 # Service worker: precache everything, versioned by content hash
 files = []
