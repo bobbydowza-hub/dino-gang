@@ -13,7 +13,8 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 8. Push `dev` (free) and finish with a short summary: what changed, what needs Tom's decision. The summary is for Tom to read; keep it brief.
 
 ## Pending
-(none)
+- [ ] 2026-10-17 Reminder for Tom: re-record the "y" audio file.
+  - NEEDS TOM: this is waiting on his new recording, so the scheduled run should skip it. Which clip does he mean: the sound (`public/audio/y.mp3`) or the picture word (`public/audio/w-y.mp3`, yoyo)? When he sends it, replace only that one clip with the dino-cut-audio steps.
 
 ## Done
 - 2026-10-16 Centred the hands (done live on dev): 1 to 4 on the palm, 5 and the pairs on their real bounds, checked in light and dark. Also a new share image, public/og-image-v4.jpg (85 KB; the old PNG was 308 KB, just over WhatsApp's roughly 300 KB limit), tags updated on the home page and About page. Only visible after a release. WhatsApp caches old previews, so share dinogang.netlify.app/?v=2 to force a fresh one.
