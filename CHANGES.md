@@ -16,7 +16,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - [ ] 2026-10-17 Reminder for Tom: re-record the "y" audio file.
   - NEEDS TOM: this is waiting on his new recording, so the scheduled run should skip it. Which clip does he mean: the sound (`public/audio/y.mp3`) or the picture word (`public/audio/w-y.mp3`, yoyo)? When he sends it, replace only that one clip with the dino-cut-audio steps.
 - [ ] 2026-10-17 Handwriting letters: custom font "Bobby Dowza" (Tom's name for it).
-  - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft paths are in the session scratchpad (`fonts/paths.json`).
+  - NEEDS TOM: not ready for a scheduled run. Plan: Andika-based, with redrawn a, e, f, i, j, m, n, u, y (plain, no tails, small kicks on a, i, n, m, u). Tom approved the proof sheet (v3). Next: stroke paths for Trace and the ball, then build the font (OFL: new name, keep licence text) for Word Wizard cards and the handwriting module. Draft stroke paths for all 26 letters are in `src/hw-paths.json` (not used by the build yet).
 
 ## Done
 - [x] 2026-10-17 Top-left logo becomes a blue Home icon (label "Home") on every screen except the wizard list; tapping it still goes to the wizard list. Tested on cover, wizard home, session. Not released.
