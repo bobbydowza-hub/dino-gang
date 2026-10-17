@@ -7,7 +7,7 @@ tpl = open(os.path.join(R, "src/ww-template.html"), encoding="utf-8").read()
 clips = json.load(open(os.path.join(R, "src/clips.json")))
 
 # Language audio: every clip on disk becomes a key "l:<id>"
-for lg in ("en", "es", "pt"):
+for lg in ("en", "es", "pt", "fr"):
     d = os.path.join(P, "audio/lang", lg)
     if os.path.isdir(d):
         for fn in sorted(os.listdir(d)):
