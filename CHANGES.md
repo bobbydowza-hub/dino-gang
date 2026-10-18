@@ -25,6 +25,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-18: Number Wizards second half (n3-01 to n3-20) regenerated in ElevenLabs in [energetic] with a pause after the first word (or first sentence for the "missing part" lines). Supersedes the 15-clip bond replacement above. Cut at 0.68 s (20 clips found, as expected). NEEDS TOM: listen.
 - 2026-10-18: Number Wizards bond clips n3-01 to n3-08 and n3-13 to n3-17 regenerated in ElevenLabs with a short pause after the first number ("Two [pause] is one and one"); n3-01 and n3-02 use [energetic] instead of [playful]. 15 clips replaced, cut at 0.8 s gaps (13 found, as expected). NEEDS TOM: listen.
 - 2026-10-18: Number Wizards counting clips (n1, n2, n3, 55) replaced with Tom's ElevenLabs recording (cut at 0.7 s gaps; count matched exactly). Tom's own recordings are in git history (commit before this one). NEEDS TOM: listen to all 55; check ElevenLabs licence covers commercial use before anything beyond school parents.
 - 2026-10-17: French Wizards added to Language Wizards and to All words (Español / Português / Français / All).
