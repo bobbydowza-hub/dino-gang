@@ -25,6 +25,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-18: Number Wizards counting clips (n1, n2, n3, 55) replaced with Tom's ElevenLabs recording (cut at 0.7 s gaps; count matched exactly). Tom's own recordings are in git history (commit before this one). NEEDS TOM: listen to all 55; check ElevenLabs licence covers commercial use before anything beyond school parents.
 - 2026-10-17: French Wizards added to Language Wizards and to All words (Español / Português / Français / All).
 - [x] 2026-10-17 Re-recorded the Word Wizards "y" sound: Tom's single take cleaned and repeated three times (`public/audio/y.mp3`). Not released.
 - [x] 2026-10-17 Language Wizards: one menu item (cover and top-right menu) opening Spanish Wizards, Portuguese Wizards and All words (was Language Zone). Tested. Not released.
