@@ -16,3 +16,6 @@ Expected counts (repeats + 1 ghost): b1 14, b2 16, b3 15, b4 12, b5 15, b6 17. T
 
 ## 2026-10-19 12:40 update
 Tom removed the ghosts in GarageBand, so counts = repeats only (b1 13, b2 15, b3 14 or 13 with r=2, b4 11). Batches 1, 2 and 4 cut by sound count and gap check (match exactly) and put on `dev`. Batch 3 counted 13 (u3 r2 h3 b3 f2) but NOT cut: Tom says it needs a complete revision. NEEDS TOM: listen to i (batch 1) and o (batch 2), both flagged. r is now 2 repeats.
+
+## 2026-10-19 13:00
+Batch 3 cut (u3 r2 h3 b3 f2 = 13, count matched; file unchanged since earlier check, mtime same). NEEDS TOM: listen, especially b (very short sounds, about 0.12 s each).
