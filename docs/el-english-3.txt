@@ -1,4 +1,4 @@
-[playful] good morning[pause][pause][pause][pause]
+[energetic] good morning[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] please[pause][pause][pause][pause]
+[energetic] please[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] my name is…[pause][pause][pause][pause]
+[energetic] my name is…[pause][pause][pause][pause]
 
 
 ...

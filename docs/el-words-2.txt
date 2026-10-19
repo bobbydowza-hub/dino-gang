@@ -1,4 +1,4 @@
-[playful] cat[pause][pause][pause][pause]
+[energetic] cat[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] sock[pause][pause][pause][pause]
+[energetic] sock[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] umbrella[pause][pause][pause][pause]
+[energetic] umbrella[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[playful] helicopter[pause][pause][pause][pause]
+[energetic] helicopter[pause][pause][pause][pause]
 
 
 ...
@@ -78,7 +78,7 @@
 
 
 ...
-[playful] flamingo[pause][pause][pause][pause]
+[energetic] flamingo[pause][pause][pause][pause]
 
 
 ...

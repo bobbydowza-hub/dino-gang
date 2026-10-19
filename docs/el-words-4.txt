@@ -1,4 +1,4 @@
-[playful] zebra[pause][pause][pause][pause]
+[energetic] zebra[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] thumb[pause][pause][pause][pause]
+[energetic] thumb[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] cherry[pause][pause][pause][pause]
+[energetic] cherry[pause][pause][pause][pause]
 
 
 ...
@@ -58,4 +58,4 @@
 
 
 ...
-[playful] ring[pause][pause][pause][pause]
+[energetic] ring[pause][pause][pause][pause]

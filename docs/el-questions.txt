@@ -1,4 +1,4 @@
-[playful] What does[pause][pause][pause][pause]
+[energetic] What does[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] Do you know what[pause][pause][pause][pause]
+[energetic] Do you know what[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] How do you say[pause][pause][pause][pause]
+[energetic] How do you say[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[playful] Let's try saying[pause][pause][pause][pause]
+[energetic] Let's try saying[pause][pause][pause][pause]
 
 
 ...
@@ -78,7 +78,7 @@
 
 
 ...
-[playful] What's that in English?[pause][pause][pause][pause]
+[energetic] What's that in English?[pause][pause][pause][pause]
 
 
 ...
@@ -98,7 +98,7 @@
 
 
 ...
-[playful] in Spanish?[pause][pause][pause][pause]
+[energetic] in Spanish?[pause][pause][pause][pause]
 
 
 ...
@@ -118,7 +118,7 @@
 
 
 ...
-[playful] in Portuguese?[pause][pause][pause][pause]
+[energetic] in Portuguese?[pause][pause][pause][pause]
 
 
 ...
@@ -138,4 +138,4 @@
 
 
 ...
-[playful] in French?[pause][pause][pause][pause]
+[energetic] in French?[pause][pause][pause][pause]

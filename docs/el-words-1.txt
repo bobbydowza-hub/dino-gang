@@ -1,4 +1,4 @@
-[playful] snake[pause][pause][pause][pause]
+[energetic] snake[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] tiger[pause][pause][pause][pause]
+[energetic] tiger[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] iguana[pause][pause][pause][pause]
+[energetic] iguana[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[playful] mouse[pause][pause][pause][pause]
+[energetic] mouse[pause][pause][pause][pause]
 
 
 ...
@@ -78,7 +78,7 @@
 
 
 ...
-[playful] goat[pause][pause][pause][pause]
+[energetic] goat[pause][pause][pause][pause]
 
 
 ...

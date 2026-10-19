@@ -1,4 +1,4 @@
-[playful] hello[pause][pause][pause][pause]
+[energetic] hello[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] yes[pause][pause][pause][pause]
+[energetic] yes[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] thank you[pause][pause][pause][pause]
+[energetic] thank you[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[playful] blue[pause][pause][pause][pause]
+[energetic] blue[pause][pause][pause][pause]
 
 
 ...
@@ -78,7 +78,7 @@
 
 
 ...
-[playful] yellow[pause][pause][pause][pause]
+[energetic] yellow[pause][pause][pause][pause]
 
 
 ...
@@ -98,4 +98,4 @@
 
 
 ...
-[playful] orange[pause][pause][pause][pause]
+[energetic] orange[pause][pause][pause][pause]

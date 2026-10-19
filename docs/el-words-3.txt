@@ -1,4 +1,4 @@
-[playful] puff[pause][pause][pause][pause]
+[energetic] puff[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[playful] dress[pause][pause][pause][pause]
+[energetic] dress[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[playful] volcano[pause][pause][pause][pause]
+[energetic] volcano[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[playful] box[pause][pause][pause][pause]
+[energetic] box[pause][pause][pause][pause]
 
 
 ...
