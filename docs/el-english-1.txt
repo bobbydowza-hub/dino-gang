@@ -1,0 +1,101 @@
+[playful] hello[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] goodbye[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[playful] yes[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] no[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[playful] thank you[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] red[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[playful] blue[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] green[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[playful] yellow[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] pink[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[playful] orange[pause][pause][pause][pause]
