@@ -19,3 +19,6 @@ Tom removed the ghosts in GarageBand, so counts = repeats only (b1 13, b2 15, b3
 
 ## 2026-10-19 13:00
 Batch 3 cut (u3 r2 h3 b3 f2 = 13, count matched; file unchanged since earlier check, mtime same). NEEDS TOM: listen, especially b (very short sounds, about 0.12 s each).
+
+## 2026-10-19 16:45
+Batches 5 and 6 cut. Batch 5: 14 sounds, but gaps split them v2 w3 x3 y3 z3 (script had v3, z2); total matched, so cut by gaps. NEEDS TOM: check v and z. Batch 6: 16 sounds, qu3 th2 sh2 ch3 nk3 ng3, matched the script exactly; no extra q found. All 35 sounds are now EL on `dev`. NEEDS TOM: listen to all.
