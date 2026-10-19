@@ -19,6 +19,8 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - [ ] 2026-10-17 Handwriting module: unlisted test page `/writing/` for the letter "a" only (Watch, Trace, astronaut picture, word audio, description). Not linked from the app. Tom: combined release with French. Other letters wait for his stroke review.
 - [ ] 2026-10-17 French Wizards: built and on `dev` (27 word clips plus the 3 English clips). Native-speaker check still to do for ES, PT and FR before anything ships.
 
+- [ ] 2026-10-19 Home button doesn't work (Tom's note). NEEDS TOM: which screen and device? Checked on desktop Chromium at phone width: the logo does take you home from the Languages screen.
+
 ## Decisions (Tom, 2026-10-17)
 - French: "bonne journée" (not a second bonjour) and "s'il vous plaît".
 - Portuguese handoff is stale: ignore it; the app's Portuguese pack is the source.
