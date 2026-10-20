@@ -19,7 +19,8 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - [ ] 2026-10-17 Handwriting module: unlisted test page `/writing/` for the letter "a" only (Watch, Trace, astronaut picture, word audio, description). Not linked from the app. Tom: combined release with French. Other letters wait for his stroke review.
 - [ ] 2026-10-17 French Wizards: built and on `dev` (27 word clips plus the 3 English clips). Native-speaker check still to do for ES, PT and FR before anything ships.
 
-- [ ] 2026-10-19 Home button doesn't work (Tom's note). NEEDS TOM: which screen and device? Checked on desktop Chromium at phone width: the logo does take you home from the Languages screen.
+- [x] 2026-10-20 Home button did nothing during a session (it was deliberately disabled there). Now enabled: Home goes to the main menu, X still goes back to the wizard's sets. Tested at phone width.
+- [ ] 2026-10-20 Swipe back (mobile): a swipe left or right takes people off Dino Gang to the site they came from. Tom: leave for when it becomes an app (could be done with history entries per screen).
 
 ## Decisions (Tom, 2026-10-17)
 - French: "bonne journée" (not a second bonjour) and "s'il vous plaît".
@@ -27,6 +28,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-20: Re-levelled all 288 audio clips to about -16 LUFS with a peak limit (peaks were over 0 dBFS on 177 clips before) and trimmed long leading silences (n1-03 etc.). 13 quiet clips were re-cut from the EL files with light compression. Letters a and b remain about 2.5 LU quieter (very peaky sounds).
 - 2026-10-20: French words (27) replaced with EL clips in Tom's native fr-FR voice ([excited]; counts 11/10/6 matched), replacing the TTS clips. NEEDS TOM: native-speaker check. French numbers redone and cut (10, count matched; the first file was missing dix). All audio in the app is now EL on dev.
 - 2026-10-20: Spanish words (26) replaced with EL clips in Tom's native Spain voice ([excited]; counts 11/10/6 matched), replacing the native speaker's recordings (in git history). NEEDS TOM: native-speaker check; check the first clips of es 1 to 3.
 - 2026-10-20: Portuguese words (27) replaced with EL clips in Tom's native pt-PT voice ([excited]; counts 11/10/6 matched). NEEDS TOM: native-speaker check still outstanding; check the first clips of pt 1 and pt 3 (started at 0 s: olá, bom dia).

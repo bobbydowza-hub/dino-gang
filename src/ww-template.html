@@ -788,7 +788,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("langs").hidden = which !== "langs";
     $("ppTotal").hidden = which === "cover" || which === "zone" || which === "langs";
     $("menuBtn").hidden = which === "session";
-    $("logo").disabled = which === "session";
+    $("logo").disabled = false;
     $("logo").classList.toggle("ishome", which !== "cover");
     $("logotxt").textContent = which === "cover" ? "Dino Gang" : "Home";
     $("logo").setAttribute("aria-label", which === "cover" ? "Dino Gang. Back to the wizards." : "Home. Back to the wizards.");
