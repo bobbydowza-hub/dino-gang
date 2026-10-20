@@ -139,6 +139,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
 .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--l); }
 .btn.sky { --c: var(--sky); --l: var(--sky-lip); }
 .btn.good { --c: var(--good); --l: var(--good-lip); }
+.dock .row.b3 { grid-template-columns: 1fr 1.3fr 1fr; gap: 8px; }
+.btn:disabled { opacity: .45; }
 .btn.warn { --c: var(--warn); --l: var(--warn-lip); color: var(--warn-ink); }
 .btn.wide { grid-column: 1 / -1; }
 .banner { max-width: 480px; margin-inline: auto; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; cursor: pointer; font-weight: 600; font-size: 1.1rem; }
@@ -379,46 +381,46 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       what: "The first 20 sounds in Reception.",
       info: "The first 20 sounds taught in Reception, Autumn 1.",
       cards: [
-        { g: "s", w: "snake", p: "🐍", t: "A long, quiet hiss, teeth close together." },
-        { g: "a", w: "astronaut", p: "🧑‍🚀", t: "Mouth open, jaw dropped, a short sound." },
-        { g: "t", w: "tiger", p: "🐯", t: "Tongue tip taps behind the top teeth. A tiny puff, no voice." },
-        { g: "p", w: "penguin", p: "🐧", t: "Lips pressed together, then pop apart with a puff of air." },
-        { g: "i", w: "iguana", p: "🦎", t: "Mouth barely open, a short sound at the front, like the start of itch." },
-        { g: "n", w: "net", p: "🥅", t: "Tongue tip behind the top teeth, voice humming through your nose." },
-        { g: "m", w: "mouse", p: "🐭", t: "Lips closed, voice humming through your nose." },
-        { g: "d", w: "duck", p: "🦆", t: "Tongue tip taps behind the top teeth, with your voice on." },
-        { g: "g", w: "goat", p: "🐐", t: "Back of the tongue lifts, then drops, with your voice on." },
-        { g: "o", w: "octopus", p: "🐙", t: "Lips round, jaw dropped, a short sound." },
-        { g: "c", w: "cat", p: "🐱", t: "Back of the tongue lifts and drops, no voice, a small puff." },
-        { g: "k", w: "kite", p: "🪁", t: "Same sound as c." },
-        { g: "ck", w: "sock", p: "🧦", t: "Same sound as c and k. Two letters, one sound." },
-        { g: "e", w: "elephant", p: "🐘", t: "Mouth half open, tongue forward, a short sound." },
-        { g: "u", w: "umbrella", p: "☂️", t: "Mouth relaxed, a short sound from the middle." },
-        { g: "r", w: "rainbow", p: "🌈", t: "Lips a little round, tongue curled back but not touching, voice on." },
-        { g: "h", w: "helicopter", p: "🚁", t: "Just breathe out through an open mouth, like fogging a mirror." },
-        { g: "b", w: "bear", p: "🐻", t: "Lips together, then pop them apart with your voice on." },
-        { g: "f", w: "flamingo", p: "🦩", t: "Top teeth on bottom lip, blow the air out, no voice." },
-        { g: "l", w: "lollipop", p: "🍭", t: "Tongue tip up behind the top teeth, voice on, keep it going." }
+        { g: "s", w: "snake", p: "🐍", t: "A long, quiet hiss, teeth close together.", cp: "The snake says sss." },
+        { g: "a", w: "astronaut", p: "🧑‍🚀", t: "Mouth open, jaw dropped, a short sound.", cp: "The astronaut has an apple." },
+        { g: "t", w: "tiger", p: "🐯", t: "Tongue tip taps behind the top teeth. A tiny puff, no voice.", cp: "The tiger taps ten times." },
+        { g: "p", w: "penguin", p: "🐧", t: "Lips pressed together, then pop apart with a puff of air.", cp: "The penguin pops a puff." },
+        { g: "i", w: "iguana", p: "🦎", t: "Mouth barely open, a short sound at the front, like the start of itch.", cp: "The iguana is in the ink." },
+        { g: "n", w: "net", p: "🥅", t: "Tongue tip behind the top teeth, voice humming through your nose.", cp: "The net is for nine nuts." },
+        { g: "m", w: "mouse", p: "🐭", t: "Lips closed, voice humming through your nose.", cp: "The mouse munches on a map." },
+        { g: "d", w: "duck", p: "🦆", t: "Tongue tip taps behind the top teeth. Use your voice.", cp: "The duck digs and dips." },
+        { g: "g", w: "goat", p: "🐐", t: "Back of the tongue lifts, then drops. Use your voice.", cp: "The goat is so good." },
+        { g: "o", w: "octopus", p: "🐙", t: "Lips round, jaw dropped, a short sound.", cp: "The octopus is on the rock." },
+        { g: "c", w: "cat", p: "🐱", t: "Back of the tongue lifts and drops, no voice, a small puff.", cp: "The cat can cuddle." },
+        { g: "k", w: "kite", p: "🪁", t: "Same sound as c.", cp: "The kite kicks up high." },
+        { g: "ck", w: "sock", p: "🧦", t: "Same sound as c and k. Two letters, one sound.", cp: "Tick tock, the sock is on the clock." },
+        { g: "e", w: "elephant", p: "🐘", t: "Mouth half open, tongue forward, a short sound.", cp: "The elephant eats an egg." },
+        { g: "u", w: "umbrella", p: "☂️", t: "Mouth relaxed, a short sound from the middle.", cp: "The umbrella is up." },
+        { g: "r", w: "rainbow", p: "🌈", t: "Lips a little round, tongue curled back but not touching. Use your voice.", cp: "The rainbow runs round." },
+        { g: "h", w: "helicopter", p: "🚁", t: "Just breathe out through an open mouth, like fogging a mirror.", cp: "The helicopter is hot and high." },
+        { g: "b", w: "bear", p: "🐻", t: "Lips together, then pop them apart. Use your voice.", cp: "The bear has a big bag." },
+        { g: "f", w: "flamingo", p: "🦩", t: "Top teeth on bottom lip, blow the air out, no voice.", cp: "The flamingo is fun." },
+        { g: "l", w: "lollipop", p: "🍭", t: "Tongue tip up behind the top teeth. Use your voice and keep it going.", cp: "The lollipop is a lovely lick." }
       ] },
     { id: "a2", name: "Autumn 2", type: "sound", tint: 2, ready: true, pf: true,
       what: "15 more sounds, with the two-letter ones.",
       info: "The 15 sounds taught in Reception, Autumn 2, including the two-letter sounds.",
       cards: [
         { g: "ff", w: "puff", p: "💨", t: "Two letters, one sound: top teeth on bottom lip, blow out." },
-        { g: "ll", w: "bell", p: "🔔", t: "Two letters, one sound: tongue tip up behind the top teeth, voice on." },
+        { g: "ll", w: "bell", p: "🔔", t: "Two letters, one sound: tongue tip up behind the top teeth. Use your voice." },
         { g: "ss", w: "dress", p: "👗", t: "Two letters, one sound: a long quiet hiss." },
-        { g: "j", w: "jellyfish", p: "🪼", t: "Lips a little round, a quick burst with your voice on." },
-        { g: "v", w: "volcano", p: "🌋", t: "Top teeth on bottom lip, voice on: feel it buzz." },
+        { g: "j", w: "jellyfish", p: "🪼", t: "Lips a little round, a quick burst. Use your voice." },
+        { g: "v", w: "volcano", p: "🌋", t: "Top teeth on bottom lip. Use your voice and feel it buzz." },
         { g: "w", w: "wave", p: "🌊", t: "Lips small and round, then open into the next sound." },
-        { g: "x", w: "box", p: "📦", t: "Says \"cs\", as at the end of box." },
-        { g: "y", w: "yoyo", p: "🪀", t: "Tongue lifts high at the front, voice on, then slides into the next sound." },
-        { g: "z", w: "zebra", p: "🦓", t: "Like s, but turn your voice on and feel the buzz." },
-        { g: "qu", w: "queen", p: "👑", t: "Lips round, then open. Says \"kw\".", cp: "A quick quilt for the queen." },
-        { g: "th", w: "thumb", p: "👍", t: "Tongue tip against the teeth. Blow for thumb, add voice for this.", cp: "Three thumbs, thank you." },
-        { g: "sh", w: "shell", p: "🐚", t: "Lips pushed forward, teeth close, a long soft whoosh.", cp: "Shh, the ship is sailing." },
-        { g: "ch", w: "cherry", p: "🍒", t: "Like t then sh, run together in one quick burst.", cp: "Cheeky chimps chat." },
-        { g: "nk", w: "pink", p: "<span style='display:inline-block;width:.85em;height:.85em;border-radius:.18em;background:#ff8cbf;box-shadow:inset 0 -.08em 0 rgba(0,0,0,.18)'></span>", t: "Says \"ngk\", as at the end of pink.", cp: "Think of a pink skunk." },
-        { g: "ng", w: "ring", p: "💍", t: "Back of the tongue, as at the end of ring.", cp: "Sing a song, king." }
+        { g: "x", w: "box", p: "📦", t: "Says \"cs\", like the end of box." },
+        { g: "y", w: "yoyo", p: "🪀", t: "Tongue lifts high at the front, then slides into the next sound. Use your voice." },
+        { g: "z", w: "zebra", p: "🦓", t: "Like s, but use your voice and feel the buzz." },
+        { g: "qu", w: "queen", p: "👑", t: "Lips round, then open. Says \"kw\".", cp: "The queen has a quick quilt." },
+        { g: "th", w: "thumb", p: "👍", t: "Tongue tip against the teeth. For thumb, blow softly. For this, use your voice.", cp: "Three thumbs up! Thank you!" },
+        { g: "sh", w: "shell", p: "🐚", t: "Lips pushed forward, teeth close, a long soft whoosh.", cp: "Shh, a shell by the shore." },
+        { g: "ch", w: "cherry", p: "🍒", t: "Like t then sh, run together in one quick burst.", cp: "Chew a cherry, cheeky chimp." },
+        { g: "nk", w: "pink", p: "<span style='display:inline-block;width:.85em;height:.85em;border-radius:.18em;background:#ff8cbf;box-shadow:inset 0 -.08em 0 rgba(0,0,0,.18)'></span>", t: "Says \"ngk\", like the end of pink.", cp: "Think of a pink panda." },
+        { g: "ng", w: "ring", p: "💍", t: "Back of the tongue, like the end of ring.", cp: "A king sings with a ring." }
       ] },
     { id: "s1", name: "Spring 1", type: "sound", tint: 3,
       what: "Sounds made of two or three letters.",
@@ -510,6 +512,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   var LANGDECKS = [];
   var WORDX = {};
   var CHANGELOG = [];
+  // All letters: every sound card in Little Wandle order (Autumn 1, then Autumn 2), to flick through. No scoring.
+  DECKS.splice(2, 0, { id: "all", name: "All letters", type: "sound", tint: 4, ready: true, pf: true, browse: true,
+    what: "Flick through every letter and sound, in Little Wandle order.", cards: DECKS[0].cards.concat(DECKS[1].cards) });
   DECKS = DECKS.concat(NUMDECKS).concat(LANGDECKS);
   var POM = ["#ff5c93", "#ffc83d", "#2fd0c4", "#8c6bff", "#ff8f4d", "#6bd44a"];
   var KEY = "soundcards-progress-v1", PKEY = "soundcards-voice-v1";
@@ -843,6 +848,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
           '<span class="meter"><span class="n">Coming soon</span></span></button>';
         return;
       }
+      if (d.browse) {
+        h += '<button type="button" class="tile" data-i="' + i + '" aria-label="' + esc(d.name) + ", " + n + ' sounds to flick through"' + st + ">" + top +
+          '<span class="meter"><span class="n">' + n + " sounds, just for looking</span></span></button>";
+        return;
+      }
       h += '<button type="button" class="tile" data-i="' + i + '" aria-label="' + esc(d.name) + ", " + l + " of " + n + ' learned"' + st + ">" + top +
         '<span class="meter">' + jarSVG(d) + '<span class="n">' + l + " of " + n + " learned</span></span></button>";
     });
@@ -855,8 +865,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     if (!DECKS[i] || !isReady(DECKS[i])) return;
     deckIx = i; var d = deck();
     var idx = d.cards.map(function (_, k) { return k; });
-    idx.sort(function (a, b) { var df = box(d, a) - box(d, b); return df !== 0 ? df : (d.id === "n3" ? a - b : Math.random() - 0.5); });
-    queue = idx.slice(0, Math.min(SESSION_SIZE, idx.length));
+    if (!d.browse) idx.sort(function (a, b) { var df = box(d, a) - box(d, b); return df !== 0 ? df : (d.id === "n3" ? a - b : Math.random() - 0.5); });
+    queue = d.browse ? idx : idx.slice(0, Math.min(SESSION_SIZE, idx.length));
     pos = 0; got = 0;
     $("setname").textContent = d.name;
     show("session");
@@ -1012,7 +1022,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
       h += '<div class="pic" aria-hidden="true">' + (curW ? curW.p : c.p) + "</div>";
       h += '<div class="mn">' + esc(curW ? curW.w : c.w) + "</div>";
-      if (c.cp) h += '<div class="mn cp">' + esc(c.cp) + "</div>";
+      if (c.cp && (!curW || curW.w === c.w)) h += '<div class="mn cp">' + esc(c.cp) + "</div>";
       h += '<div class="tipline">' + esc(c.t) + "</div>";
     } else if (d.type === "alt") {
       h += '<div class="small-g">' + esc(c.g) + (c.hint ? " (" + esc(c.hint) + ")" : "") + "</div>";
@@ -1029,6 +1039,12 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   function renderDock() {
     var h = "";
     if (answered) return;
+    if (deck().browse) {
+      $("dock").innerHTML = '<div class="row b3"><button class="btn warn" id="bprev" type="button"' + (pos === 0 ? " disabled" : "") + '>Back</button>' +
+        '<button class="btn sky" id="turn" type="button">' + (flipped ? "Turn back" : "Turn over") + '</button>' +
+        '<button class="btn good" id="bnext" type="button">' + (pos >= queue.length - 1 ? "Finish" : "Next") + "</button></div>";
+      return;
+    }
     if (!flipped) h = '<div class="row"><button class="btn sky wide" id="turn" type="button">Turn over</button></div>';
     else h = '<div class="row"><button class="btn warn" id="retry" type="button">Not yet</button><button class="btn good" id="good" type="button">Got it</button></div>';
     $("dock").innerHTML = h;
@@ -1044,7 +1060,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     $("backface").innerHTML = backHtml(d, c);
     setFaces();
     lockFor(500);
-    var pct = Math.round(pos / queue.length * 100);
+    var pct = Math.round((deck().browse ? pos + 1 : pos) / queue.length * 100);
     $("progFill").style.width = Math.max(pct, 4) + "%";
     $("prog").setAttribute("aria-valuenow", pct);
     var isNum = wizOf(d) === "number", isLang = isLangD(d);
@@ -1129,6 +1145,21 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     renderCard();
   }
 
+  // Browse mode: move between cards without scoring. A pompom pops up for fun but is never collected.
+  function browseGo(dir) {
+    if (!deck().browse || locked()) return;
+    var np = pos + dir;
+    if (np < 0) return;
+    if (np >= queue.length) { goHome(); return; }
+    pos = np; renderCard();
+    if (dir > 0 && !reduce) {
+      var el = document.createElement("div"); el.className = "fly";
+      el.innerHTML = pompomSVG(pomColor(pos), pos); $("fx").appendChild(el);
+      var r = $("card").getBoundingClientRect(), x = r.left + r.width / 2 - 28, y = r.top + r.height / 2 - 28;
+      var a = el.animate([{ transform: "translate(" + x + "px," + y + "px) scale(0.2)", opacity: 0 }, { transform: "translate(" + x + "px," + (y - 40) + "px) scale(1.1)", opacity: 1, offset: 0.4 }, { transform: "translate(" + x + "px," + (y - 70) + "px) scale(0.9)", opacity: 0 }], { duration: 900, easing: "ease-out" });
+      a.onfinish = function () { el.remove(); };
+    }
+  }
   function renderSummary() {
     var d = deck(), n = queue.length, h = "";
     var title = got === n ? "Perfect round!" : (got >= n / 2 ? "Great practice!" : "Good try!");
@@ -1280,10 +1311,13 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
     var b = e.target.closest("[data-wm]"); if (!b) return; prefs.wm = b.getAttribute("data-wm"); savePrefs(); renderWmTog(); var nb = $("wmtog").querySelector('[data-wm="' + prefs.wm + '"]'); if (nb) nb.focus({ preventScroll: true });
   });
   $("tiles").addEventListener("click", function (e) { var b = e.target.closest(".tile"); if (b && !b.disabled) startSession(parseInt(b.getAttribute("data-i"), 10)); });
-  $("card").addEventListener("click", flip);
+  var suppressFlip = false;
+  $("card").addEventListener("click", function () { if (!suppressFlip) flip(); });
   $("card").addEventListener("keydown", function (e) { if (e.target !== $("card")) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
   $("dock").addEventListener("click", function (e) {
     if (e.target.closest("#turn")) flip();
+    else if (e.target.closest("#bnext")) browseGo(1);
+    else if (e.target.closest("#bprev")) browseGo(-1);
     else if (e.target.closest("#good")) answer(true);
     else if (e.target.closest("#retry")) answer(false);
     else if (e.target.closest("#fb")) { if (!locked()) next(); }
@@ -1308,8 +1342,19 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); fo
   $("hearWord").addEventListener("click", function () { playWord(deck(), curCard()); });
   document.addEventListener("keydown", function (e) {
     if ($("session").hidden || e.target.closest("select, input")) return;
+    if (deck().browse) { if (e.key === "ArrowRight") browseGo(1); else if (e.key === "ArrowLeft") browseGo(-1); return; }
     if (e.key === "ArrowRight") answer(true); else if (e.key === "ArrowLeft") answer(false);
   });
+  // Swipe the card left or right in browse mode (ignores swipes that start at the screen edge, which the phone uses for going back).
+  (function () {
+    var sx = null, sy = 0;
+    $("card").addEventListener("touchstart", function (e) { var t = e.touches[0]; sx = (t.clientX < 28 || t.clientX > window.innerWidth - 28) ? null : t.clientX; sy = t.clientY; }, { passive: true });
+    $("card").addEventListener("touchend", function (e) {
+      if (sx === null || !deck() || !deck().browse || $("session").hidden) return;
+      var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy; sx = null;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { suppressFlip = true; setTimeout(function () { suppressFlip = false; }, 350); browseGo(dx < 0 ? 1 : -1); }
+    }, { passive: true });
+  })();
   $("clear").addEventListener("click", function () {
     if (!armed) { armed = true; $("clear").textContent = "Tap again to clear everything"; setTimeout(function () { armed = false; $("clear").textContent = "Clear all progress and pompoms"; }, 4000); return; }
     progress = {}; pompoms = 0; ppStore = { word: 0, number: 0, language: 0, portuguese: 0, french: 0 }; save(); armed = false; $("clear").textContent = "Clear all progress and pompoms"; renderHome();
