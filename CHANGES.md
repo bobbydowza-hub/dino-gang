@@ -27,6 +27,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-20: The 39 extra picture words replaced with EL clips ([excited]; counts 10/10/10/9 matched). NEEDS TOM: listen; the first clip of extras 2 and 3 started at 0 s, so check egg and key.
 - 2026-10-20: Picture words (35, Autumn 1 and 2) and the English Language Wizards words (27) replaced with EL clips, count matched for every file. Question pieces cut on 2026-10-20 too (15, stand-in words already removed by Tom in GarageBand, in script order). NEEDS TOM: listen; check onset of the first clip in words 1, 2, 4 (voice started at 0 s).
 - 2026-10-19: All 35 letter sounds replaced with EL clips (Tommy D voice, GarageBand-cleaned batches, cut by gaps and counts). Tom's recordings are in git history. NEEDS TOM: listen to all 35; check EL licence.
 - 2026-10-18: Number Wizards second half (n3-01 to n3-20) regenerated in ElevenLabs in [energetic] with a pause after the first word (or first sentence for the "missing part" lines). Supersedes the 15-clip bond replacement above. Cut at 0.68 s (20 clips found, as expected). NEEDS TOM: listen.
