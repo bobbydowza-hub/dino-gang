@@ -1,4 +1,4 @@
-[energetic] um[pause][pause][pause][pause]
+[excited] um[pause][pause][pause][pause]
 
 
 ...
@@ -8,7 +8,7 @@
 
 
 ...
-[energetic] dois[pause][pause][pause][pause]
+[excited] dois[pause][pause][pause][pause]
 
 
 ...
@@ -18,7 +18,7 @@
 
 
 ...
-[energetic] três[pause][pause][pause][pause]
+[excited] três[pause][pause][pause][pause]
 
 
 ...
@@ -28,7 +28,7 @@
 
 
 ...
-[energetic] quatro[pause][pause][pause][pause]
+[excited] quatro[pause][pause][pause][pause]
 
 
 ...
@@ -38,7 +38,7 @@
 
 
 ...
-[energetic] cinco[pause][pause][pause][pause]
+[excited] cinco[pause][pause][pause][pause]
 
 
 ...
@@ -48,7 +48,7 @@
 
 
 ...
-[energetic] seis[pause][pause][pause][pause]
+[excited] seis[pause][pause][pause][pause]
 
 
 ...
@@ -58,7 +58,7 @@
 
 
 ...
-[energetic] sete[pause][pause][pause][pause]
+[excited] sete[pause][pause][pause][pause]
 
 
 ...
@@ -68,7 +68,7 @@
 
 
 ...
-[energetic] oito[pause][pause][pause][pause]
+[excited] oito[pause][pause][pause][pause]
 
 
 ...
@@ -78,7 +78,7 @@
 
 
 ...
-[energetic] nove[pause][pause][pause][pause]
+[excited] nove[pause][pause][pause][pause]
 
 
 ...
@@ -88,4 +88,4 @@
 
 
 ...
-[energetic] dez[pause][pause][pause][pause]
+[excited] dez[pause][pause][pause][pause]
