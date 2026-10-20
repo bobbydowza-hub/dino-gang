@@ -1,5 +1,15 @@
 [
   {
+    "id": "2026-10-20",
+    "date": "20 October",
+    "title": "New voices, and a working Home button",
+    "items": [
+      "Every sound, picture word, number, question and language word now has a new, clearer voice. Balanced volume throughout.",
+      "The Home button now works during a game and takes you back to the main menu. The cross still takes you back to the sets.",
+      "French added to the About page."
+    ]
+  },
+  {
     "id": "2026-10-17",
     "date": "17 October",
     "title": "French, and one place for languages",
