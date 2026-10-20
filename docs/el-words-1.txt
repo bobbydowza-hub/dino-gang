@@ -1,0 +1,91 @@
+[energetic] snake[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] astronaut[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] tiger[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] penguin[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] iguana[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] net[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] mouse[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] duck[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] goat[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] octopus[pause][pause][pause][pause]

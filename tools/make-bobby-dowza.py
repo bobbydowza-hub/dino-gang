@@ -1,4 +1,4 @@
-"""Build the Bobby Dowza font: Andika (SIL OFL 1.1) with redrawn a e f i j m n u y.
+"""Build the Bobby Dowza font: Andika (SIL OFL 1.1) with redrawn a e f i j l m n u y h d t.
 Run: python3 tools/make-bobby-dowza.py   (needs fonttools, brotli, shapely)
 Outputs public/fonts/bobbydowza-latin-{400,700}-normal.woff2 and LICENSE-BobbyDowza.txt."""
 import json, os, shutil
@@ -12,7 +12,7 @@ from shapely.geometry.polygon import orient
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATHS = json.load(open(os.path.join(R, "src/hw-paths.json"), encoding="utf-8"))
-LETTERS = "aefijmnuy"
+LETTERS = "aefijlmnuyhdt"
 K = 17.4          # font units per path unit
 BASE = 105        # path y that maps to the baseline
 STROKE = {"400": 10.4, "700": 15.5}

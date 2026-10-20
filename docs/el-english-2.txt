@@ -1,0 +1,91 @@
+[energetic] one[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] two[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] three[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] four[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] five[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] six[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] seven[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] eight[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] nine[pause][pause][pause][pause]
+
+
+...
+
+
+...
+
+
+...
+[energetic] ten[pause][pause][pause][pause]
