@@ -28,6 +28,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
+- 2026-10-20: Tom heard small clicks at the start of Number Wizards clips (one, two, five and so on) and distortion on 'There are five eggs'; letter sounds too loud. All 287 EL clips re-cut straight from the EL files in one pass (no noise gate, 20 ms fade-in, 100 ms fade-out, one MP3 encode, levelled to -16 LUFS with a gentle peak limit, peaks below -0.8 dBFS). Letter sounds set 3 LU quieter (-19 LUFS). NEEDS TOM: re-listen to the number clips in the app.
 - 2026-10-20: Re-levelled all 288 audio clips to about -16 LUFS with a peak limit (peaks were over 0 dBFS on 177 clips before) and trimmed long leading silences (n1-03 etc.). 13 quiet clips were re-cut from the EL files with light compression. Letters a and b remain about 2.5 LU quieter (very peaky sounds).
 - 2026-10-20: French words (27) replaced with EL clips in Tom's native fr-FR voice ([excited]; counts 11/10/6 matched), replacing the TTS clips. NEEDS TOM: native-speaker check. French numbers redone and cut (10, count matched; the first file was missing dix). All audio in the app is now EL on dev.
 - 2026-10-20: Spanish words (26) replaced with EL clips in Tom's native Spain voice ([excited]; counts 11/10/6 matched), replacing the native speaker's recordings (in git history). NEEDS TOM: native-speaker check; check the first clips of es 1 to 3.
