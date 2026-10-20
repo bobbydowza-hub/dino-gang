@@ -27,7 +27,7 @@ Tom adds items with `/change-dino: <what to change>`. A scheduled run applies th
 - Spanish and Portuguese "good afternoon": keep `l8-good-afternoon-vid.mp4` and the 🌤️ picture.
 
 ## Done
-- 2026-10-20: French words (27) replaced with EL clips in Tom's native fr-FR voice ([excited]; counts 11/10/6 matched), replacing the TTS clips. NEEDS TOM: native-speaker check. All audio in the app is now EL except nothing left: all language words, English words, questions, letters, picture words are EL on dev.
+- 2026-10-20: French words (27) replaced with EL clips in Tom's native fr-FR voice ([excited]; counts 11/10/6 matched), replacing the TTS clips. NEEDS TOM: native-speaker check. French numbers redone and cut (10, count matched; the first file was missing dix). All audio in the app is now EL on dev.
 - 2026-10-20: Spanish words (26) replaced with EL clips in Tom's native Spain voice ([excited]; counts 11/10/6 matched), replacing the native speaker's recordings (in git history). NEEDS TOM: native-speaker check; check the first clips of es 1 to 3.
 - 2026-10-20: Portuguese words (27) replaced with EL clips in Tom's native pt-PT voice ([excited]; counts 11/10/6 matched). NEEDS TOM: native-speaker check still outstanding; check the first clips of pt 1 and pt 3 (started at 0 s: olá, bom dia).
 - 2026-10-20: The 39 extra picture words replaced with EL clips ([excited]; counts 10/10/10/9 matched). NEEDS TOM: listen; the first clip of extras 2 and 3 started at 0 s, so check egg and key.
